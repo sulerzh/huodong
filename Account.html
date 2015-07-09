@@ -1,0 +1,6 @@
+﻿// Account
+
+!function () {
+    Template.__checkName("Account"), Template.Account = new Template("Template.Account", function () { var d = this; return HTML.Raw('<form class="ui form">\n    <h4 class="ui block top attached header">Change Your Password</h4>\n    <div class="ui bottom attached secondary segment">\n      <div class="ui segment">\n        <div class="two fields">\n          <div class="field">\n            <label>Old Password</label>\n            <input type="password" name="old-password" placeholder="Old Password">\n          </div>\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="two fields">\n          <div class="field">\n            <label>New Password</label>\n            <input type="password" name="new-password" placeholder="New Password">\n          </div>\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="two fields">\n          <div class="field">\n            <label>Confirm Password</label>\n            <input type="password" name="confirm-password" placeholder="Confirm Password">\n          </div>\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="ui red button" id="change-password-button">Update</div>\n      </div>\n    </div>\n  </form>') })
+}();
+

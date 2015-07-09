@@ -1,0 +1,5 @@
+﻿// ReviewsByYou
+
+!function () {
+    Template.__checkName("ReviewsByYou"), Template.ReviewsByYou = new Template("Template.ReviewsByYou", function () { var e = this; return [HTML.Raw('<div class="ui top attached tabular menu">\n    <a class="item reviews-link" href="/users/me/profile/reviews/reviews_about_me" style="color: #73747B;">\n      Reviews about You\n    </a>\n    <a class="active item reviews-link">\n      Reviews by You\n    </a>\n    <a class="item reviews-link" href="/users/me/profile/reviews/reviews_to_write" style="color: #73747B;">\n      Reviews to write\n    </a>\n  </div>\n  '), HTML.DIV({ "class": "ui bottom attached segment" }, "\n    ", Spacebars.include(e.lookupTemplate("pages")), "\n    ", Spacebars.include(e.lookupTemplate("pagesNav")), "\n  ")] })
+}();

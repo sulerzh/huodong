@@ -1,0 +1,5 @@
+﻿// ReviewsAboutYou
+
+!function () {
+    Template.__checkName("ReviewsAboutYou"), Template.ReviewsAboutYou = new Template("Template.ReviewsAboutYou", function () { var e = this; return [HTML.Raw('<div class="ui top attached tabular menu">\n    <a class="active item reviews-link">\n      Reviews about You\n    </a>\n    <a class="item reviews-link" href="/users/me/profile/reviews/reviews_by_me" style="color: #73747B;">\n      Reviews by You\n    </a>\n    <a class="item reviews-link" href="/users/me/profile/reviews/reviews_to_write" style="color: #73747B;">\n      Reviews to write\n    </a>\n  </div>\n  '), HTML.DIV({ "class": "ui bottom attached segment" }, "\n    Review feature is available after each event. You will have 14 days to submit a review. Review(s)\n    about you will\n    be available once your review is submitted. Reviews that you received will be visible on your\n    public profile. ", HTML.Raw("<br>"), "\n    ", Spacebars.include(e.lookupTemplate("pages")), "\n    ", Spacebars.include(e.lookupTemplate("pagesNav")), "\n  ")] })
+}();

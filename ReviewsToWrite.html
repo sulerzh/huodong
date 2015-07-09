@@ -1,0 +1,5 @@
+﻿// ReviewsToWrite
+
+!function () {
+    Template.__checkName("ReviewsToWrite"), Template.ReviewsToWrite = new Template("Template.ReviewsToWrite", function () { var e = this; return [HTML.Raw('<div class="ui top attached tabular menu">\n    <a class="item reviews-link" href="/users/me/profile/reviews/reviews_about_me" style="color: #73747B;">\n      Reviews about You\n    </a>\n    <a class="item reviews-link" href="/users/me/profile/reviews/reviews_by_me" style="color: #73747B;">\n      Reviews by You\n    </a>\n    <a class="active item reviews-link">\n      Reviews to write\n    </a>\n  </div>\n  '), HTML.DIV({ "class": "ui bottom attached segment" }, "\n    Reviews can be written after the specified end time of events, or after the start time if end time is not specified.\n    ", Spacebars.include(e.lookupTemplate("pages")), "\n    ", Spacebars.include(e.lookupTemplate("pagesNav")), "\n  ")] })
+}();

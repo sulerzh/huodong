@@ -1,0 +1,5 @@
+﻿// dishItem
+
+!function () {
+    Template.__checkName("dishItem"), Template.dishItem = new Template("Template.dishItem", function () { var e = this; return HTML.DIV({ "class": "item" }, "\n    ", HTML.DIV({ "class": "content" }, "\n      ", HTML.A({ "class": function () { return ["header dish-name ", Blaze.Unless(function () { return Spacebars.call(e.lookup("photo")) }, function () { return "no-photo" })] } }, Blaze.View("lookup:name", function () { return Spacebars.mustache(e.lookup("name")) })), "\n      ", HTML.Raw("<br>"), "\n\n      ", HTML.DIV({ "class": "indent description" }, Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(e.lookup("breaklines"), e.lookup("description")) })), "\n      ", HTML.Raw("<br>"), "\n\n      ", HTML.DIV({ "class": "indent description" }, Blaze.View("lookup:ingredient", function () { return Spacebars.mustache(e.lookup("ingredient")) })), "\n    "), "\n  ") })
+}();

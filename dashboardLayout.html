@@ -1,0 +1,5 @@
+﻿// dashboardLayout
+
+!function () {
+    Template.__checkName("dashboardLayout"), Template.dashboardLayout = new Template("Template.dashboardLayout", function () { var a = this; return [Spacebars.include(a.lookupTemplate("sidebarMenu")), "\n  ", HTML.DIV({ "class": "pusher" }, "\n    ", HTML.Raw('<div class="ui dimmer">\n      <div class="ui loader"></div>\n    </div>'), "\n    ", Spacebars.include(a.lookupTemplate("navbar")), "\n    ", Spacebars.include(a.lookupTemplate("dashboardMenu")), "\n    ", HTML.DIV({ "class": "all-content" }, "\n      ", Spacebars.include(a.lookupTemplate("yield")), "\n    "), "\n    ", Spacebars.include(a.lookupTemplate("footer")), "\n  ")] })
+}();

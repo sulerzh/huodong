@@ -1,0 +1,6 @@
+﻿// TransactionHistory
+
+!function () {
+    Template.__checkName("TransactionHistory"), Template.TransactionHistory = new Template("Template.TransactionHistory", function () { var n = this; return HTML.FORM({ "class": "ui form" }, HTML.Raw('\n    <h4 class="ui block top attached header">Transaction History</h4>\n    '), HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ", HTML.TABLE({ "class": "ui unstackable table" }, "\n        ", HTML.THEAD("\n        ", HTML.TR("\n          ", HTML.TH("Date/Time"), "\n          ", HTML.TH("Event"), "\n          ", HTML.TH("Guest"), "\n          ", HTML.TH("Amount"), "\n        "), "\n        "), "\n        ", HTML.TBODY("\n        ", Blaze.Each(function () { return Spacebars.call(n.lookup("transactions")) }, function () { return ["\n          ", Spacebars.include(n.lookupTemplate("transactionRow")), "\n        "] }), "\n        "), "\n      "), "\n    "), "\n  ") })
+}();
+

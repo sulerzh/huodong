@@ -1,0 +1,5 @@
+﻿// pastListing
+
+!function () {
+    Template.__checkName("pastListing"), Template.pastListing = new Template("Template.pastListing", function () { var n = this; return [HTML.Raw('<div class="ui top attached tabular menu">\n    <a class="item upcoming-listing-link" href="/users/me/listings/upcoming">\n      Upcoming\n    </a>\n    <a class="active item">\n      Past\n    </a>\n    <a class="item cancelled-listing-link" href="/users/me/listings/cancelled">\n      Cancelled\n    </a>\n  </div>\n  '), HTML.DIV({ "class": "ui bottom attached segment" }, "\n    ", HTML.TABLE({ "class": "ui unstackable table" }, "\n      ", HTML.THEAD("\n      ", HTML.TR("\n        ", HTML.TH({ "class": "customized th" }, "Date"), "\n        ", HTML.TH({ "class": "customized th" }, "Event"), "\n        ", HTML.TH({ "class": "customized th" }, "Status"), "\n        ", HTML.TH({ "class": "customized th" }, "Guest List"), "\n      "), "\n      "), "\n      ", HTML.TBODY("\n      ", Spacebars.include(n.lookupTemplate("pages")), "\n      "), "\n    "), "\n    ", Spacebars.include(n.lookupTemplate("pagesNav")), "\n  ")] })
+}();
