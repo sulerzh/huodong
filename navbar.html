@@ -1,6 +1,48 @@
-﻿// navbar
-
-!function () {
-    Template.__checkName("navbar"), Template.navbar = new Template("Template.navbar", function () { var n = this; return Blaze.If(function () { return Spacebars.call(n.lookup("onLandingPage")) }, function () { return ["\n    ", HTML.DIV({ "class": "ui menu", id: "navbar" }, "\n      ", HTML.A({ "class": "left item", id: "user-menu" }, "\n        ", HTML.I({ "class": "content icon" }), "Menu\n      "), "\n      ", HTML.A({ "class": "left item", href: "/", id: "home-logo-button" }, "\n        ", HTML.IMG({ src: "/images/plenry_beta.png" }), "\n        ", HTML.Comment('<img src="/images/logo_text.png">'), "\n      "), "\n      ", HTML.DIV({ "class": "right menu" }, "\n        ", HTML.Comment('<a class="left item" id="search-button" href="/search">'), "\n          ", HTML.Comment('<i class="search icon"></i>'), "\n        ", HTML.Comment("</a>"), "\n        ", Spacebars.include(n.lookupTemplate("loggedOutMenu")), "\n      "), "\n    "), "\n  "] }, function () { return ["\n    ", Blaze.View("lookup:mapOptions", function () { return Spacebars.mustache(n.lookup("mapOptions")) }), "\n    ", HTML.DIV({ "class": "ui menu", id: "navbar" }, "\n          ", HTML.A({ "class": "left item", id: "user-menu" }, "\n              ", HTML.I({ "class": "content icon" }), "Menu\n      "), "\n      ", HTML.A({ "class": "left item", href: "/", id: "home-logo-button" }, "\n        ", HTML.IMG({ src: "/images/plenry_beta.png" }), "\n        ", HTML.Comment('<img src="/images/logo_text.png">'), "\n      "), "\n      ", Blaze.Unless(function () { return Spacebars.call(n.lookup("onHomePage")) }, function () { return ["\n      ", HTML.DIV({ id: "nav-location", "class": "left item" }, "\n        ", HTML.FORM({ "class": "ui icon input", action: "/search" }, "\n          ", HTML.INPUT({ id: "location-search", type: "text", placeholder: "City", name: "city" }), "\n          ", HTML.I({ "class": "search link icon navbar-search-icon" }), "\n        "), "\n      "), "\n      "] }), "\n      ", HTML.DIV({ "class": "right menu" }, "\n        ", HTML.Comment('<a class="left item" id="search-button" href="/search">'), "\n          ", HTML.Comment('<i class="search icon"></i>'), "\n        ", HTML.Comment("</a>"), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("currentUser")) }, function () { return ["\n          ", Spacebars.include(n.lookupTemplate("loggedInMenu")), "\n        "] }, function () { return ["\n          ", Spacebars.include(n.lookupTemplate("loggedOutMenu")), "\n        "] }), "\n      "), "\n    "), "\n  "] }) })
-}();
-
+﻿<template name="navbar">
+  {{#if onLandingPage}}
+  <div class="ui menu" id="navbar">
+    <a class="left item" id="user-menu">
+      <i class="content icon">Menu</i>
+    </a>
+    <a class="left item" href="/" id="home-logo-button">
+      <img src="/images/plenry_beta.png" />
+      <!--<img src="/images/logo_text.png">-->
+    </a>
+    <div class="right menu">
+      <!--<a class="left item" id="search-button" href="/search">-->
+      <!--<i class="search icon"></i>-->
+      <!--</a>-->
+      {{> loggedOutMenu}}
+    </div>
+  </div>
+  {{else}}
+  {{mapOptions}}
+  <div class="ui menu" id="navbar">
+    <a class="left item" id="user-menu">
+      <i class="content icon">Menu</i>
+    </a>
+    <a class="left item" href="/" id="home-logo-button">
+      <img src="/images/plenry_beta.png" />
+      <!--<img src="/images/logo_text.png">-->
+    </a>
+    {{#unless onHomePage}}
+    <div id="nav-location" class="left item">
+      <form class="ui icon input" action="/search">
+        <input id="location-search" type="text" placeholder="City" name="city" />
+        <i class="search link icon navbar-search-icon"></i>
+      </form>
+    </div>
+    {{/unless}}
+    <div class="right menu">
+      <!--<a class="left item" id="search-button" href="/search">-->
+      <!--<i class="search icon"></i>-->
+      <!--</a>-->
+      {{#if currentUser}}
+      {{> loggedInMenu}}
+      {{else}}
+      {{> loggedOutMenu}}
+      {{/if}}
+    </div>
+  </div>
+  {{/if}}
+</template>

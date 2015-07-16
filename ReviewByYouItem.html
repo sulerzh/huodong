@@ -1,5 +1,14 @@
-﻿// ReviewByYouItem
-
-!function () {
-    Template.__checkName("ReviewByYouItem"), Template.ReviewByYouItem = new Template("Template.ReviewByYouItem", function () { var e = this; return HTML.DIV({ "class": "ui segment grid dashboard-review-about-you-card" }, "\n    ", HTML.DIV({ "class": "two wide column" }, "\n      ", HTML.IMG({ "class": "ui avatar image", src: function () { return Spacebars.mustache(Spacebars.dot(e.lookup("c"), "url"), e.lookup("userCloudinaryPublicId"), Spacebars.kw({ crop: "fill", height: 300, width: 300, gravity: "face" })) }, width: "100%" }), "\n      ", HTML.P(Blaze.View("lookup:userName", function () { return Spacebars.mustache(e.lookup("userName")) })), "\n    "), "\n    ", HTML.DIV({ "class": "fourteen wide column" }, "\n      ", HTML.H4({ "class": "ui header" }, HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("mealId"))] } }, Blaze.View("lookup:mealTitle", function () { return Spacebars.mustache(e.lookup("mealTitle")) })), " @ ", Blaze.View("lookup:mealDate", function () { return Spacebars.mustache(e.lookup("mealDate")) })), "\n      ", HTML.P(Blaze.View("lookup:reviewContent", function () { return Spacebars.mustache(e.lookup("reviewContent")) })), "\n    "), "\n  ") })
-}();
+﻿<template name="ReviewByYouItem">
+  <div class="ui segment grid dashboard-review-about-you-card">
+    <div class="two wide column">
+      <img class="ui avatar image" src="{{c.url userCloudinaryPublicId crop='fill' height=300 width=300 gravity='face'}}" width="100%" />
+      <p>{{userName}}</p>
+    </div>
+    <div class="fourteen wide column">
+      <h4 class="ui header">
+        <a href="/events/{{mealId}}">{{mealTitle}} @ {{mealDate}}</a>
+      </h4>
+      <p>{{reviewContent}}</p>
+    </div>
+  </div>
+</template>

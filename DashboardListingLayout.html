@@ -1,5 +1,28 @@
-﻿// DashboardListingLayout
-
-!function () {
-    Template.__checkName("DashboardListingLayout"), Template.DashboardListingLayout = new Template("Template.DashboardListingLayout", function () { var e = this; return [Spacebars.include(e.lookupTemplate("sidebarMenu")), "\n  ", HTML.DIV({ "class": "pusher" }, "\n    ", HTML.Raw('<div class="ui dimmer">\n      <div class="ui loader"></div>\n    </div>'), "\n    ", Spacebars.include(e.lookupTemplate("navbar")), "\n    ", Spacebars.include(e.lookupTemplate("dashboardMenu")), "\n    ", HTML.DIV({ "class": "all-content" }, "\n      ", HTML.DIV({ "class": "ui stackable page grid" }, "\n        ", HTML.DIV({ "class": "four wide column" }, "\n          ", HTML.DIV({ "class": "ui vertical pointing menu dashboard-listings-menu" }, "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/listings") }, function () { return "active" }), " red item dashboard-listings-link"] }, href: "/users/me/listings/upcoming" }, "\n              Events hosting\n            "), "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/requests") }, function () { return "active" }), " red item dashboard-listings-link"] }, href: "/users/me/requests/pending" }, "\n              Booking requests\n            "), "\n          "), "\n        "), "\n        ", HTML.DIV({ "class": "twelve wide column" }, "\n          ", Spacebars.include(e.lookupTemplate("yield")), "\n        "), "\n      "), "\n    "), "\n    ", Spacebars.include(e.lookupTemplate("footer")), "\n  ")] })
-}();
+﻿<template name="DashboardListingLayout">
+  {{> sidebarMenu}}
+  <div class="pusher">
+    <div class="ui dimmer">
+      <div class="ui loader"></div>
+    </div>
+    {{> navbar}}
+    {{> dashboardMenu}}
+    <div class="all-content">
+      <div class="ui stackable page grid">
+        <div class="four wide column">
+          <div class="ui vertical pointing menu dashboard-listings-menu">
+            <a class="{{#if urlPrefixIs==/users/me/listings}}active{{/if}} red item dashboard-listings-link" href="/users/me/listings/upcoming">
+              Events hosting
+            </a>
+            <a class="{{#if urlPrefixIs==/users/me/requests}}active{{/if}} red item dashboard-listings-link" href="/users/me/requests/pending">
+              Booking requests
+            </a>
+          </div>
+        </div>
+        <div class="twelve wide column">
+          {{> yield}}
+        </div>
+      </div>
+    </div>
+    {{> footer}}
+  </div>
+</template>

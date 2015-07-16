@@ -1,5 +1,17 @@
-﻿// listingsList
-
-!function () {
-    Template.__checkName("listingsList"), Template.listingsList = new Template("Template.listingsList", function () { var i = this; return HTML.Raw('<div class="ui segment">\n    <div class="ui selection dropdown">\n      <div class="default text">Show All</div>\n      <i class="dropdown icon"></i>\n      <div class="menu">\n        <div class="item">Show All</div>\n        <div class="item">Upcoming Events</div>\n        <div class="item">Past Events</div>\n      </div>\n    </div>\n    <a class="ui right floated green button" href="/events/new">\n      <i class="plus icon"></i>\n      New Event\n    </a>\n  </div>') })
-}();
+﻿<template name="listingsList">
+  <div class="ui segment">
+    <div class="ui selection dropdown">
+      <div class="default text">Show All</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="item">Show All</div>
+        <div class="item">Upcoming Events</div>
+        <div class="item">Past Events</div>
+      </div>
+    </div>
+    <a class="ui right floated green button" href="/events/new">
+      <i class="plus icon"></i>
+      New Event
+    </a>
+  </div>
+</template>

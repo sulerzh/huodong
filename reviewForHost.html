@@ -1,6 +1,70 @@
-﻿// reviewForHost
-
-!function () {
-    Template.__checkName("reviewForHost"), Template.reviewForHost = new Template("Template.reviewForHost", function () { var e = this; return HTML.DIV({ "class": "ui page grid" }, "\n    ", HTML.DIV({ "class": "six wide column" }, "\n      ", HTML.DIV({ "class": "ui fluid card" }, "\n        ", HTML.DIV({ "class": "image" }, "\n          ", HTML.IMG({ src: function () { return Spacebars.mustache(Spacebars.dot(e.lookup("cover"), "org")) }, width: "100%" }), "\n        "), "\n        ", HTML.DIV({ "class": "content" }, "\n          ", HTML.A({ "class": "header" }, Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) })), "\n          ", HTML.P(Blaze.View("lookup:address.city", function () { return Spacebars.mustache(Spacebars.dot(e.lookup("address"), "city")) }), ", ", Blaze.View("lookup:address.state", function () { return Spacebars.mustache(Spacebars.dot(e.lookup("address"), "state")) }), HTML.Raw("<br>"), Blaze.View("lookup:mealDate", function () { return Spacebars.mustache(e.lookup("mealDate")) }), HTML.Raw("<br>"), Blaze.View("lookup:mealStart", function () { return Spacebars.mustache(e.lookup("mealStart")) }), Blaze.If(function () { return Spacebars.call(e.lookup("mealEnd")) }, function () { return [" - ", Blaze.View("lookup:mealEnd", function () { return Spacebars.mustache(e.lookup("mealEnd")) })] })), "\n          ", HTML.DIV({ "class": "right floated author", style: "position: absolute; right: 1rem; bottom: 1.5rem;" }, "\n            ", HTML.IMG({ "class": "ui avatar image", src: function () { return Spacebars.mustache(Spacebars.dot(e.lookup("c"), "url"), e.lookup("hostColudinaryId"), Spacebars.kw({ crop: "thumb", height: 100, width: 100, gravity: "face" })) } }), " by ", Blaze.View("lookup:hostName", function () { return Spacebars.mustache(e.lookup("hostName")) }), "\n          "), "\n        "), "\n      "), "\n    "), "\n    ", HTML.DIV({ "class": "ten wide column" }, "\n      ", HTML.DIV({ "class": function () { return ["ui ", Blaze.Unless(function () { return Spacebars.call(e.lookup("hasError")) }, function () { return "hidden" }), " error message"] } }, "\n        ", HTML.Raw('<div class="header">\n          You cannot post this review with the provided information\n        </div>'), "\n        ", HTML.UL({ "class": "list" }, "\n          ", Blaze.Each(function () { return Spacebars.call(e.lookup("errors")) }, function () { return ["\n            ", HTML.LI(Blaze.View("lookup:reason", function () { return Spacebars.mustache(e.lookup("reason")) })), "\n          "] }), "\n        "), "\n      "), "\n      ", HTML.FORM({ "class": "ui form" }, "\n        ", HTML.Raw('<h4 class="ui horizontal header divider">\n            <i class="write icon"></i>\n            Review for Host (*Required)\n        </h4>'), "\n        ", HTML.Raw("<p>Your host will not see your star rating. Hosts only see an average of all start ratings.</p>"), "\n        ", HTML.Raw("<br>"), "\n        ", HTML.Raw('<div class="ui stackable two column grid">\n          <div class="column">\n            <h3 class="ui header">Overall*</h3>\n            <p>How is your overall experience?</p>\n            <div id="hostOverallRating" class="ui massive star rating" data-rating="0"></div>\n          </div>\n          <div class="column">\n            <h3 class="ui header">Communication*</h3>\n            <p>How responsive was the host for your questions?</p>\n            <div id="hostCommunicationRating" class="ui massive star rating" data-rating="0"></div>\n          </div>\n        </div>'), "\n\n        ", HTML.Raw('<div class="ui hidden divider"></div>'), "\n\n        ", HTML.DIV({ "class": "column ui required field" }, "\n          ", HTML.Raw("<br>"), "\n          ", HTML.Raw('<h3 class="ui header">Describe Your Experience*</h3>'), "\n          ", HTML.Raw("<p>This review will be public both on your profile and your host's profile.</p>"), "\n          ", HTML.TEXTAREA({ id: "guestExperience", placeholder: "Type it here." }), "\n        "), "\n\n        ", HTML.Raw('<h4 class="ui horizontal header divider">\n          <i class="privacy icon"></i>\n          Private Feedback for Plenry (Optional)\n        </h4>'), "\n\n        ", HTML.Raw("<p>How did you like the event?</p>"), "\n        ", HTML.TEXTAREA({ id: "guestPrivateFeedbackPositive", placeholder: "Type it here." }), "\n\n        ", HTML.Raw("<p>How can the host improve your experience?</p>"), "\n        ", HTML.TEXTAREA({ id: "guestPrivateFeedbackNegative", placeholder: "Type it here." }), "\n      "), "\n      ", HTML.Raw('<div class="ui hidden divider"></div>'), "\n      ", HTML.Raw('<div class="column" align="right">\n        <div class="positive ui button" id="review-for-host-submit">Submit</div>\n      </div>'), "\n    "), "\n  ") })
-}();
-
+﻿<template name="reviewForHost">
+  <div class="ui page grid">
+    <div class="six wide column">
+      <div class="ui fluid card">
+        <div class="image">
+          <img src="{{cover.org}}" width="100%" />
+        </div>
+        <div class="content">
+          <a class="header">{{title}}</a>
+          <p>{{address.city}}, {{address.state}}<br>{{mealDate}}<br>{{mealStart}}{{#if mealEnd}} - {{mealEnd}}{{/if}}</p>
+          <div class="right floated author" style="position: absolute; right: 1rem; bottom: 1.5rem;">
+            <img class="ui avatar image" src="{{c.url hostColudinaryId crop='thumb' height=100 width=100 gravity='face'}}" />
+            by {{hostName}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ten wide column">
+      <div class="ui {{#unless hasError}}hidden{{/unless}} error message">
+        <div class="header">
+          You cannot post this review with the provided information
+        </div>
+        <ul class="list">
+          {{#each errors}}
+          <li>{{reason}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <form class="ui form">
+        <h4 class="ui horizontal header divider">
+          <i class="write icon"></i>
+          Review for Host (*Required)
+        </h4>
+        <p>Your host will not see your star rating. Hosts only see an average of all start ratings.</p>
+        <br>
+        <div class="ui stackable two column grid">
+          <div class="column">
+            <h3 class="ui header">Overall*</h3>
+            <p>How is your overall experience?</p>
+            <div id="hostOverallRating" class="ui massive star rating" data-rating="0"></div>
+          </div>
+          <div class="column">
+            <h3 class="ui header">Communication*</h3>
+            <p>How responsive was the host for your questions?</p>
+            <div id="hostCommunicationRating" class="ui massive star rating" data-rating="0"></div>
+          </div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="column ui required field">
+          <br>
+          <h3 class="ui header">Describe Your Experience*</h3>
+          <p>This review will be public both on your profile and your host's profile.</p>
+          <textarea id="guestExperience" placeholder="Type it here."></textarea>
+        </div>
+        <h4 class="ui horizontal header divider">
+          <i class="privacy icon"></i>
+          Private Feedback for Plenry (Optional)
+        </h4>
+        <p>How did you like the event?</p>
+        <textarea id="guestPrivateFeedbackPositive" placeholder="Type it here."></textarea>
+        <p>How can the host improve your experience?</p>
+        <textarea id="guestPrivateFeedbackNegative" placeholder="Type it here."></textarea>
+      </form>
+      <div class="ui hidden divider"></div>
+      <div class="column" align="right">
+        <div class="positive ui button" id="review-for-host-submit">Submit</div>
+      </div>
+    </div>
+  </div>
+</template>

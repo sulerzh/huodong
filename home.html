@@ -1,6 +1,207 @@
-﻿// home
+﻿<template name="home">
+  <div class="ui modal" id="upload-profile-pic-popup-window">
+    <i class="close icon"></i>
+    <div class="header">
+      Profile Picture
+    </div>
+    <div class="content">
+      <div class="ui medium image" style="
+                                     /* Firefox */
+                                     display:-moz-box;
+                                     -moz-box-pack:center;
+                                     -moz-box-align:center;
 
-!function () {
-    Template.__checkName("home"), Template.home = new Template("Template.home", function () { var e = this; return [HTML.Raw('<div class="ui modal" id="upload-profile-pic-popup-window">\n      <i class="close icon"></i>\n      <div class="header">\n        Profile Picture\n      </div>\n      <div class="content">\n        <div class="ui medium image" style="\n          /* Firefox */\n          display:-moz-box;\n          -moz-box-pack:center;\n          -moz-box-align:center;\n\n          /* Safari and Chrome */\n          display:-webkit-box;\n          -webkit-box-pack:center;\n          -webkit-box-align:center;\n\n          /* W3C */\n          display:box;\n          box-pack:center;\n          box-align:center;\n        ">\n          <img src="https://s3-us-west-2.amazonaws.com/plenry-temp/uploadPic2.png">\n        </div>\n        <div class="description">\n          <div class="ui header">There is no profile picture of you. Please upload one now.</div>\n          <p>Having a profile picture keeps your profile legitimate. It also shows other community members that you are authentic and trustworthy.</p>\n        </div>\n      </div>\n      <div class="actions">\n        <div class="ui positive right labeled icon button" id="upload-profile-pic">\n          upload\n          <i class="user icon"></i>\n        </div>\n        <div class="ui black button">\n          skip for now\n        </div>\n      </div>\n    </div>\n  <div class="column margin-top-neg1-rem" style="width: 100%">\n      <div class="wrapper" style="height: 680px;">\n          <div id="video-container">\n              <video autoplay="" loop="" class="fillWidth">\n                  <source src="/videos/PlenryBG.mp4" type="video/mp4">\n                  <source src="/videos/PlenryBG.webm" type="video/webm">\n              </video>\n          </div>\n      </div>\n    <!--<img id="home-big-picture-large" src="/images/homeBigPicture.jpg" width="100%">-->\n    <!--<img id="home-big-picture-small" src="/images/homeSmallPicture.jpg" width="100%">-->\n  </div>\n\n  <div id="home-banner-header-large" class="column grid" style="position: relative">\n    <div class="row" style="text-align: center;  position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 27rem">\n      <h1 class="ui header" style="font-size: 3rem; color: #ffffff;">Socialize with Neighbors\n        <!--<div class="sub header" style="font-size: 2rem; color: #ffffff">Get to Know Your Community</div>-->\n      </h1>\n      <!--<div id="watch-video-btn-large" class="ui yellow button">Watch an Introductory Video</div>-->\n      <!--<div id="watch-video-modal-large" class="ui modal" style="background: #000000">-->\n        <!--<i id="watch-video-close-large" class="close icon"></i>-->\n        <!--<div class="video-container">-->\n          <!--<center><iframe src="https://www.youtube.com/embed/WL9Bo4KUxs0" frameborder="0" allowfullscreen></iframe></center>-->\n        <!--</div>-->\n      <!--</div>-->\n    </div>\n  </div>\n\n  <div id="home-search-bar-large" class="column grid" style="position: relative">\n    <div class="row" style="text-align: center; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 22rem">\n      <div id="home-search-city-large" class="ui icon input">\n        <input type="text" placeholder="City" id="homepage-search-city">\n        <i class="search icon"></i>\n      </div>\n\n      <!--<div class="ui icon input">-->\n        <!--<input type="text" class="form-control" id="homepage-search-date" placeholder="Date">-->\n        <!--<i class="calendar icon"></i>-->\n      <!--</div>-->\n\n      <!--<div id="home-search-guest-large" class="ui selection dropdown">-->\n        <!--<input type="hidden" name="guests" id="homepage-search-number" value="1">-->\n        <!--<div class="default text">1 Guests</div>-->\n        <!--<i class="dropdown icon"></i>-->\n        <!--<div class="menu">-->\n          <!--<div class="item" data-value="1">1 Guest</div>-->\n          <!--<div class="item" data-value="2">2 Guests</div>-->\n          <!--<div class="item" data-value="3">3 Guests</div>-->\n          <!--<div class="item" data-value="4">4 Guests</div>-->\n          <!--<div class="item" data-value="5">5 Guests</div>-->\n          <!--<div class="item" data-value="6">6 Guests</div>-->\n        <!--</div>-->\n      <!--</div>-->\n\n      <div id="homepage-search-btn" class="ui green button">Search</div>\n    </div>\n  </div>\n\n  <div id="home-banner-header-small" class="column grid" style="position: relative">\n    <div class="row" style="text-align: center;  position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 11rem">\n      <h2 class="ui header" style="font-szie: 1.6rem; color: #ffffff">Socialize with Neighbors\n        <!--<div class="sub header" style="font-size: 1.4rem; color: #ffffff">Get to Know Your Community</div>-->\n      </h2>\n      <!--<div id="watch-video-btn-small" class="ui yellow button">Watch an Introductory Video</div>-->\n      <!--<div id="watch-video-modal-small" class="ui modal" style="background-color: #000000">-->\n        <!--<i class="close icon" style="margin-right: -1rem; margin-top: -3rem !important; color: #ffffff"></i>-->\n        <!--<div class="video-container">-->\n          <!--<center><iframe src="https://www.youtube.com/embed/WL9Bo4KUxs0" frameborder="0" allowfullscreen></iframe></center>-->\n        <!--</div>-->\n      <!--</div>-->\n    </div>\n  </div>\n\n  <!--<div id="home-search-bar-small" class="column grid" style="position: relative">-->\n    <!--<div class="column" style="text-align: center; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 5rem">-->\n      <!--<div id="home-search-button-small" class="ui action input">-->\n        <!--<input type="text" placeholder="City" id="mobile-city-search" style="width: 9rem">-->\n        <!--<div class="ui icon green button" id="mobile-city-search-btn"><i class="search icon"></i></div>-->\n      <!--</div>-->\n    <!--</div>-->\n  <!--</div>-->\n\n  <h1 class="ui red center aligned header" style="padding-bottom: 12px;">Explore</h1>\n\n  '), HTML.DIV({ id: "home-content", "class": "ui three column stackable grid" }, "\n    ", Blaze.Each(function () { return Spacebars.call(e.lookup("featureEvents")) }, function () { return ["\n      ", Spacebars.include(e.lookupTemplate("featureEventCard")), "\n    "] }), "\n    ", HTML.Raw('<center>\n      <div class="ui grey huge button" id="moreEvents-home-btn" style="margin: 55px; width: 30%; padding: 25px;">Show More Events</div>\n    </center>'), "\n  "), HTML.Raw('\n  <div class="home-content ui inverted stories centered segment" style="height:640px; top:30px;">\n    <div class="ui page grid">\n      <div class="column" style="top: 288px;">\n        <a href="http://blog.plenry.com"><h1 class="ui inverted centered landing-header header" style="font-size: 3.5em">\n          Read about Our Latest Stories\n        </h1></a>\n      </div>\n    </div>\n  </div>\n  <div class="ui vertical segment" style="background-color: white">\n    <div class="ui grid">\n      <div class="row">\n        <div class="ten wide centered column">\n          <h1 class="center aligned ui red header" style="padding: 80px; padding-bottom: 40px; font-size: 2.5em;">\n            How Plenry Works\n          </h1>\n        </div>\n      </div>\n      <div class="sixteen wide column">\n        <div class="ui two column aligned stackable grid" style="width: 100%">\n\n          <div class="column">\n\n            <div class="social how-it-works-for-guest image">\n              <a href=""><img src="https://res.cloudinary.com/plenry/image/upload/v1435000053/As_host_rplnkp.jpg" style="width: 100%; padding-left: 10%; padding-right: 5%;"></a>\n            </div>\n            <div class="content">\n              <div class="social how-it-works-for-guest header" style="text-align: center; font-size: 1.8em; padding: 20px"><b><a href="" style="color: rgba(0, 0, 0, 0.6);">As a Guest</a></b></div>\n            </div>\n          </div>\n\n          <div class="column">\n\n            <div class="social how-it-works-for-host image">\n              <a href=""><img src="https://res.cloudinary.com/plenry/image/upload/v1435000053/As_guest_frnwav.jpg" style="width: 100%; padding-left: 5%; padding-right: 10%;"></a>\n            </div>\n            <div class="content">\n              <div class="social how-it-works-for-host header" style="text-align: center; font-size: 1.8em; padding: 20px"><b><a href="" style="color: rgba(0, 0, 0, 0.6);">As a Host</a></b></div>\n            </div>\n\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n  '), Spacebars.include(e.lookupTemplate("howItWorksForHost")), "\n  ", Spacebars.include(e.lookupTemplate("howItWorksForGuest"))] }), Template.__checkName("howItWorksForGuest"), Template.howItWorksForGuest = new Template("Template.howItWorksForGuest", function () { var e = this; return HTML.Raw('<div class="ui how-it-works-for-guest modal">\n    <i class="close icon"></i>\n\n    <div class="header">\n      How It Works for Guest\n    </div>\n    <div class="content">\n      <div class="ui grid">\n        <div>\n          <div class="row">\n            <p>Step 1</p>\n            <img class="ui big image" style="width: 100%; padding-bottom: 2%;" src="https://res.cloudinary.com/plenry/image/upload/v1434999969/plenry4-guest-01_ezfhsz.jpg">\n          </div>\n          <div class="row">\n            <p>Step 2</p>\n            <img class="ui big image" style="width: 100%; padding-bottom: 2%;" src="https://res.cloudinary.com/plenry/image/upload/v1434999969/plenry4-guest-02_br3svk.jpg">\n          </div>\n          <div class="row">\n            <p>Step 3</p>\n            <img class="ui big image" style="width: 100%; padding-bottom: 2%;" src="https://res.cloudinary.com/plenry/image/upload/v1434999969/plenry4-guest-03_eiegop.jpg">\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>') })
-}();
+                                     /* Safari and Chrome */
+                                     display:-webkit-box;
+                                     -webkit-box-pack:center;
+                                     -webkit-box-align:center;
 
+                                     /* W3C */
+                                     display:box;
+                                     box-pack:center;
+                                     box-align:center;
+                                 ">
+        <img src="https://s3-us-west-2.amazonaws.com/plenry-temp/uploadPic2.png">
+      </div>
+      <div class="description">
+        <div class="ui header">There is no profile picture of you. Please upload one now.</div>
+        <p>Having a profile picture keeps your profile legitimate. It also shows other community members that you are authentic and trustworthy.</p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui positive right labeled icon button" id="upload-profile-pic">
+        upload
+        <i class="user icon"></i>
+      </div>
+      <div class="ui black button">
+        skip for now
+      </div>
+    </div>
+  </div>
+
+  <div class="column margin-top-neg1-rem" style="width: 100%">
+    <div class="wrapper" style="height: 680px;">
+      <div id="video-container">
+        <video autoplay="" loop="" class="fillWidth">
+          <source src="/videos/PlenryBG.mp4" type="video/mp4">
+          <source src="/videos/PlenryBG.webm" type="video/webm">
+        </video>
+      </div>
+    </div>
+    <!--<img id="home-big-picture-large" src="/images/homeBigPicture.jpg" width="100%">-->
+    <!--<img id="home-big-picture-small" src="/images/homeSmallPicture.jpg" width="100%">-->
+  </div>
+
+  <div id="home-banner-header-large" class="column grid" style="position: relative">
+    <div class="row" style="text-align: center;  position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 27rem">
+      <h1 class="ui header" style="font-size: 3rem; color: #ffffff;">
+        Socialize with Neighbors
+        <!--<div class="sub header" style="font-size: 2rem; color: #ffffff">Get to Know Your Community</div>-->
+      </h1>
+      <!--<div id="watch-video-btn-large" class="ui yellow button">Watch an Introductory Video</div>-->
+      <!--<div id="watch-video-modal-large" class="ui modal" style="background: #000000">-->
+      <!--<i id="watch-video-close-large" class="close icon"></i>-->
+      <!--<div class="video-container">-->
+      <!--<center><iframe src="https://www.youtube.com/embed/WL9Bo4KUxs0" frameborder="0" allowfullscreen></iframe></center>-->
+      <!--</div>-->
+      <!--</div>-->
+
+    </div>
+  </div>
+
+  <div id="home-search-bar-large" class="column grid" style="position: relative">
+    <div class="row" style="text-align: center; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 22rem">
+      <div id="home-search-city-large" class="ui icon input">
+        <input type="text" placeholder="City" id="homepage-search-city">
+        <i class="search icon"></i>
+      </div>
+
+      <!--<div class="ui icon input">-->
+      <!--<input type="text" class="form-control" id="homepage-search-date" placeholder="Date">-->
+      <!--<i class="calendar icon"></i>-->
+      <!--</div>-->
+      <!--<div id="home-search-guest-large" class="ui selection dropdown">-->
+      <!--<input type="hidden" name="guests" id="homepage-search-number" value="1">-->
+      <!--<div class="default text">1 Guests</div>-->
+      <!--<i class="dropdown icon"></i>-->
+      <!--<div class="menu">-->
+      <!--<div class="item" data-value="1">1 Guest</div>-->
+      <!--<div class="item" data-value="2">2 Guests</div>-->
+      <!--<div class="item" data-value="3">3 Guests</div>-->
+      <!--<div class="item" data-value="4">4 Guests</div>-->
+      <!--<div class="item" data-value="5">5 Guests</div>-->
+      <!--<div class="item" data-value="6">6 Guests</div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <div id="homepage-search-btn" class="ui green button">Search</div>
+    </div>
+  </div>
+
+  <div id="home-banner-header-small" class="column grid" style="position: relative">
+    <div class="row" style="text-align: center;  position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 11rem">
+      <h2 class="ui header" style="font-szie: 1.6rem; color: #ffffff">
+        Socialize with Neighbors
+        <!--<div class="sub header" style="font-size: 1.4rem; color: #ffffff">Get to Know Your Community</div>-->
+      </h2>
+      <!--<div id="watch-video-btn-small" class="ui yellow button">Watch an Introductory Video</div>-->
+      <!--<div id="watch-video-modal-small" class="ui modal" style="background-color: #000000">-->
+      <!--<i class="close icon" style="margin-right: -1rem; margin-top: -3rem !important; color: #ffffff"></i>-->
+      <!--<div class="video-container">-->
+      <!--<center><iframe src="https://www.youtube.com/embed/WL9Bo4KUxs0" frameborder="0" allowfullscreen></iframe></center>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+  </div>
+
+  <!--<div id="home-search-bar-small" class="column grid" style="position: relative">-->
+  <!--<div class="column" style="text-align: center; position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; bottom: 5rem">-->
+  <!--<div id="home-search-button-small" class="ui action input">-->
+  <!--<input type="text" placeholder="City" id="mobile-city-search" style="width: 9rem">-->
+  <!--<div class="ui icon green button" id="mobile-city-search-btn"><i class="search icon"></i></div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <h1 class="ui red center aligned header" style="padding-bottom: 12px;">Explore</h1>
+
+  <div id="home-content" class="ui three column stackable grid">
+    {{#each featureEvents}}
+    {{> featureEventCard}}
+    {{/each}}
+    <center>
+      <div class="ui grey huge button" id="moreEvents-home-btn" style="margin: 55px; width: 30%; padding: 25px;">Show More Events</div>
+    </center>
+  </div>
+  <div class="home-content ui inverted stories centered segment" style="height:640px; top:30px;">
+    <div class="ui page grid">
+      <div class="column" style="top: 288px;">
+        <a href="http://blog.plenry.com">
+          <h1 class="ui inverted centered landing-header header" style="font-size: 3.5em">
+            Read about Our Latest Stories
+          </h1>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="ui vertical segment" style="background-color: white">
+    <div class="ui grid">
+      <div class="row">
+        <div class="ten wide centered column">
+          <h1 class="center aligned ui red header" style="padding: 80px; padding-bottom: 40px; font-size: 2.5em;">
+            How Plenry Works
+          </h1>
+        </div>
+      </div>
+      <div class="sixteen wide column">
+        <div class="ui two column aligned stackable grid" style="width: 100%">
+          <div class="column">
+            <div class="social how-it-works-for-guest image">
+              <a href=""><img src="https://res.cloudinary.com/plenry/image/upload/v1435000053/As_host_rplnkp.jpg" style="width: 100%; padding-left: 10%; padding-right: 5%;"></a>
+            </div>
+            <div class="content">
+              <div class="social how-it-works-for-guest header" style="text-align: center; font-size: 1.8em; padding: 20px"><b><a href="" style="color: rgba(0, 0, 0, 0.6);">As a Guest</a></b></div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="social how-it-works-for-host image">
+              <a href=""><img src="https://res.cloudinary.com/plenry/image/upload/v1435000053/As_guest_frnwav.jpg" style="width: 100%; padding-left: 5%; padding-right: 10%;"></a>
+            </div>
+            <div class="content">
+              <div class="social how-it-works-for-host header" style="text-align: center; font-size: 1.8em; padding: 20px"><b><a href="" style="color: rgba(0, 0, 0, 0.6);">As a Host</a></b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> howItWorksForHost}}
+  {{> howItWorksForGuest}}
+</template>
+
+<template name="howItWorksForGuest">
+  <div class="ui how-it-works-for-guest modal">
+    <i class="close icon"></i>
+    <div class="header">
+      How It Works for Gues
+    </div>
+    <div class="content">
+      <div class="ui grid">
+        <div>
+          <div class="row">
+            <p>Step 1</p>
+            <img class="ui big image" style="width: 100%; padding-bottom: 2%;" src="https://res.cloudinary.com/plenry/image/upload/v1434999969/plenry4-guest-01_ezfhsz.jpg">
+          </div>
+          <div class="row">
+            <p>Step 2</p>
+            <img class="ui big image" style="width: 100%; padding-bottom: 2%;" src="https://res.cloudinary.com/plenry/image/upload/v1434999969/plenry4-guest-02_br3svk.jpg">
+          </div>
+          <div class="row">
+            <p>Step 3</p>
+            <img class="ui big image" style="width: 100%; padding-bottom: 2%;" src="https://res.cloudinary.com/plenry/image/upload/v1434999969/plenry4-guest-03_eiegop.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

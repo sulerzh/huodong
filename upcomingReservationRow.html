@@ -1,6 +1,41 @@
-﻿// upcomingReservationRow
-
-!function () {
-    Template.__checkName("upcomingReservationRow"), Template.upcomingReservationRow = new Template("Template.upcomingReservationRow", function () { var e = this; return HTML.TR("\n    ", HTML.TD(HTML.DIV({ "class": function () { return ["ui ", Spacebars.mustache(e.lookup("statusColor")), " text"] } }, Blaze.View("lookup:statusText", function () { return Spacebars.mustache(e.lookup("statusText")) }))), "\n    ", HTML.TD(Blaze.View("lookup:date", function () { return Spacebars.mustache(e.lookup("date")) }), HTML.Raw("<br>"), Blaze.View("lookup:time", function () { return Spacebars.mustache(e.lookup("time")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("mealId"))] } }, Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) })), HTML.Raw("<br>"), Blaze.View("lookup:city", function () { return Spacebars.mustache(e.lookup("city")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/users/", Spacebars.mustache(e.lookup("hostId")), "/reviews/guest"] } }, Blaze.View("lookup:host", function () { return Spacebars.mustache(e.lookup("host")) }))), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/orders/", Spacebars.mustache(e.lookup("_id"))] } }, "View Booking Details")), "\n    ", HTML.TD(Blaze.If(function () { return Spacebars.call(e.lookup("cancellable")) }, function () { return HTML.DIV({ "class": "ui red icon button cancel-reservation-btn" }, HTML.I({ "class": "remove icon" }), "Cancel", HTML.BR(), "Reservation") }, function () { return " Not Applicable " })), "\n    ", Blaze.If(function () { return Spacebars.call(e.lookup("cancellable")) }, function () { return ["\n      ", HTML.DIV({ "class": "ui small modal", id: function () { return ["cancel-", Spacebars.mustache(e.lookup("_id"))] } }, "\n        ", HTML.I({ "class": "close icon" }), "\n        ", HTML.DIV({ "class": "header" }, "\n          Cancel Reservation\n        "), "\n        ", HTML.DIV({ "class": "content" }, "\n          ", HTML.P("Are you sure you want to cancel your reservation for ", Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) }), "?"), "\n          You will not able to book this event anymore.\n        "), "\n        ", HTML.DIV({ "class": "actions" }, "\n          ", HTML.DIV({ "class": "ui negative icon button cancel-reservation-confirm", id: function () { return ["cancel-confirm-", Spacebars.mustache(e.lookup("_id"))] } }, "\n            ", HTML.I({ "class": "remove icon" }), "\n            Cancel Reservation\n          "), "\n        "), "\n      "), "\n    "] }), "\n  ") })
-}();
-
+﻿<template name="upcomingReservationRow">
+  <tr>
+    <td>
+      <div class="ui {{statusColor}} text">{{statusText}}</div>
+    </td>
+    <td>{{date}}<br>{{time}}</td>
+    <td>
+      <a href="/events/{{mealId}}">{{title}}</a>
+      <br>{{city}}
+    </td>
+    <td>
+      <a href="/orders/{{_id}}">View Booking Details</a>
+    </td>
+    <td>
+      {{#if cancellable}}
+      <div class="ui red icon button cancel-reservation-btn">
+        <i class="remove icon"></i>Cancel<br>Reservation
+      </div>
+      {{else}}
+      Not Applicable
+      {{/if}}
+    </td>
+    {{#if cancellable}}
+    <div class="ui small modal" id="cancel-{{_id}}"></div>
+    <i class="close icon"></i>
+    <div class="header">
+      Cancel Reservation
+    </div>
+    <div class="content">
+      <p>"Are you sure you want to cancel your reservation for {{title}}?</p>
+      You will not able to book this event anymore.
+    </div>
+    <div class="actions">
+      <div class="ui negative icon button cancel-reservation-confirm" id="cancel-confirm-{{_id}}">
+        <i class="remove icon"></i>
+        Cancel Reservation
+      </div>
+    </div>
+    {{/if}}
+  </tr>
+</template>

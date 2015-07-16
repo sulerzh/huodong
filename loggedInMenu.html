@@ -1,6 +1,45 @@
-﻿// loggedInMenu
-
-!function () {
-    Template.__checkName("loggedInMenu"), Template.loggedInMenu = new Template("Template.loggedInMenu", function () { var e = this; return [HTML.Raw('<!--{{#if isHostOfEvent}}-->\n    <!--<div class="item button">-->\n      <!--<div>-->\n        <!--<a class="item" href="/events/{{mealId}}/edit"><i class="edit default large icon"></i>Edit Event</a>-->\n      <!--</div>-->\n    <!--</div>-->\n  <!--{{/if}}-->\n  '), HTML.DIV({ id: "user-dropdown", "class": "ui dropdown item user-dropdown" }, "\n    ", HTML.IMG({ "class": "ui avatar image", src: function () { return Spacebars.mustache(Spacebars.dot(e.lookup("c"), "url"), Spacebars.dot(e.lookup("currentUser"), "profile", "thumbnail", "cloudinaryPublicId"), Spacebars.kw({ crop: "thumb", height: 100, width: 100, gravity: "face" })) } }), "\n    ", Blaze.If(function () { return Spacebars.call(e.lookup("hasNotification")) }, function () { return HTML.DIV({ "class": "circular ui red label notification-count" }, Blaze.View("lookup:notificationsCount", function () { return Spacebars.mustache(e.lookup("notificationsCount")) })) }), "\n    ", HTML.DIV({ "class": "ui icon text" }, "\n      ", Blaze.View("lookup:currentUser.profile.firstName", function () { return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"), "profile", "firstName")) }), "\n      ", HTML.Raw('<i class="large grey dropdown icon" style="margin-right: -10px;"></i>'), "\n    "), "\n    ", HTML.DIV({ "class": "ui vertical menu" }, "\n      ", HTML.A({ "class": "item", href: "/users/me/dashboard" }, "Dashboard ", Blaze.If(function () { return Spacebars.call(e.lookup("hasDashboardNotification")) }, function () { return HTML.DIV({ "class": "ui red label", style: "margin-right: -5px;" }, Blaze.View("lookup:dashboardNotificationsCount", function () { return Spacebars.mustache(e.lookup("dashboardNotificationsCount")) })) }, function () { return HTML.I({ "class": "dashboard icon" }) })), "\n      ", HTML.A({ "class": "item", href: "/users/me/inbox" }, "Inbox", Blaze.If(function () { return Spacebars.call(e.lookup("hasUnreadMessage")) }, function () { return HTML.DIV({ "class": "ui red label", style: "margin-right: -5px;" }, Blaze.View("lookup:unreadMessageCount", function () { return Spacebars.mustache(e.lookup("unreadMessageCount")) })) }, function () { return HTML.I({ "class": "mail icon" }) })), "\n      ", HTML.Raw('<a class="item" href="/users/me/listings">Hosting<i class="announcement icon"></i></a>'), "\n      ", HTML.Raw('<a class="item" href="/users/me/reservations">Attending<i class="ticket icon"></i></a>'), "\n      ", HTML.Raw('<a class="item" href="/users/me/profile/edit_profile">Profile<i class="user icon"></i></a>'), "\n      ", HTML.Raw('<a class="item" href="/users/me/settings">Settings<i class="setting icon"></i></a>'), "\n      ", HTML.Raw('<a class="item" href="/help">Help Center<i class="help icon"></i></a>'), "\n      ", HTML.Raw('<a class="item logout-btn">Logout<i class="sign out icon"></i></a>'), "\n    "), "\n  "), "\n  ", HTML.DIV({ "class": "item button", style: "top: -4px;" }, "\n    ", HTML.DIV("\n      ", HTML.Raw('<a class="item" href="/users/me/inbox"><i class="mail default large icon"></i></a>'), "\n      ", Blaze.If(function () { return Spacebars.call(e.lookup("hasUnreadMessage")) }, function () { return HTML.DIV({ "class": "circular ui red label message-count" }, Blaze.View("lookup:unreadMessageCount", function () { return Spacebars.mustache(e.lookup("unreadMessageCount")) })) }), "\n    "), "\n  "), "\n  ", HTML.DIV({ id: "hostButton", "class": "item" }, "\n    ", Blaze.If(function () { return Spacebars.call(e.lookup("currentUser")) }, function () { return ["\n      ", HTML.DIV({ "class": "ui green button host-event-btn" }, "Host an Event!"), "\n    "] }), "\n  ")] })
-}();
-
+﻿<template name="loggedInMenu">
+  <!--{{#if isHostOfEvent}}-->
+  <!--<div class="item button">-->
+  <!--<div>-->
+  <!--<a class="item" href="/events/{{mealId}}/edit"><i class="edit default large icon"></i>Edit Event</a>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--{{/if}}-->
+  <div id="user-dropdown" class="ui dropdown item user-dropdown">
+    <img class="ui avatar image" src="{{c.url currentUser.profile.thumbnail.cloudinaryPublicId crop='thumb' height=100 width=100 gravity='face'}}" />
+    {{#if hasNotification}}
+    <div class="circular ui red label notification-count">{{notificationsCount}}</div>
+    {{/if}} />
+    <div class="ui icon text">
+      {{currentUser.profile.firstName}}
+      <i class="large grey dropdown icon" style="margin-right: -10px;"></i>
+    </div>
+    <div class="ui vertical menu">
+      <a class="item" href="/users/me/dashboard">Dashboard</a>
+      {{#if hasDashboardNotification}}
+      <div class="ui red label" style="margin-right: -5px;">
+        {{dashboardNotificationsCount}}
+      </div>
+      {{else}}
+      <i class="dashboard icon"></i>
+      {{/if}}
+      <a class="item" href="/users/me/inbox">
+        Inbox
+        {{#if hasUnreadMessage}}
+        <div class="ui red label" style="margin-right: -5px;">
+          {{unreadMessageCount}}
+        </div>
+        {{else}}
+        <i class="mail icon"></i>
+        {{/if}}
+      </a>
+      <a class="item" href="/users/me/listings">Hosting<i class="announcement icon"></i></a>
+      <a class="item" href="/users/me/reservations">Attending<i class="ticket icon"></i></a>
+      <a class="item" href="/users/me/profile/edit_profile">Profile<i class="user icon"></i></a>
+      <a class="item" href="/users/me/settings">Settings<i class="setting icon"></i></a>
+      <a class="item" href="/help">Help Center<i class="help icon"></i></a>
+      <a class="item logout-btn">Logout<i class="sign out icon"></i></a>
+    </div>
+  </div>
+</template>

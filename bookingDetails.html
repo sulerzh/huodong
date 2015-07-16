@@ -1,5 +1,76 @@
-﻿// bookingDetails
-
-!function () {
-    Template.__checkName("bookingDetails"), Template.bookingDetails = new Template("Template.bookingDetails", function () { var e = this; return HTML.DIV({ "class": "ui stackable page grid" }, "\n    ", HTML.DIV({ "class": "row" }, "\n      ", HTML.DIV({ "class": "two column" }, "\n        ", HTML.Raw('<div class="left floated left aligned column">\n          <a class="left item" href="/" id="home-logo-button">\n            <img src="/images/logo.png">\n          </a>\n        </div>'), "\n        ", HTML.DIV({ "class": "right floated right aligned column" }, "\n          ", Blaze.View("lookup:createdDate", function () { return Spacebars.mustache(e.lookup("createdDate")) }), HTML.Raw("<br>"), "\n          Receipt #: ", Blaze.View("lookup:_id", function () { return Spacebars.mustache(e.lookup("_id")) }), "\n        "), "\n      "), "\n    "), HTML.Raw('\n    <div class="row">\n      <div class="ui black basic button" id="print-btn">Print</div>\n    </div>\n    '), HTML.DIV({ "class": "row" }, "\n      ", HTML.H1({ "class": "ui header" }, "Booking Details\n        ", HTML.DIV({ "class": "sub header" }, "Status: ", Blaze.View("lookup:statusText", function () { return Spacebars.mustache(e.lookup("statusText")) })), "\n      "), "\n    "), "\n    ", HTML.DIV({ "class": "row" }, "\n      ", HTML.DIV({ "class": "column" }, "\n        ", HTML.TABLE({ "class": "ui unstackable table" }, "\n          ", HTML.THEAD("\n          ", HTML.TR({ "class": "center aligned" }, "\n            ", HTML.TH("Guest"), "\n            ", HTML.TH("Event"), "\n            ", HTML.TH("Date & Time"), "\n            ", HTML.TH("Location"), "\n            ", HTML.TH("Host"), "\n          "), "\n          "), "\n          ", HTML.TBODY("\n          ", HTML.TR({ "class": "center aligned" }, "\n            ", HTML.TD(Blaze.View("lookup:currentUser.profile.firstName", function () { return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"), "profile", "firstName")) }), " ", Blaze.View("lookup:otherGuests", function () { return Spacebars.mustache(e.lookup("otherGuests")) })), "\n            ", HTML.TD(Blaze.View("lookup:eventTitle", function () { return Spacebars.mustache(e.lookup("eventTitle")) })), "\n            ", HTML.TD(Blaze.View("lookup:eventDate", function () { return Spacebars.mustache(e.lookup("eventDate")) })), "\n            ", HTML.TD(Blaze.View("lookup:eventAddress", function () { return Spacebars.mustache(e.lookup("eventAddress")) })), "\n            ", HTML.TD(Blaze.View("lookup:eventHost", function () { return Spacebars.mustache(e.lookup("eventHost")) })), "\n          "), "\n          "), "\n        "), "\n      "), "\n    "), HTML.Raw('\n\n    <div class="row">\n      <h1 class="ui header">Booking Charges</h1>\n    </div>\n    '), HTML.DIV({ "class": "row" }, "\n      ", HTML.DIV({ "class": "column" }, "\n        ", HTML.TABLE({ "class": "ui unstackable table", style: "width: 0" }, "\n          ", HTML.TBODY("\n          ", HTML.TR({ "class": "center aligned" }, "\n            ", HTML.TD("$", Blaze.View("lookup:donationFixed", function () { return Spacebars.mustache(e.lookup("donationFixed")) }), " x ", Blaze.View("lookup:numberOfGuests", function () { return Spacebars.mustache(e.lookup("numberOfGuests")) }), " Guest(s)"), "\n            ", HTML.TD("$", Blaze.View("lookup:totalDonationWithoutFee", function () { return Spacebars.mustache(e.lookup("totalDonationWithoutFee")) })), "\n            ", Blaze.If(function () { return Spacebars.call(e.lookup("isPending")) }, function () { return ["\n              ", HTML.TD({ rowspan: "3", style: "width: 22rem;  border-left: 1px solid #d4d4d5" }, "You will only be charged if the host accepts your request. The host will have 24 hours to reply. If the host does not accept your request or does not respond, no charge is made."), "\n            "] }), "\n          "), "\n          ", HTML.TR({ "class": "center aligned" }, "\n            ", HTML.TD("Plenry Service Fee"), "\n            ", HTML.TD("$", Blaze.View("lookup:serviceFee", function () { return Spacebars.mustache(e.lookup("serviceFee")) })), "\n          "), "\n          ", HTML.TR({ "class": "center aligned" }, "\n            ", HTML.TD("Total"), "\n            ", HTML.TD("$", Blaze.View("lookup:totalFixed", function () { return Spacebars.mustache(e.lookup("totalFixed")) })), "\n          "), "\n          "), "\n        "), "\n      "), "\n    "), "\n  ") })
-}();
+﻿<template name="bookingDetails">
+  <div class="ui stackable page grid">
+    <div class="row">
+      <div class="two column">
+        <div class="left floated left aligned column">
+          <a class="left item" href="/" id="home-logo-button">
+            <img src="/images/logo.png">
+          </a>
+        </div>
+        <div class="right floated right aligned column">
+          {{createdDate}}<br>
+          Receipt #: {{_id}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="ui black basic button" id="print-btn">Print</div>
+    </div>
+    <div class="row">
+      <h1 class="ui header">
+        Booking Details
+        <div class="sub header">Status: {{statusText}}</div>
+      </h1>
+    </div>
+    <div class="row">
+      <div class="column">
+        <table class="ui unstackable table">
+          <thead>
+            <tr class="center aligned">
+              <th>Guest</th>
+              <th>Event</th>
+              <th>Date & Time</th>
+              <th>Location</th>
+              <th>Host</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="center aligned">
+              <td>{{currentUser.profile.firstName}} {{otherGuests}}</td>
+              <td>{{eventTitle}}</td>
+              <td>{{eventDate}}</td>
+              <td>{{eventAddress}}</td>
+              <td>{{eventHost}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <h1 class="ui header">Booking Charges</h1>
+    </div>
+    <div class="row">
+      <div class="column">
+        <table class="ui unstackable table" style="width: 0">
+          <tbody>
+            <tr class="center aligned">
+              <td>${{donationFixed}} x {{numberOfGuests}} Guest(s)</td>
+              <td>${{totalDonationWithoutFee}}</td>
+              {{if isPending}}
+              <td rowspan="3" style="width: 22rem;  border-left: 1px solid #d4d4d5">You will only be charged if the host accepts your request. The host will have 24 hours to reply. If the host does not accept your request or does not respond, no charge is made.</td>
+              {{/if}}
+            </tr>
+              <tr class="center aligned">
+                  <td>Plenry Service Fee</td>
+                  <td>${{serviceFee}}</td>
+              </tr>
+              <tr class="center aligned">
+                  <td>Total</td>
+                <td>${{totalFixed}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>

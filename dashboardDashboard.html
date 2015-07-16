@@ -1,562 +1,436 @@
-﻿// dashboardDashboard
+﻿<template name="dashboardDashboard">
+  <div class="ui stackable page grid">
+    <div class="four wide column">
+      <div class="column">
+        <div class="ui fluid card">
+          <div class="image">
+            <img src="{{c.url currentUser.profile.thumbnail.cloudinaryPublicId crop='fill' height=300 width=300}}" />
+          </div>
+          <div class="content">
+            <a class="header">{{currentUser.profile.firstName}}</a>
+          </div>
+        </div>
+      </div>
+      <h3 class="ui header">Verifications</h3>
+      <div class="ui dashboard verification segment">
+        {{#if emailVerified}}
+        <i class="green checkmark icon">Email</i>
+        <br />
+        {{/if}}
+        {{#if phoneVerified}}
+        <i class="green checkmark icon">Phone Number</i>
+        <br />
+        {{/if}}
+        {{#if facebookLinked}}
+        <i class="green checkmark icon">Facebook</i>
+        <br />
+        {{/if}}
+        {{#if facebookNumberOfFriends}}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{currentUser.services.facebook.numberOfFriends}} Friends<br />
+        {{/if}}
+        {{#if idVerified}}
+        <i class="green checkmark icon">ID </i><br />
+        {{/if}}
+        {{#if eduVerified}}
+        <i class="green checkmark icon">Edu </i><br />
+        {{/if}}
+        <!--{{#if reviewed}}-->
+        <!--<i class="green checkmark icon"></i>-->
+        <!--{{else}}-->
+        <!--<i class="red remove icon"></i>-->
+        <!--{{/if}}-->
+        <!--Reviews<br>-->
+        <a href="/users/me/profile/trust_and_verification">+ Add more</a>
+      </div>
+      <h3 class="ui header">About Me</h3>
+      <div class="ui segment">
+        <h5 class="ui header">Education</h5>
+        {{#if hasSchool}}
+        {{currentUser.profile.school}}
+        {{else}}
+        No Information
+        {{/if}}
+        <br>
+        <h5 class="ui header">Work</h5>
+        {{#if hasWork}}
+        {{currentUser.profile.work}}
+        {{else}}
+        No Information
+        {{/if}}
+        <br>
+        <h5 class="ui header">Language</h5>
+        {{#if hasLanguage}}
+        {{currentUser.profile.language}}
+        {{else}}
+        No Information
+        {{/if}}
+        <br>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      <div class="row">
+        <h1 class="ui header">
+          Hi, I'm {{currentUser.profile.firstName}}
+        </h1>
+        Member Since {{joinDate}} {{#if hasCity}}from currentUser.profile.city{{/if}}
+      </div>
+      <div class="ui hidden divider"></div>
+      <div class="row">
+        <h4 class="ui block top attached header">About Me</h4>
+        <div class="ui bottom attached secondary segment">
+          {{#if hasDescription}}
+          {{breaklines currentUser.profile.description}}
+          {{else}}
+          No
+          Information
+          {{/if}}
+        </div>
+      </div>
+      <h3 class="ui header">Notifications</h3>
+      {{#if hasNotifications}}
+      {{#each notifications}}
+      {{> notificationMessage}}
+      {{/each}}
+      {{else}}
+      You have no notification.
+      {{/if}}
+    </div>
+  </div>
+</template>
 
-!function () {
-    Template.__checkName("dashboardDashboard"),
-    Template.dashboardDashboard = new Template("Template.dashboardDashboard",
-        function () {
-            var e = this;
-            return HTML.DIV({ "class": "ui stackable page grid" }, "\n    ",
-                HTML.DIV({ "class": "four wide column" }, "\n      ",
-                HTML.DIV({ "class": "column" }, "\n        ",
-                HTML.DIV({ "class": "ui fluid card" }, "\n          ",
-                HTML.DIV({ "class": "image" }, "\n            ",
-                HTML.IMG({
-                    src: function () {
-                        return Spacebars.mustache(Spacebars.dot(e.lookup("c"), "url"),
-                            Spacebars.dot(e.lookup("currentUser"),
-                            "profile", "thumbnail", "cloudinaryPublicId"),
-                            Spacebars.kw({ crop: "fill", height: 300, width: 300 }))
-                    }
-                }), "\n          "), "\n          ",
-                HTML.DIV({ "class": "content" }, "\n            ",
-                HTML.A({ "class": "header" },
-                Blaze.View("lookup:currentUser.profile.firstName",
-                function () {
-                    return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"),
-                        "profile", "firstName"))
-                })), "\n          "), "\n        "), "\n      "), "\n      ",
-                HTML.Raw('<h3 class="ui header">Verifications</h3>'), "\n\n      ",
-                HTML.DIV({ "class": "ui dashboard verification segment" }, "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("emailVerified"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.I({ "class": "green checkmark icon" }), "Email",
-                        HTML.BR(), "\n        "]
-                }), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("phoneVerified"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.I({ "class": "green checkmark icon" }), "Phone Number",
-                        HTML.BR(), "\n        "]
-                }), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("facebookLinked"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.I({ "class": "green checkmark icon" }), "Facebook",
-                        HTML.BR(), "\n        "]
-                }), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("facebookNumberOfFriends"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        HTML.CharRef({ html: "&nbsp;", str: " " }),
-                        Blaze.View("lookup:currentUser.services.facebook.numberOfFriends",
-                            function () {
-                                return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"),
-                                    "services", "facebook", "numberOfFriends"))
-                            }), " Friends", HTML.BR(), "\n        "]
-                }), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("googleLinked"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.I({ "class": "green checkmark icon" }), "Google", HTML.BR(), "\n        "]
-                }), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("idVerified"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.I({ "class": "green checkmark icon" }), "ID ",
-                        HTML.BR(), "\n        "]
-                }), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("eduVerified"))
-                }, function () {
-                    return ["\n          ",
-                        HTML.I({ "class": "green checkmark icon" }), "Edu ",
-                        HTML.BR(), "\n        "]
-                }), "\n\n          ", HTML.Raw("<!--{{#if reviewed}}-->"), "\n        ",
-                HTML.Raw('<!--<i class="green checkmark icon"></i>-->'), "\n          ",
-                HTML.Raw("<!--{{else}}-->"), "\n        ",
-                HTML.Raw('<!--<i class="red remove icon"></i>-->'), "\n          ",
-                HTML.Raw("<!--{{/if}}-->"), "\n        ",
-                HTML.Raw("<!--Reviews<br>-->"), "\n        ",
-                HTML.Raw('<a href="/users/me/profile/trust_and_verification">+ Add more</a>'),
-                "\n      "), "\n      ",
-                HTML.Raw('<h3 class="ui header">About Me</h3>'), "\n\n      ",
-                HTML.DIV({ "class": "ui segment" }, "\n        ",
-                HTML.Raw('<h5 class="ui header">Education</h5>'), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("hasSchool"))
-                }, function () {
-                    return Blaze.View("lookup:currentUser.profile.school", function () {
-                        return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"), "profile", "school"))
-                    })
-                }, function () { return "No Information " }),
-                HTML.Raw("<br>"), "\n        ",
-                HTML.Raw('<h5 class="ui header">Work</h5>'), "\n        ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("hasWork"))
-                }, function () {
-                    return Blaze.View("lookup:currentUser.profile.work", function () {
-                        return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"),
-                            "profile", "work"))
-                    })
-                }, function () {
-                    return "No Information "
-                }), HTML.Raw("<br>"), "\n        ",
-                HTML.Raw('<h5 class="ui header">Language</h5>'), "\n        ", Blaze.If(function () {
-                    return Spacebars.call(e.lookup("hasLanguage"))
-                }, function () {
-                    return Blaze.View("lookup:currentUser.profile.language",
-                        function () {
-                            return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"), "profile", "language"))
-                        })
-                }, function () {
-                    return "No Information"
-                }), HTML.Raw("<br>"), "\n      "), "\n    "), "\n    ",
-                HTML.DIV({ "class": "twelve wide column" }, "\n      ",
-                HTML.DIV({ "class": "row" }, "\n        ",
-                HTML.H1({ "class": "ui header" }, "\n          Hi, I'm ",
-                Blaze.View("lookup:currentUser.profile.firstName", function () {
-                    return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"),
+<template name="reviewCard">
+  <div class="ui segment grid review-card">
+    <div class="three wide column">
+      <img src="{{c.url userCloudinaryPublicId crop='fill' height=300 width=300 gravity='face'}}" width="100%" />
+      <p>{{userName}}</p>
+    </div>
+    <div class="thirteen wide column">
+      <h4 class="ui header">
+        <a href="/events/{{mealId}}">{{mealTitle}}</a>
+        @ {{mealDate}}
+      </h4>
+      <p>{{content}}</p>
+    </div>
+  </div>
+</template>
 
-                        "profile", "firstName"))
-                }), "\n        "), "\n        Member Since ",
-                Blaze.View("lookup:joinDate", function () {
-                    return Spacebars.mustache(e.lookup("joinDate"))
-                }), " ", Blaze.If(function () {
-                    return Spacebars.call(e.lookup("hasCity"))
-                }, function () {
-                    return ["from ", Blaze.View("lookup:currentUser.profile.city", function () {
-                        return Spacebars.mustache(Spacebars.dot(e.lookup("currentUser"),
-                            "profile", "city"))
-                    })]
-                }), "\n      "), "\n      ",
-                HTML.Raw('<div class="ui hidden divider"></div>'), "\n      ",
-                HTML.DIV({ "class": "row" }, "\n        ",
-                HTML.Raw('<h4 class="ui block top attached header">About Me</h4>'), "\n\n        ",
-                HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n          ",
-                Blaze.If(function () {
-                    return Spacebars.call(e.lookup("hasDescription"))
-                }, function () {
-                    return Blaze.View("lookup:breaklines", function () {
-                        return Spacebars.mustache(e.lookup("breaklines"),
+<template name="dashboardListings">
+  <div class="ui stackable page grid">
+    <div class="four wide column">
+      <div class="ui vertical pointing menu dashboard-listings-menu">
+        <a class="red item dashboard-listings-link">
+          Events hosting
+        </a>
+        <a class="red item dashboard-listings-link">
+          Booking requests
+        </a>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      {{#if isSection==1}}
+      {{> upcomingListing}}
+      <div class="ui hidden divider"></div>
+      <div class="row" align="left">
+        {{#if currentUser}}
+        <div class="ui green icon button host-event-btn">
+          <i class="plus icon"></i>
+          New Event
+        </div>
+        {{/if}}
+      </div>
+      {{/if}}
+      {{#if isSection==2}}
+      {{> pastListing}}
+      {{/if}}
+      {{#if isSection==3}}
+      {{> cancelledListing}}
+      {{/if}}
+      {{#if isSection==4}}
+      {{> receivedRequestPending}}
+      {{/if}}
+      {{#if isSection==5}}
+      {{> receivedRequestApproved}}
+      {{/if}}
+      {{#if isSection==6}}
+      {{> receivedRequestCancelled}}
+      {{/if}}
+    </div>
+  </div>
+</template>
 
-                            Spacebars.dot(e.lookup("currentUser"), "profile", "description"))
-                    })
-                }, function () {
-                    return "No\n            Information"
-                }), "\n        "), "\n      "), "\n\n      ",
-                HTML.Raw('<h3 class="ui header">Notifications</h3>'), "\n      ",
-                Blaze.If(function () { return Spacebars.call(e.lookup("hasNotifications")) },
-                function () {
-                    return ["\n        ",
-                        Blaze.Each(function () {
-                            return Spacebars.call(e.lookup("notifications"))
-                        }, function () {
-                            return ["\n          ",
-                                Spacebars.include(e.lookupTemplate("notificationMessage")),
-                                "\n        "]
-                        }), "\n      "]
-                }, function () {
-                    return "\n        You have no notification.\n      "
-                }), "\n    "), "\n  ")
-        }),
+<template name="cancelledListingsRow">
+  <tr>
+    <td>{{mealDate}}</td>
+    <td>
+      <a href="/events/{{_id}}">title</a>
+      <br>{{mealTime}}
+    </td>
+  </tr>
+</template>
 
-    Template.__checkName("reviewCard"),
-    Template.reviewCard = new Template("Template.reviewCard", function () {
-        var e = this; return HTML.DIV({ "class": "ui segment grid review-card" }, "\n    ",
-            HTML.DIV({ "class": "three wide column" }, "\n      ",
-            HTML.IMG({
-                "class": "ui avatar image", src: function () {
-                    return Spacebars.mustache(Spacebars.dot(e.lookup("c"), "url"),
-                        e.lookup("userCloudinaryPublicId"),
-                        Spacebars.kw({ crop: "fill", height: 300, width: 300, gravity: "face" }))
-                }, width: "100%"
-            }), "\n      ",
+<template name="stars">
+  <i class="{{getStar 1}}"></i>
+  <i class="{{getStar 2}}"></i>
+  <i class="{{getStar 3}}"></i>
+  <i class="{{getStar 4}}"></i>
+  <i class="{{getStar 5}}"></i>
+</template>
 
-            HTML.P(Blaze.View("lookup:userName", function () {
-                return Spacebars.mustache(e.lookup("userName"))
-            })), "\n    "), "\n    ", HTML.DIV({ "class": "thirteen wide column" }, "\n      ",
-            HTML.H4({ "class": "ui header" }, HTML.A({
-                href: function () {
-                    return ["/events/",
-                        Spacebars.mustache(e.lookup("mealId"))]
-                }
-            }, Blaze.View("lookup:mealTitle", function () {
-                return Spacebars.mustache(e.lookup("mealTitle"))
-            })), " @ ", Blaze.View("lookup:mealDate", function () {
-                return Spacebars.mustache(e.lookup("mealDate"))
-            })), "\n      ", HTML.P(Blaze.View("lookup:content", function () {
-                return Spacebars.mustache(e.lookup("content"))
-            })), "\n    "), "\n  ")
-    }),
-    Template.__checkName("dashboardListings"),
-    Template.dashboardListings = new Template("Template.dashboardListings", function () {
-        var e = this;
+<template name="tickOrCross">
+  {{#if cond}}
+  <i class="green checkmark icon"></i>
+  {{else}}
+  <i class="red remove icon"></i>
+  {{/if}}
+</template>
 
-        return HTML.DIV({ "class": "ui stackable page grid" },
-            HTML.Raw('\n\n    <div class="four wide column">\n      <div class="ui vertical pointing menu dashboard-listings-menu">\n        <a class="red item dashboard-listings-link">\n          Events hosting\n        </a>\n        <a class="red item dashboard-listings-link">\n          Booking requests\n        </a>\n      </div>\n    </div>\n\n    '), HTML.DIV({ "class": "twelve wide column" }, "\n      ",
-            Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 1)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("upcomingListing")), "\n        ",
-                    HTML.DIV({ "class": "ui hidden divider" }), "\n        ",
-                    HTML.DIV({ "class": "row", align: "left" }, "\n          ",
-                        Blaze.If(function () {
-                            return Spacebars.call(e.lookup("currentUser"))
-                        }, function () {
-                            return ["\n            ",
-                                HTML.DIV({ "class": "ui green icon button host-event-btn" },
-                                    HTML.I({ "class": "plus icon" }), "New Event\n            "),
-                                    "\n          "]
-                        }), "\n        "), "\n      "]
-            }), "\n      ",
-            Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 2)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("pastListing")), "\n      "]
-            }), "\n      ",
-            Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 3)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("cancelledListing")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 4)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("receivedRequestPending")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 5)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("receivedRequestApproved")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 6)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("receivedRequestCancelled")), "\n      "]
-            }), "\n    "), "\n  ")
-    }),
-    Template.__checkName("cancelledListingsRow"),
-    Template.cancelledListingsRow = new Template("Template.cancelledListingsRow", function () {
-        var e = this; return HTML.TR("\n    ",
-            HTML.TD(Blaze.View("lookup:mealDate", function () {
-                return Spacebars.mustache(e.lookup("mealDate"))
-            })), "\n    ",
-            HTML.TD(HTML.A({
-                href: function () {
-                    return ["/events/", Spacebars.mustache(e.lookup("_id"))]
-                }
-            }, Blaze.View("lookup:title", function () {
-                return Spacebars.mustache(e.lookup("title"))
-            })), HTML.Raw("<br>"), Blaze.View("lookup:mealTime", function () {
-                return Spacebars.mustache(e.lookup("mealTime"))
-            })), "\n  ")
-    }),
-    Template.__checkName("stars"),
-    Template.stars = new Template("Template.stars", function () {
-        var e = this; return [HTML.I({
-            "class": function () {
-                return Spacebars.mustache(e.lookup("getStar"), 1)
-            }
-        }), "\n  ", HTML.I({
-            "class": function () {
-                return Spacebars.mustache(e.lookup("getStar"), 2)
-            }
-        }), "\n  ", HTML.I({
-            "class": function () {
-                return Spacebars.mustache(e.lookup("getStar"), 3)
-            }
-        }), "\n  ", HTML.I({
-            "class": function () {
-                return Spacebars.mustache(e.lookup("getStar"), 4)
-            }
-        }), "\n  ", HTML.I({
-            "class": function () {
-                return Spacebars.mustache(e.lookup("getStar"), 5)
-            }
-        })]
-    }),
-    Template.__checkName("tickOrCross"),
-    Template.tickOrCross = new Template("Template.tickOrCross", function () {
-        var e = this; return Blaze.If(function () {
-            return Spacebars.call(e.lookup("cond"))
-        }, function () {
-            return ["\n    ",
-                HTML.I({ "class": "green checkmark icon" }), "\n  "]
-        }, function () {
-            return ["\n    ",
-                HTML.I({ "class": "red remove icon" }), "\n  "]
-        })
-    }),
-    Template.__checkName("reviewSection"),
+<template name="reviewSection">
+  <div class="ui segment grid review-card">
+    <div class="two wide column">
+      <img class="ui avatar image" src="{{c.url userCloudinaryPublicId crop='fill' height=300 width=300 gravity='face'}}" width="100%" />
+      <p>{{userName}}</p>
+    </div>
+    <div class="fourteen wide column">
+      <h4 class="ui header">
+        <a href="/events/{{mealId}}">{{mealTitle}}</a>
+        @ {{mealDate}}
+      </h4>
+      <p>{{content}}</p>
+    </div>
+  </div>
+</template>
 
-    Template.reviewSection = new Template("Template.reviewSection", function () {
-        var e = this; return HTML.DIV({ "class": "ui segment grid review-card" }, "\n    ",
-            HTML.DIV({ "class": "two wide column" }, "\n      ",
-            HTML.IMG({
-                "class": "ui avatar image", src: function () {
-                    return Spacebars.mustache(Spacebars.dot(e.lookup("c"), "url"),
-                        e.lookup("userCloudinaryPublicId"),
-                        Spacebars.kw({ crop: "fill", height: 300, width: 300, gravity: "face" }))
-                }, width: "100%"
-            }), "\n      ",
-            HTML.P(Blaze.View("lookup:userName", function () {
-                return Spacebars.mustache(e.lookup("userName"))
-            })), "\n    "), "\n    ", HTML.DIV({ "class": "fourteen wide column" }, "\n      ",
-            HTML.H4({ "class": "ui header" }, HTML.A({
-                href: function () {
-                    return ["/events/", Spacebars.mustache(e.lookup("mealId"))]
-                }
-            }, Blaze.View("lookup:mealTitle", function () {
-                return Spacebars.mustache(e.lookup("mealTitle"))
-            })), " @ ", Blaze.View("lookup:mealDate", function () {
-                return Spacebars.mustache(e.lookup("mealDate"))
-            })), "\n      ", HTML.P(Blaze.View("lookup:content", function () {
-                return Spacebars.mustache(e.lookup("content"))
-            })), "\n    "), "\n  ")
-    }),
-    Template.__checkName("dashboardReservations"),
-    Template.dashboardReservations = new Template("Template.dashboardReservations", function () {
-        var e = this; return HTML.DIV({ "class": "ui stackable page grid" }, "\n    ",
-            HTML.DIV({ "class": "four wide column" }, "\n      ",
-            HTML.DIV({ "class": "ui vertical pointing menu dashboard-listings-menu" },
-            "\n        ", HTML.A({
-                "class": function () {
-                    return [Blaze.If(function () {
-                        return Spacebars.dataMustache(e.lookup("isSection"), 1)
-                    }, function () {
-                        return "active"
-                    }), " red item dashboard-reservation-link"]
-                }
-            },
-                    "\n          Upcoming Reservation\n        "), "\n        ",
-                    HTML.A({
-                        "class": function () {
-                            return [Blaze.If(function () {
-                                return Spacebars.dataMustache(e.lookup("isSection"), 2)
-                            }, function () { return "active" }),
-                            " red item dashboard-reservation-link"]
-                        }
-                    }, "\n          Past Reservation\n        "), "\n      "), "\n    "), "\n    ",
-                    HTML.DIV({ "class": "twelve wide column" }, "\n      ",
-            Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 1)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("upcomingReservation")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 2)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("pastReservation")), "\n      "]
-            }), "\n    "), "\n  ")
-    }),
-    Template.__checkName("dashboardProfile"),
-    Template.dashboardProfile = new Template("Template.dashboardProfile", function () {
-        var e = this;
-        return HTML.DIV({ "class": "ui stackable page grid" }, "\n    ",
-            HTML.DIV({ "class": "four wide column" }, "\n      ",
-            HTML.DIV({ "class": "ui vertical pointing menu dashboard-listings-menu" },
-            "\n        ",
-            HTML.A({
-                "class": function () {
-                    return [Blaze.If(function () {
-                        return Spacebars.dataMustache(e.lookup("isSection"), 1)
-                    }, function () { return "active" }), " red item dashboard-profile-link"]
-                }
-            },
-            "\n          Edit Profile\n        "), "\n        ",
-            HTML.A({
-                "class": function () {
-                    return [Blaze.If(function () {
-                        return Spacebars.dataMustache(e.lookup("isSection"), 2)
-                    }, function () { return "active" }), " red item dashboard-profile-link"]
-                }
-            },
-            "\n          Trust and Verification\n        "), "\n        ",
-            HTML.A({
-                "class": function () {
-                    return [Blaze.If(function () {
-                        return Spacebars.dataMustache(e.lookup("isSection"), 3)
-                    }, function () { return "active" }), " ", Blaze.If(function () {
-                        return Spacebars.dataMustache(e.lookup("isSection"), 4)
-                    }, function () { return "active" }), " red item dashboard-profile-link"]
-                }
-            },
-                    "\n          Review\n        "), "\n      "), "\n    "), "\n    ",
-                    HTML.DIV({ "class": "twelve wide column" }, "\n      ",
-            Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 1)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("EditProfile")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 2)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("TrustAndVerification")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 3)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("ReviewsAboutYou")), "\n      "]
-            }), "\n      ", Blaze.If(function () {
-                return Spacebars.dataMustache(e.lookup("isSection"), 4)
-            }, function () {
-                return ["\n        ",
-                    Spacebars.include(e.lookupTemplate("ReviewsByYou")), "\n      "]
-            }), "\n    "), "\n  ")
-    }),
-    Template.__checkName("PhotosAndVideo"),
-    Template.PhotosAndVideo = new Template("Template.PhotosAndVideo", function () {
-        var e = this; return HTML.FORM({ "class": "ui form" },
-            HTML.Raw('\n    <h4 class="ui block top attached header">Photos and Video</h4>\n\n    '),
-            HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ",
-            HTML.DIV({ "class": "row", align: "center" }, "\n        ",
-            HTML.DIV({ "class": "ui segment" }, "\n          ",
-            Blaze.If(function () { return Spacebars.call(e.lookup("photo")) }, function () {
-                return ["\n            ",
-                    HTML.DIV("\n              ",
-                        HTML.IMG({
-                            width: "100%", src: function () {
-                                return [Spacebars.mustache(e.lookup("photo")), "/"]
-                            }
-                        }), "\n            "), "\n          "]
-            }), "\n        "), "\n        ",
-            HTML.Raw('<div class="row" align="center">\n          <div class="ui black basic medium button" id="photo-taking-button">Take Picture</div>\n          <div class="ui black basic medium button">Upload</div>\n        </div>'), "\n      "), "\n    "), "\n  ")
-    }),
-    Template.__checkName("phoneVerification"),
-    Template.phoneVerification = new Template("Template.phoneVerification", function () {
-        var e = this;
-        return [HTML.Raw('<i class="close icon"></i>\n\n  <div class="header">\n    Phone Verification\n  </div>\n  '),
-            HTML.DIV({
-                "class": function () {
-                    return ["ui ", Blaze.Unless(function () {
-                        return Spacebars.call(e.lookup("hasError"))
-                    }, function () { return "hidden" }), " error message"]
-                }
-            }, "\n    ",
-            HTML.Raw('<div class="header">\n      Cannot verify this number\n    </div>'), "\n    ",
-        HTML.UL({ "class": "list" }, "\n      ",
-                Blaze.Each(function () {
-                    return Spacebars.call(e.lookup("errors"))
-                }, function () {
-                    return ["\n        ",
-                        HTML.LI(Blaze.View("lookup:reason", function () {
-                            return Spacebars.mustache(e.lookup("reason"))
-                        })), "\n      "]
-                }), "\n    "), "\n  "), "\n  ",
-        HTML.DIV({ "class": "content" }, "\n    ",
-            HTML.DIV({ "class": "description" }, "\n      ",
-            HTML.DIV({ "class": "ui form" }, "\n        ",
-            HTML.DIV({ "class": "ui stackable two column grid" }, "\n          ",
-            HTML.DIV({ "class": "six wide column" }, "\n            ",
-            HTML.DIV({ "class": "field" }, "\n              ",
-            Blaze.If(function () {
-                return Spacebars.call(e.lookup("newVerify"))
-            }, function () {
-                return ["\n                ",
-                    HTML.LABEL("Phone Number"), "\n                ",
-                    HTML.INPUT({ type: "text", id: "phone-verify-number", placeholder: "xxxxxxxxxx" }),
-                    "\n              "]
-            }, function () {
-                return ["\n                ",
-                    HTML.LABEL("Code"), "\n                ",
-                    HTML.INPUT({ type: "text", id: "verify-code" }), "\n              "]
-            }), "\n            "), "\n          "), "\n          ",
-            HTML.DIV({ "class": "ten wide column" }, "\n            ",
-            HTML.DIV({ id: "verify-sms", "class": "column", align: "right" }, "\n              ",
-            Blaze.If(function () {
-                return Spacebars.call(e.lookup("newVerify"))
-            }, function () {
-                return ["\n                ",
-                    HTML.DIV({ "class": "ui green button send-verify-code" }, "Verify via SMS"), "\n              "]
-            }, function () {
-                return ["\n                ",
-                    HTML.DIV({ "class": "ui green button verify-code-btn" }, "Verify"), "\n              "]
-            }), "\n            "), "\n          "), "\n        "), "\n      "), "\n      ",
-            HTML.Raw('<div class="ui hidden divider"></div>'), "\n      ",
-            HTML.Raw("<p>Phone number will only be shared with host who accepts your request.<br>This allows us to\n        stay in touch.\n      </p>"), "\n\n      ",
-            HTML.Raw('<div class="ui accordion" id="why-verify">\n        <div class="active title">\n          <i class="dropdown icon"></i>\n          <a>Why verify?</a>\n        </div>\n        <div class="content">\n          <p>Having a verified phone number allows hosts to contact you regarding an upcoming\n            event.</p>\n        </div>\n      </div>'), "\n    "), "\n  ")]
-    }),
-    Template.__checkName("idVerification"),
-    Template.idVerification = new Template("Template.idVerification", function () {
-        var e = this; return "Please wait..."
-    }),
-    Template.__checkName("Notification"),
-    Template.Notification = new Template("Template.Notification", function () {
-        var e = this;
-        return HTML.Raw('<form class="ui form">\n    <h4 class="ui block top attached header">Notification</h4>\n\n    <div class="ui bottom attached secondary segment">\n      <div class="ui segment">\n        <h2>Mobile Phone</h2>\n        <h4>You can edit your phone number from Edit Profile Section.<br>Receive updates regularly\n          from SMS\n          messages.</h4>\n\n        <p>Note: For more information, text HELP to ####.<br>Text STOP to cancel mobile\n          notification. Message\n          and data rate may apply.</p>\n\n        <div class="ui divider"></div>\n\n        <h2>Notisfy Me When ...</h2>\n\n        <div class="ui checkbox">\n          <input type="ReceiveMessage">\n          <label>I receive a message from another member on Plenry.</label>\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="ui checkbox">\n          <input type="AcceptedOrDenied">\n          <label>My booking is accepted or denied.</label>\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="ui checkbox">\n          <input type="ReceiveRequest">\n          <label>When I receive a request.</label>\n        </div>\n\n        <div class="ui divider"></div>\n\n        <h2>Email</h2>\n\n        <div class="ui checkbox">\n          <input type="UpdatesAndInspirations">\n          <label>Updates &amp; Inspirations from Plenry.</label>\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="ui checkbox">\n          <input type="ReservationAndReviews">\n          <label>Reservation &amp; Review reminder.</label>\n        </div>\n      </div>\n    </div>\n  </form>\n\n  <div class="ui hidden divider"></div>\n\n  <div class="right floated left aligned six wide column">\n    <div class="ui green button">Save</div>\n  </div>')
-    }),
-    Template.__checkName("PaymentMethod"),
-    Template.PaymentMethod = new Template("Template.PaymentMethod", function () {
-        var e = this;
-        return HTML.Raw('<form class="ui form">\n    <h4 class="ui block top attached header">Payment Method</h4>\n\n    <div class="ui bottom attached secondary segment">\n      <div class="ui segment">\n        <div class="ui medium button">\n          <i class="dollar icon"></i>\n          + Payment Method\n        </div>\n      </div>\n    </div>\n  </form>')
-    }),
-    Template.__checkName("showUserIcons"),
-    Template.showUserIcons = new Template("Template.showUserIcons", function () {
-        var e = this; return Blaze.Each(function () { return Spacebars.call(e.lookup("spots")) },
-            function () {
-                return ["\n    ", Blaze.If(function () {
-                    return Spacebars.call(e.lookup("taken"))
-                }, function () {
-                    return ["\n      ",
-                        HTML.I({ "class": "green user icon" }), "\n    "]
-                }, function () {
-                    return ["\n      ",
-                        HTML.I({ "class": "grey user icon" }), "\n    "]
-                }), "\n  "]
-            })
-    }),
-    Template.__checkName("birthdayYearOptions"),
-    Template.birthdayYearOptions = new Template("Template.birthdayYearOptions", function () {
-        var e = this; return Blaze.Each(function () {
-            return Spacebars.call(e.lookup("years"))
-        }, function () {
-            return ["\n    ", HTML.DIV({
-                "class": "item", "data-value": function () {
-                    return Spacebars.mustache(e.lookup("year"))
-                }
-            }, Blaze.View("lookup:year", function () {
-                return Spacebars.mustache(e.lookup("year"))
-            })), "\n  "]
-        })
-    }),
-    Template.__checkName("cardYearOptions"),
-    Template.cardYearOptions = new Template("Template.cardYearOptions", function () {
-        var e = this;
-        return Blaze.Each(function () {
-            return Spacebars.call(e.lookup("years"))
-        }, function () {
-            return ["\n    ",
-                HTML.DIV({
-                    "class": "item", "data-value": function () {
-                        return Spacebars.mustache(e.lookup("year"))
-                    }
-                }, Blaze.View("lookup:year", function () {
-                    return Spacebars.mustache(e.lookup("year"))
-                })), "\n  "]
-        })
-    }),
-    Template.__checkName("dishPhotoUpload"),
-    Template.dishPhotoUpload = new Template("Template.dishPhotoUpload", function () {
-        var e = this;
-        return HTML.Raw('<form>\n    <input type="file" id="dish-photo">\n    <a id="ss">upload</a>\n  </form>')
-    })
-}();
+<template name="dashboardReservations">
+  <div class="ui stackable page grid">
+    <div class="four wide column">
+      <div class="ui vertical pointing menu dashboard-listings-menu">
+        <a class="{{#if isSection==1}}active{{/if}} red item dashboard-reservation-link">Upcoming Reservation</a>
+        <a class="{{#if isSection==2}}active{{/if}} red item dashboard-reservation-link">Past Reservation</a>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      {{#if isSection==1}}
+      {{> upcomingReservation}}
+      {{/if}}
+      {{#if isSection==2}}
+      {{> pastReservation}}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="dashboardProfile">
+  <div class="ui stackable page grid">
+    <div class="four wide column">
+      <div class="ui vertical pointing menu dashboard-listings-menu">
+        <a class="{{#if isSection==1}}active{{/if}} red item dashboard-profile-link">
+          Edit Profile
+        </a>
+        <a class="{{#if isSection==2}}active{{/if}} red item dashboard-profile-link">
+          Trust and Verification
+        </a>
+        <a class="{{#if isSection==3}}active{{/if}} {{#if isSection==4}}active{{/if}} red item dashboard-profile-link">
+          Review
+        </a>
+      </div>
+    </div>
+    <div class="twelve wide column">
+      {{#if isSection==1}}
+      {{> EditProfile}}
+      {{/if}}
+      {{#if isSection==2}}
+      {{> TrustAndVerification}}
+      {{/if}}
+      {{#if isSection==3}}
+      {{> ReviewsAboutYou}}
+      {{/if}}
+      {{#if isSection==4}}
+      {{> ReviewsByYou}}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="PhotosAndVideo">
+  <form class="ui form">
+    <h4 class="ui block top attached header">Photos and Video</h4>
+    <div class="ui bottom attached secondary segment">
+      <div class="row" align="center">
+        <div class="ui segment">
+          {{#if photo}}
+          <div>
+            <img width="100%" src="{{photo}}" />
+          </div>
+          {{/if}}
+        </div>
+        <div class="row" align="center">
+          <div class="ui black basic medium button" id="photo-taking-button">Take Picture</div>
+          <div class="ui black basic medium button">Upload</div>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>
+
+<template name="phoneVerification">
+  <i class="close icon"></i>
+  <div class="header">
+    Phone Verification
+  </div>
+  <div class="ui {{#unless hasError}}hidden{{/unless}} error message">
+    <div class="header">
+      Cannot verify this number
+    </div>
+    <ul class="list">
+      {{#each errors}}
+      <li>{{reason}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="content">
+    <div class="description">
+      <div class="ui form">
+        <div class="ui stackable two column grid">
+          <div class="six wide column">
+            <div class="field">
+              {{#if newVerify}}
+              <label>Phone Number</label>
+              <input type="text" id="phone-verify-number" placeholder="xxxxxxxxxx" />
+              {{else}}
+              <label>Code</label>
+              <input type="text" id="verify-code" />
+              {{/if}}
+            </div>
+          </div>
+          <div class="ten wide column">
+            <div id="verify-sms" class="column" align="right">
+              {{#if newVerify}}
+              <div class="ui green button send-verify-code">Verify via SMS</div>
+              {{else}}
+              <div class="ui green button verify-code-btn">Verify</div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui hidden divider"></div>
+      <p>
+        Phone number will only be shared with host who accepts your request.<br>This allows us to
+        stay in touch.
+      </p>
+      <div class="ui accordion" id="why-verify">
+        <div class="active title">
+          <i class="dropdown icon"></i>
+          <a>Why verify?</a>
+        </div>
+        <div class="content">
+          <p>
+            Having a verified phone number allows hosts to contact you regarding an upcoming
+            event.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="idVerification">
+  Please wait...
+</template>
+
+<template name="Notification">
+  <form class="ui form">
+    <h4 class="ui block top attached header">Notification</h4>
+    <div class="ui bottom attached secondary segment">
+      <div class="ui segment">
+        <h2>Mobile Phone</h2>
+        <h4>
+          You can edit your phone number from Edit Profile Section.<br>Receive updates regularly
+          from SMS
+          messages.
+        </h4>
+        <p>
+          Note: For more information, text HELP to ####.<br>Text STOP to cancel mobile
+          notification. Message
+          and data rate may apply.
+        </p>
+        <div class="ui divider"></div>
+        <h2>Notisfy Me When ...</h2>
+        <div class="ui checkbox">
+          <input type="ReceiveMessage">
+          <label>I receive a message from another member on Plenry.</label>
+
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui checkbox">
+          <input type="AcceptedOrDenied">
+          <label>My booking is accepted or denied.</label>\n
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui checkbox">
+          <input type="ReceiveRequest">
+          <label>When I receive a request.</label>
+        </div>
+        <div class="ui divider"></div>
+        <h2>Email</h2>
+        <div class="ui checkbox">
+          <input type="UpdatesAndInspirations">
+          <label>Updates &amp; Inspirations from Plenry.</label>
+
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui checkbox">
+          <input type="ReservationAndReviews">
+          <label>Reservation &amp; Review reminder.</label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="ui hidden divider"></div>
+  <div class="right floated left aligned six wide column">
+    <div class="ui green button">Save</div>
+  </div>
+</template>
+
+<template name="PaymentMethod">
+  <form class="ui form">
+    <h4 class="ui block top attached header">Payment Method</h4>
+    <div class="ui bottom attached secondary segment">
+      <div class="ui segment">
+        <div class="ui medium button">
+          <i class="dollar icon"></i>
+          + Payment Method
+        </div>
+      </div>
+    </div>
+  </form>
+</template>
+
+<template name="showUserIcons">
+  {{#each spots}}
+  {{#if taken}}
+  <i class="green user icon"></i>
+  {{else}}
+  <i class="grey user icon"></i>
+  {{/if}}
+  {{/each}}
+</template>
+
+<template name="birthdayYearOptions">
+  {{#each years}}
+  <div class="item" data-value="{{year}}">{{year}}</div>
+  {{/each}}
+</template>
+
+<template name="cardYearOptions">
+  {{#each years}}
+  <div class="item" data-value="{{year}}">{{year}}</div>
+  {{/each}}
+</template>
+
+<template name="dishPhotoUpload">
+  <form>
+    <input type="file" id="dish-photo">
+    <a id="ss">upload</a>
+  </form>
+</template>

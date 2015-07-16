@@ -1,6 +1,388 @@
-﻿// mealShow
+﻿<template name="mealShow">
+  <img id="meal-cover-image" src="{{c.url cover.cloudinaryPublicId width=1920 height=580 crop='fill'}}" width="100%" />
+  <div class="ui centered stackable grid" style="width: 98%">
+    <div class="five wide column">
+      <div id="meal-info-segment-flag" class="ui sticky">
+        <div class="ui fitted raised segment stackable grid">
+          <div class="six wide fitted column">
+            <a href="/users/{{hostId}}/reviews/guest">
+              <img src="{{c.url hostCloudinaryPublicId crop='fill' height=300 width=300 gravity='face'}}" width="100%" style="   border-radius: 10rem;
+   height: 100px;
+    margin: 10px;
+     width: 100px;
+     margin-left: 25px;" />
+            </a>
+          </div>
+          <div class="ten wide column host-info">
+            {{#if isHostOfMeal}}
+            <div class="text host-name">
+              <a href="/users/me/dashboard">{{hostName}}</a>
+            </div>
+            {{else}}
+            <div class="text host-name">
+              <a href="/users/{{hostId}}/reviews/guest">{{hostName}}</a>
+            </div>
+            {{/if}}
+            <div class="text host-reviews">
+              {{#with rating=hostOverallRating }}
+              {{> stars}}
+              {{/with}}
+              ({{hostReviewsCount}})
+            </div>
+          </div>
+        </div>
+        <div id="details-info" class="ui raised segment time-spots-info centered middle aligned two column grid">
+          {{#if isSeparateDate}}
+          <div class="column">
+            <div class="text">
+              <i class="large calendar icon"></i>
+              <br><br>
+              Start from:<br>{{mealStartDate}}<br>@ {{mealStartTime}}
+            </div>
+          </div>
+          {{else}}
+          <div class="column">
+            <div class="text">
+              <i class="large calendar icon"></i>
+              <br><br>{{mealStartDate}}
+            </div>
+          </div>
+          <div class="ui vertical divider" style="display: none;">
+            <div class="column">
+              {{#if mealEndTime}}
+              <div class="text">
+                <i class="large clock icon"></i>
+                <br><br>
+                {{mealStartTime}}-{{mealEndTime}}
+              </div>
+              {{else}}
+              <div class="text">
+                <i class="large clock icon"></i>
+                <br><br>
+                Start from: {{mealStartTime}}
+              </div>
+              {{/if}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+        <div class="ui raised segment center aligned grid">
+          {{#if cancelled}}
+          <div class="fourteen wide column">
+            <a class="ui icon red button">
+              <i class="remove icon">Event Cancelled</i>
+            </a>
+          </div>
+          {{else}}
+          {{#if currentUser}}
+          {{#if passed}}
+          {{#if reserved}}
+          {{#if confirmed}}
+          {{#unless reviewDeadlinePassed}}
+          {{#unless reviewed}}
+          <div class="fourteen wide column">
+            <a class="ui green button" href="events/{{_id}}/review_for_host">
+              <i class="write icon"></i>Review
+              This Event
+            </a>
+          </div>
+          {{/unless}}
+          {{/unless}}
+          {{else}}
+          <div class="fourteen wide column">
+            <a class="ui button">This Event's deadline has passed</a>
+          </div>
+          {{/if}}
+          {{else}}
+          <div class="fourteen wide column">
+            <a class="ui button">This Event's deadline has passed</a>
+          </div>
+          {{/if}}
+          {{else}}
+          {{#if reserved}}
+          {{#if pending}}
+          <div class="fourteen wide column">
+            <a class="ui button">Reservation Pending...</a>
+            <!--<a class="ui icon red button"><i class="remove icon"></i>Cancel</a>-->
+          </div>
+          {{/if}}
+          {{#if confirmed}}
+          <div class="fourteen wide column">
+            <a class="ui icon green button" href="../orders/{{orderId}}">View booking details</a>
+            <a class="ui icon red button cancel-reservation">
+              <i class="remove icon"></i>Cancel
+            </a>
+          </div>
+          {{#if cancellable}}
+          <div class="ui small modal">
+            <i class="close icon"></i>
+            <div class="header">
+              Cancel Reservation
+            </div>
+            <div class="content">
+              <p>Are you sure you want to cancel your reservation for {{title}}?</p>
+              You will not able to book this event anymore.
+            </div>
+            <div class="actions">
+              <div class="ui negative icon button cancel-reservation-confirm" id="cancel-confirm-{{_id}}">
+                <i class="remove icon"></i>
+                Cancel Reservation
+              </div>
+            </div>
+          </div>
+          {{/if}}
+          {{/if}}
+          {{#if declined}}
+          <div class="fourteen wide column">
+            <a class="ui icon red button">
+              <i class="warning icon"></i>Reservation declined
+            </a>
+          </div>
+          {{/if}}
+          {{#if cancelled}}
+          <div class="fourteen wide column">
+            <a class="ui icon red button">
+              <i class="warning icon">Reservation cancelled</i>
+            </a>
+          </div>
+          {{/if}}
+          {{#if isHostOfMeal}}
+          <!--<div class="fourteen wide column">
+                  <a class="ui icon red button"><i class="remove icon"></i>Cancel Event</a>
+              </div>-->
+          <div class="time-left">
+            <div class="time-left-text" style="line-height: 100%;">
+              <br>Booking closes in
+            </div>
+            <div style="line-height: 225%;">
+              {{timeLeft}}
+            </div>
+          </div>
+          <div>
+            <i class="ui tag label">
+              {{#if isFree}}
+              <div>FREE</div>
+              {{else}}
+              <div>${{pricePerGuestWithoutService}}/person</div>
+              {{/if}}
+            </i>
+            <div class="text suggested-donation" style="line-height: 120%;">&nbsp;</div>
+          </div>
+          {{else}}
+          {{#if isFull}}
+          <div class="text suggested-donation" style="line-height: 120%;">
+            &nbsp;
+          </div>
+          <a class="ui disable small right button">Fully Booked</a>
+          <div class="text suggested-donation" style="line-height: 120%;">&nbsp;</div>
+          {{else}}
+          <div class="time-left">
+            <div class="time-left-text" style="line-height: 100%;">
+              <br>Booking closes in
+            </div>
+            <div style="line-height: 225%;">{{timeLeft}}</div>
+          </div>
+          <div>
+            <a class="ui green animated fade button" id="book-now-btn">
+              {{#if isFree}}
+              <div class="visible content"> &nbsp;&nbsp;&nbsp;JOIN &nbsp;&nbsp;&nbsp;&nbsp;</div>
+              {{else}}
+              <div class="visible content">"Chip in ${{pricePerGuestWithService}}</div>
+              {{/if}}
+              <div class="hidden content">
+                Request to Join
+              </div>
+            </a>
+            {{#if isFree}}
+            <div class="text suggested-donation" style="line-height: 120%;">&nbsp;</div>
+            {{else}}
+            <div class="text suggested-donation" style="line-height: 300%;"> &nbsp;&nbsp;Suggested Chip In <i class="info circle icon has-popup" data-content="Host suggested this amount to cover the cost of the event" data-variation="basic" data-position="top left"></i></div>
+            {{/if}}
+          </div>
+          {{/if}}
+          {{/if}}
+          {{/if}}
+          {{/if}}
+          {{else}}
+          {{#if passed}}
+          <div class="fourteen wide column">
+            <i class="ui button">This Event's deadline has passed</i>
+          </div>
+          {{else}}
+          <div class="fourteen wide column">
+            <a class="ui green animated fade button login-link-btn">
+              {{#if isFree}}
+              <div class="visible content"> &nbsp;&nbsp;&nbsp;&nbsp;JOIN &nbsp;&nbsp;&nbsp;&nbsp;</div>
+              {{else}}
+              <div class="visible content">Chip in ${{pricePerGuestWithService}}</div>
+              {{/if}}
+              <div class="hidden content">
+                Request to Join
+              </div>
+            </a>
+          </div>
+          {{/if}}
+          {{/if}}
+          {{/if}}
+        </div>
+        <div class="ui raised segment guests-attending-box">
+          {{#if noGuest}}
+          <h3 class="ui header centered">Guests Attending</h3>
+          {{else}}
+          <h3 class="ui header centered">You can also meet</h3>
+          {{/if}}
+          <h5 class="ui centered header" style="margin-top: 0px">Group Size: {{maxParty}} &nbsp;&nbsp; Spots Left: {{spotsLeft}}</h5>
+          {{#each guestList}}
+          <div class="guest-container">
+            <img class="ui guest avatar image" src="{{c.url profile.thumbnail.cloudinaryPublicId crop='thumb' height=100 width=100 gravity='face'}}" />
+            <div class="guest-name-and-number">
+              {{profile.firstName}}{{numberOfExtraGuest}}
+              {{#if isPending}}
+              <div class="ui grey text centered">(Pending)</div>
+              {{/if}}
+            </div>
+          </div>
+          {{/each}}
+          {{#if noGuest}}
+          {{#if isHostOfMeal}}
+          <div class="no-guest">No one has joined yet</div>
+          {{else}}
+          <div class="no-guest">Be the first one to join</div>
+          {{/if}}
+          {{/if}}
+          <!--<div class="spots-left">{{spotsLeft}} Spots Left</div>-->
+        </div>
+      </div>
+    </div>
+    <div class="eight wide column meal-details">
+      <h1 class="ui centered title header">{{title}}</h1>
+      {{#if isHostOfMeal}}
+      <h2 id="meal-details-city" class="ui centered city header">@{{address.full}}<br> (Actual Address only visible to you and accepted guests)</h2>
+      {{else}}
+      {{#if confirmed}}
+      <h2 id="meal-details-city" class="ui centered city header">@{{address.full}}</h2>
+      {{else}}
+      <h2 id="meal-details-city" class="ui centered city header">@{{address.city}}</h2>
+      {{/if}}
+      {{/if}}
+      <h3 class="ui header">Event Summary</h3>
+      <p class="ui text indent">{{breaklines environment}}</p>
+      <img src="{{cover.org}}" width="100%" />
+      {{#if interaction}}
+      <h3 class="ui header">Interaction</h3>
+      <p class="ui text indent">{{breaklines interaction}}</p>
+      {{/if}}
+      {{#if note}}
+      <h3 class="ui header">Other things to note</h3>
+      <p class="ui text indent">{{breaklines note}}</p>
+      {{/if}}
+      <!--{{#if hasDishes}}-->
+      <!--<h3 class="ui header">Menu</h3>-->
+      <!--<div class="list indent">-->
+      <!--{{#each dishes}}-->
+      <!--{{> dishItem}}-->
+      <!--{{/each}}-->
+      <!--</div>-->
+      <!--{{/if}}-->
+      <h3 class="ui header">Location</h3>
+      <div class="map-container">
+        {{#with name=_id options=exampleMapOptions}}
+        {{> googleMap}}
+        {{/with}}
+      </div>
+      <h3 class="ui header">Reviews and Ratings</h3>
+      <div class="ui two column stackable grid">
+        <div class="column text">
+          <label>Overall</label>
+          <div class="rating-stars">
+            {{#with rating=hostOverallRating}}
+            {{> stars}}
+            {{/with}}
+          </div>
+        </div>
+        <!--<div class="column text">-->
+        <!--<label>Cleanliness</label>-->
+        <!--<div class="rating-stars">-->
+        <!--{{> stars rating=hostCleanlinessRating}}-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="column text">-->
+        <!--<label>Food</label>-->
+        <!--<div class="rating-stars">-->
+        <!--{{> stars rating=hostFoodRating}}-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="column text">
+          <label>Communication</label>
+          <div class="rating-stars">
+            {{#with rating=hostCommunicationRating}}
+            {{> stars}}
+            {{/with}}
+          </div>
+        </div>
+      </div>
+      <div>
+        {{#each reviews}}
+        {{> reviewCard}}
+        {{/each}}
+      </div>
+      <h3 class="ui header">Q&amp;A</h3>
+      <div class="ui feed qa">
+        {{#if noQuestion}}
+        <p>There is no question.</p>
+        {{/if}}
+        {{#each comments}}
+        {{> commentSection}}
+        {{/each}}
+      </div>
+      {{#unless isHostOfMeal}}
+      <div class="ui form">
+        <div class="field">
+          <textarea id="comment-fields" style="height: 120px;"></textarea>
+        </div>
+        {{#if currentUser}}
+        <div id="comment-button" class="ui green right button">Post</div>
+        {{else}}
+        <div class="ui disabled right button">Login to comment</div>
+        {{/if}}
+      </div>
+      {{/unless}}
+      {{#unless isHostOfMeal}}
+      <h3 class="ui header">{{hostName}}</h3>
+      <div class="ui stackable grid">
+        <div class="four wide column">
+          <a href="/users/{{hostId}}/reviews/guest">
+            <img src="{{c.url hostCloudinaryPublicId crop='fill' height=300 width=300 gravity='face'}}" width="100%" />
+          </a>
+        </div>
+        <div class="twelve wide column">
+          <div class="ui stackable two column grid">
+            <div class="column">
+              <i class="user icon"></i>
+              Member since {{hostResgisterYear}}
+            </div>
+            <div class="column">
+              <i class="clock icon"></i>
+              Response Time: {{hostResponseTime}}
+            </div>
+            <div class="column">
+              <i class="comments outline icon"></i>
+              Speaks: {{#if hostLanguage}}{{hostLanguage}}{{else}}Not Specified{{/if}}
+            </div>
+            {{#if hostSchool}}
+            <div class="column">
+              <i class="university icon"></i>
+              Education: {{hostSchool}}
+            </div>
+            {{/if}}
+          </div>
+          <h4 class="ui header">About Me</h4>
+          <div class="text indent">{{breaklines hostDescription}}</div>
+        </div>
+      </div>
+      {{/unless}}
+    </div>
 
-!function () {
-    Template.__checkName("mealShow"), Template.mealShow = new Template("Template.mealShow", function () { var n = this; return [HTML.IMG({ id: "meal-cover-image", src: function () { return Spacebars.mustache(Spacebars.dot(n.lookup("c"), "url"), Spacebars.dot(n.lookup("cover"), "cloudinaryPublicId"), Spacebars.kw({ width: 1920, height: 580, crop: "fill" })) }, width: "100%" }), "\n  ", HTML.DIV({ "class": "ui centered stackable grid", style: "width: 98%" }, "\n    ", HTML.DIV({ "class": "five wide column" }, "\n      ", HTML.DIV({ id: "meal-info-segment-flag", "class": "ui sticky" }, "\n        ", HTML.DIV({ "class": "ui fitted raised segment stackable grid" }, "\n          ", HTML.DIV({ "class": "six wide fitted column" }, HTML.A({ href: function () { return ["/users/", Spacebars.mustache(n.lookup("hostId")), "/reviews/guest"] } }, HTML.IMG({ src: function () { return Spacebars.mustache(Spacebars.dot(n.lookup("c"), "url"), n.lookup("hostCloudinaryPublicId"), Spacebars.kw({ crop: "fill", height: 300, width: 300, gravity: "face" })) }, width: "100%", style: "   border-radius: 10rem;\n  height: 100px;\n  margin: 10px;\n  width: 100px;\n  margin-left: 25px;" })), "\n          "), "\n          ", HTML.DIV({ "class": "ten wide column host-info" }, "\n            ", Blaze.If(function () { return Spacebars.call(n.lookup("isHostOfMeal")) }, function () { return ["\n              ", HTML.DIV({ "class": "text host-name" }, HTML.A({ href: "/users/me/dashboard" }, Blaze.View("lookup:hostName", function () { return Spacebars.mustache(n.lookup("hostName")) }))), "\n            "] }, function () { return ["\n              ", HTML.DIV({ "class": "text host-name" }, HTML.A({ href: function () { return ["/users/", Spacebars.mustache(n.lookup("hostId")), "/reviews/guest"] } }, Blaze.View("lookup:hostName", function () { return Spacebars.mustache(n.lookup("hostName")) }))), "\n            "] }), "\n            ", HTML.DIV({ "class": "text host-reviews" }, "\n              ", Blaze._TemplateWith(function () { return { rating: Spacebars.call(n.lookup("hostOverallRating")) } }, function () { return Spacebars.include(n.lookupTemplate("stars")) }), "\n              (", Blaze.View("lookup:hostReviewsCount", function () { return Spacebars.mustache(n.lookup("hostReviewsCount")) }), ")\n            "), "\n          "), "\n        "), "\n        ", HTML.DIV({ id: "details-info", "class": "ui raised segment time-spots-info centered middle aligned two column grid" }, "\n          ", Blaze.If(function () { return Spacebars.call(n.lookup("isSeparateDate")) }, function () { return ["\n            ", HTML.DIV({ "class": "column" }, "\n              ", HTML.DIV({ "class": "column" }, "\n                ", HTML.DIV({ "class": "text" }, "\n                  ", HTML.I({ "class": "large calendar icon" }), HTML.BR(), HTML.BR(), "\n                  Start from:", HTML.BR(), Blaze.View("lookup:mealStartDate", function () { return Spacebars.mustache(n.lookup("mealStartDate")) }), HTML.BR(), "@ ", Blaze.View("lookup:mealStartTime", function () { return Spacebars.mustache(n.lookup("mealStartTime")) }), "\n                "), "\n              "), "\n            "), "\n            ", HTML.DIV({ "class": "ui vertical divider" }), "\n            ", HTML.DIV({ "class": "column" }, "\n              ", HTML.DIV({ "class": "column" }, "\n                ", HTML.DIV({ "class": "text" }, "\n                  ", HTML.I({ "class": "large calendar icon" }), HTML.BR(), HTML.BR(), "\n                  End at:", HTML.BR(), Blaze.View("lookup:mealEndDate", function () { return Spacebars.mustache(n.lookup("mealEndDate")) }), HTML.BR(), "@ ", Blaze.View("lookup:mealEndTime", function () { return Spacebars.mustache(n.lookup("mealEndTime")) }), "\n                "), "\n              "), "\n            "), "\n          "] }, function () { return ["\n            ", HTML.DIV({ "class": "column" }, "\n              ", HTML.DIV({ "class": "text" }, "\n                ", HTML.I({ "class": "large calendar icon" }), HTML.BR(), HTML.BR(), "\n                ", Blaze.View("lookup:mealStartDate", function () { return Spacebars.mustache(n.lookup("mealStartDate")) }), "\n              "), "\n            "), "\n            ", HTML.DIV({ "class": "ui vertical divider", style: "display: none;" }), "\n            ", HTML.DIV({ "class": "column" }, "\n              ", Blaze.If(function () { return Spacebars.call(n.lookup("mealEndTime")) }, function () { return ["\n                ", HTML.DIV({ "class": "text" }, "\n                  ", HTML.I({ "class": "large clock icon" }), HTML.BR(), HTML.BR(), "\n                  ", Blaze.View("lookup:mealStartTime", function () { return Spacebars.mustache(n.lookup("mealStartTime")) }), "-", Blaze.View("lookup:mealEndTime", function () { return Spacebars.mustache(n.lookup("mealEndTime")) }), "\n                "), "\n              "] }, function () { return ["\n                ", HTML.DIV({ "class": "text" }, "\n                  ", HTML.I({ "class": "large clock icon" }), HTML.BR(), HTML.BR(), "\n                  Start from: ", Blaze.View("lookup:mealStartTime", function () { return Spacebars.mustache(n.lookup("mealStartTime")) }), "\n                "), "\n              "] }), "\n            "), "\n          "] }), "\n        "), "\n        ", HTML.DIV({ "class": "ui raised segment center aligned grid" }, "\n          ", Blaze.If(function () { return Spacebars.call(n.lookup("cancelled")) }, function () { return ["\n            ", HTML.DIV({ "class": "fourteen wide column" }, "\n              ", HTML.A({ "class": "ui icon red button" }, HTML.I({ "class": "remove icon" }), "Event Cancelled"), "\n            "), "\n          "] }, function () { return ["\n            ", Blaze.If(function () { return Spacebars.call(n.lookup("currentUser")) }, function () { return ["\n                ", Blaze.If(function () { return Spacebars.call(n.lookup("passed")) }, function () { return ["\n                  ", Blaze.If(function () { return Spacebars.call(n.lookup("reserved")) }, function () { return ["\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("confirmed")) }, function () { return ["\n                      ", Blaze.Unless(function () { return Spacebars.call(n.lookup("reviewDeadlinePassed")) }, function () { return ["\n                        ", Blaze.Unless(function () { return Spacebars.call(n.lookup("reviewed")) }, function () { return ["\n                          ", HTML.DIV({ "class": "fourteen wide column" }, "\n                            ", HTML.A({ "class": "ui green button", href: function () { return ["/events/", Spacebars.mustache(n.lookup("_id")), "/review_for_host"] } }, HTML.I({ "class": "write icon" }), "Review\n                              This Event"), "\n                          "), "\n                        "] }), "\n                       "] }), "\n                    "] }, function () { return ["\n                      ", HTML.DIV({ "class": "fourteen wide column" }, "\n                        ", HTML.A({ "class": "ui button" }, "This Event's deadline has passed"), "\n                      "), "\n                    "] }), "\n                  "] }, function () { return ["\n                    ", HTML.DIV({ "class": "fourteen wide column" }, "\n                      ", HTML.A({ "class": "ui button" }, "This Event's deadline has passed"), "\n                    "), "\n                  "] }), "\n                "] }, function () { return ["\n                  ", Blaze.If(function () { return Spacebars.call(n.lookup("reserved")) }, function () { return ["\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("pending")) }, function () { return ["\n                      ", HTML.DIV({ "class": "fourteen wide column" }, "\n                        ", HTML.A({ "class": "ui button" }, "Reservation Pending..."), "\n                        ", HTML.Comment('<a class="ui icon red button"><i class="remove icon"></i>Cancel</a>'), "\n                      "), "\n                    "] }), "\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("confirmed")) }, function () { return ["\n                      ", HTML.DIV({ "class": "fourteen wide column" }, "\n                        ", HTML.A({ "class": "ui icon green button", href: function () { return ["../orders/", Spacebars.mustache(n.lookup("orderId"))] } }, "View booking details"), "\n                        ", HTML.A({ "class": "ui icon red button cancel-reservation" }, HTML.I({ "class": "remove icon" }), "Cancel"), "\n                      "), "\n                      ", Blaze.If(function () { return Spacebars.call(n.lookup("cancellable")) }, function () { return ["\n                        ", HTML.DIV({ "class": "ui small modal" }, "\n                          ", HTML.I({ "class": "close icon" }), "\n                          ", HTML.DIV({ "class": "header" }, "\n                            Cancel Reservation\n                          "), "\n                          ", HTML.DIV({ "class": "content" }, "\n                            ", HTML.P("Are you sure you want to cancel your reservation for ", Blaze.View("lookup:title", function () { return Spacebars.mustache(n.lookup("title")) }), "?"), "\n                            You will not able to book this event anymore.\n                          "), "\n                          ", HTML.DIV({ "class": "actions" }, "\n                            ", HTML.DIV({ "class": "ui negative icon button cancel-reservation-confirm", id: function () { return ["cancel-confirm-", Spacebars.mustache(n.lookup("_id"))] } }, "\n                              ", HTML.I({ "class": "remove icon" }), "\n                              Cancel Reservation\n                            "), "\n                          "), "\n                        "), "\n                      "] }), "\n                    "] }), "\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("declined")) }, function () { return ["\n                      ", HTML.DIV({ "class": "fourteen wide column" }, "\n                        ", HTML.A({ "class": "ui icon red button" }, HTML.I({ "class": "warning icon" }), "Reservation declined"), "\n                      "), "\n                    "] }), "\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("cancelled")) }, function () { return ["\n                      ", HTML.DIV({ "class": "fourteen wide column" }, "\n                        ", HTML.A({ "class": "ui icon red button" }, HTML.I({ "class": "warning icon" }), "Reservation cancelled"), "\n                      "), "\n                    "] }), "\n                  "] }, function () { return ["\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("isHostOfMeal")) }, function () { return ["\n                      ", HTML.Comment('<div class="fourteen wide column">'), "\n                      ", HTML.Comment('<a class="ui icon red button"><i class="remove icon"></i>Cancel Event</a>'), "\n                      ", HTML.Comment("</div>"), "\n                      ", HTML.DIV({ "class": "time-left" }, "\n                        ", HTML.DIV({ "class": "time-left-text", style: "line-height: 100%;" }, "\n                          ", HTML.BR(), "Booking closes in\n                        "), "\n                        ", HTML.DIV({ style: "line-height: 225%;" }, "\n                          ", Blaze.View("lookup:timeLeft", function () { return Spacebars.mustache(n.lookup("timeLeft")) }), "\n                        "), "\n                      "), "\n                      ", HTML.DIV("\n                        ", HTML.A({ "class": "ui tag label" }, "\n                          ", Blaze.If(function () { return Spacebars.call(n.lookup("isFree")) }, function () { return ["\n                            ", HTML.DIV("FREE"), "\n                          "] }, function () { return ["\n                            ", HTML.DIV("$", Blaze.View("lookup:pricePerGuestWithoutService", function () { return Spacebars.mustache(n.lookup("pricePerGuestWithoutService")) }), "/person"), "\n                          "] }), "\n                        "), "\n                        ", HTML.DIV({ "class": "text suggested-donation", style: "line-height: 120%;" }, HTML.CharRef({ html: "&nbsp;", str: " " })), "\n                      "), "\n                    "] }, function () { return ["\n                      ", Blaze.If(function () { return Spacebars.call(n.lookup("isFull")) }, function () { return ["\n                        ", HTML.DIV({ "class": "text suggested-donation", style: "line-height: 120%;" }, HTML.CharRef({ html: "&nbsp;", str: " " })), "\n                        ", HTML.A({ "class": "ui disable small right button" }, "Fully Booked"), "\n                        ", HTML.DIV({ "class": "text suggested-donation", style: "line-height: 120%;" }, HTML.CharRef({ html: "&nbsp;", str: " " })), "\n                      "] }, function () { return ["\n                        ", HTML.DIV({ "class": "time-left" }, "\n                          ", HTML.DIV({ "class": "time-left-text", style: "line-height: 100%;" }, "\n                            ", HTML.BR(), "Booking closes in\n                          "), "\n                          ", HTML.DIV({ style: "line-height: 225%;" }, "\n                            ", Blaze.View("lookup:timeLeft", function () { return Spacebars.mustache(n.lookup("timeLeft")) }), "\n                          "), "\n                        "), "\n                        ", HTML.DIV("\n                          ", HTML.A({ "class": "ui green animated fade button", id: "book-now-btn" }, "\n                            ", Blaze.If(function () { return Spacebars.call(n.lookup("isFree")) }, function () { return ["\n                              ", HTML.DIV({ "class": "visible content" }, " ", HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), "JOIN ", HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " })), "\n                            "] }, function () { return ["\n                              ", HTML.DIV({ "class": "visible content" }, "Chip in $", Blaze.View("lookup:pricePerGuestWithService", function () { return Spacebars.mustache(n.lookup("pricePerGuestWithService")) })), "\n                            "] }), "\n                            ", HTML.DIV({ "class": "hidden content" }, "\n                              Request to Join\n                            ")), "\n                          ", Blaze.If(function () { return Spacebars.call(n.lookup("isFree")) }, function () { return ["\n                            ", HTML.DIV({ "class": "text suggested-donation", style: "line-height: 120%;" }, HTML.CharRef({ html: "&nbsp;", str: " " })), "\n                          "] }, function () { return ["\n                            ", HTML.DIV({ "class": "text suggested-donation", style: "line-height: 300%;" }, " ", HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), "Suggested Chip In ", HTML.I({ "class": "info circle icon has-popup", "data-content": "Host suggested this amount to cover the cost of the event", "data-variation": "basic", "data-position": "top left" }), "\n                            "), "\n                          "] }), "\n                        "), "\n                      "] }), "\n                    "] }), "\n                  "] }), "\n                "] }), "\n            "] }, function () { return ["\n              ", Blaze.If(function () { return Spacebars.call(n.lookup("passed")) }, function () { return ["\n                ", HTML.DIV({ "class": "fourteen wide column" }, "\n                  ", HTML.A({ "class": "ui button" }, "This Event's deadline has passed"), "\n                "), "\n              "] }, function () { return ["\n                ", HTML.DIV({ "class": "fourteen wide column" }, "\n                  ", HTML.A({ "class": "ui green animated fade button login-link-btn" }, "\n                    ", Blaze.If(function () { return Spacebars.call(n.lookup("isFree")) }, function () { return ["\n                      ", HTML.DIV({ "class": "visible content" }, " ", HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), "JOIN ", HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " })), "\n                    "] }, function () { return ["\n                      ", HTML.DIV({ "class": "visible content" }, "Chip in $", Blaze.View("lookup:pricePerGuestWithService", function () { return Spacebars.mustache(n.lookup("pricePerGuestWithService")) })), "\n                    "] }), "\n                    ", HTML.DIV({ "class": "hidden content" }, "\n                      Request to Join\n                    ")), "\n                "), "\n              "] }), "\n            "] }), "\n          "] }), "\n        "), "\n        ", HTML.DIV({ "class": "ui raised segment guests-attending-box" }, "\n          ", Blaze.If(function () { return Spacebars.call(n.lookup("noGuest")) }, function () { return ["\n            ", HTML.H3({ "class": "ui header centered" }, "Guests Attending"), "\n          "] }, function () { return ["\n            ", HTML.H3({ "class": "ui header centered" }, "You can also meet"), "\n          "] }), "\n          ", HTML.H5({ "class": " ui centered header", style: "margin-top: 0px" }, "Group Size: ", Blaze.View("lookup:maxParty", function () { return Spacebars.mustache(n.lookup("maxParty")) }), " ", HTML.Raw("&nbsp;"), HTML.Raw("&nbsp;"), " Spots Left: ", Blaze.View("lookup:spotsLeft", function () { return Spacebars.mustache(n.lookup("spotsLeft")) })), "\n          ", Blaze.Each(function () { return Spacebars.call(n.lookup("guestList")) }, function () { return ["\n            ", HTML.DIV({ "class": "guest-container" }, "\n              ", HTML.IMG({ "class": "ui guest avatar image", src: function () { return Spacebars.mustache(Spacebars.dot(n.lookup("c"), "url"), Spacebars.dot(n.lookup("profile"), "thumbnail", "cloudinaryPublicId"), Spacebars.kw({ crop: "thumb", height: 100, width: 100, gravity: "face" })) } }), "\n              ", HTML.DIV({ "class": "guest-name-and-number" }, Blaze.View("lookup:profile.firstName", function () { return Spacebars.mustache(Spacebars.dot(n.lookup("profile"), "firstName")) }), Blaze.View("lookup:numberOfExtraGuest", function () { return Spacebars.mustache(n.lookup("numberOfExtraGuest")) })), "\n              ", Blaze.If(function () { return Spacebars.call(n.lookup("isPending")) }, function () { return HTML.DIV({ "class": "ui grey text centered" }, "(Pending)") }), "\n            "), "\n          "] }), "\n          ", Blaze.If(function () { return Spacebars.call(n.lookup("noGuest")) }, function () { return ["\n            ", Blaze.If(function () { return Spacebars.call(n.lookup("isHostOfMeal")) }, function () { return ["\n              ", HTML.DIV({ "class": "no-guest" }, "No one has joined yet"), "\n            "] }, function () { return ["\n              ", HTML.DIV({ "class": "no-guest" }, "Be the first one to join"), "\n            "] }), "\n          "] }), "\n          ", HTML.Raw('<!--<div class="spots-left">{{spotsLeft}} Spots Left</div>-->'), "\n        "), "\n      "), "\n    "), "\n    ", HTML.DIV({ "class": "eight wide column meal-details" }, "\n      ", HTML.H1({ "class": "ui centered title header" }, Blaze.View("lookup:title", function () { return Spacebars.mustache(n.lookup("title")) })), "\n      ", Blaze.If(function () { return Spacebars.call(n.lookup("isHostOfMeal")) }, function () { return ["\n        ", HTML.H2({ id: "meal-details-city", "class": "ui centered city header" }, "@", Blaze.View("lookup:address.full", function () { return Spacebars.mustache(Spacebars.dot(n.lookup("address"), "full")) }), HTML.BR(), " (Actual Address only visible to you and accepted guests)"), "\n      "] }, function () { return ["\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("confirmed")) }, function () { return ["\n          ", HTML.H2({ id: "meal-details-city", "class": "ui centered city header" }, "@", Blaze.View("lookup:address.full", function () { return Spacebars.mustache(Spacebars.dot(n.lookup("address"), "full")) })), "\n        "] }, function () { return ["\n          ", HTML.H2({ id: "meal-details-city", "class": "ui centered city header" }, "@", Blaze.View("lookup:address.city", function () { return Spacebars.mustache(Spacebars.dot(n.lookup("address"), "city")) })), "\n        "] }), "\n      "] }), "\n      ", HTML.Raw('<h3 class="ui header">Event Summary</h3>'), "\n\n      ", HTML.P({ "class": "ui text indent" }, Spacebars.include(n.lookupTemplate("autolink"), function () { return Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(n.lookup("breaklines"), n.lookup("summary")) }) })), "\n\n      ", HTML.Raw('<h3 class="ui header">Cover Picture</h3>'), "\n\n      ", HTML.P({ "class": "ui text indent" }, Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(n.lookup("breaklines"), n.lookup("environment")) })), "\n      ", HTML.IMG({ src: function () { return Spacebars.mustache(Spacebars.dot(n.lookup("cover"), "org")) }, width: "100%" }), "\n      ", Blaze.If(function () { return Spacebars.call(n.lookup("interaction")) }, function () { return ["\n        ", HTML.H3({ "class": "ui header" }, "Interaction"), "\n\n        ", HTML.P({ "class": "ui text indent" }, Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(n.lookup("breaklines"), n.lookup("interaction")) })), "\n      "] }), "\n      ", Blaze.If(function () { return Spacebars.call(n.lookup("note")) }, function () { return ["\n        ", HTML.H3({ "class": "ui header" }, "Other things to note"), "\n\n        ", HTML.P({ "class": "ui text indent" }, Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(n.lookup("breaklines"), n.lookup("note")) })), "\n      "] }), "\n      ", HTML.Raw("<!--{{#if hasDishes}}-->"), "\n        ", HTML.Raw('<!--<h3 class="ui header">Menu</h3>-->'), "\n\n        ", HTML.Raw('<!--<div class="list indent">-->'), "\n          ", HTML.Raw("<!--{{#each dishes}}-->"), "\n            ", HTML.Raw("<!--{{> dishItem}}-->"), "\n          ", HTML.Raw("<!--{{/each}}-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n      ", HTML.Raw("<!--{{/if}}-->"), "\n      ", HTML.Raw('<h3 class="ui header">Location</h3>'), "\n\n      ", HTML.DIV({ "class": "map-container" }, "\n        ", Blaze._TemplateWith(function () { return { name: Spacebars.call(n.lookup("_id")), options: Spacebars.call(n.lookup("exampleMapOptions")) } }, function () { return Spacebars.include(n.lookupTemplate("googleMap")) }), "\n      "), "\n      ", HTML.Raw('<h3 class="ui header">Reviews and Ratings</h3>'), "\n\n      ", HTML.DIV({ "class": "ui two column stackable grid" }, "\n        ", HTML.DIV({ "class": "column text" }, "\n          ", HTML.Raw("<label>Overall</label>"), "\n\n          ", HTML.DIV({ "class": "rating-stars" }, "\n            ", Blaze._TemplateWith(function () { return { rating: Spacebars.call(n.lookup("hostOverallRating")) } }, function () { return Spacebars.include(n.lookupTemplate("stars")) }), "\n          "), "\n        "), "\n        ", HTML.Raw('<!--<div class="column text">-->'), "\n          ", HTML.Raw("<!--<label>Cleanliness</label>-->"), "\n\n          ", HTML.Raw('<!--<div class="rating-stars">-->'), "\n            ", HTML.Raw("<!--{{> stars rating=hostCleanlinessRating}}-->"), "\n          ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw('<!--<div class="column text">-->'), "\n          ", HTML.Raw("<!--<label>Food</label>-->"), "\n\n          ", HTML.Raw('<!--<div class="rating-stars">-->'), "\n            ", HTML.Raw("<!--{{> stars rating=hostFoodRating}}-->"), "\n          ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.DIV({ "class": "column text" }, "\n          ", HTML.Raw("<label>Communication</label>"), "\n\n          ", HTML.DIV({ "class": "rating-stars" }, "\n            ", Blaze._TemplateWith(function () { return { rating: Spacebars.call(n.lookup("hostCommunicationRating")) } }, function () { return Spacebars.include(n.lookupTemplate("stars")) }), "\n          "), "\n        "), "\n      "), "\n      ", HTML.DIV("\n        ", Blaze.Each(function () { return Spacebars.call(n.lookup("reviews")) }, function () { return ["\n          ", Spacebars.include(n.lookupTemplate("reviewCard")), "\n        "] }), "\n      "), "\n      ", HTML.Raw('<h3 class="ui header">Q&amp;A</h3>'), "\n      ", HTML.DIV({ "class": "ui feed qa" }, "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("noQuestion")) }, function () { return ["\n          ", HTML.P("There is no question."), "\n        "] }), "\n        ", Blaze.Each(function () { return Spacebars.call(n.lookup("comments")) }, function () { return ["\n          ", Spacebars.include(n.lookupTemplate("commentSection")), "\n        "] }), "\n      "), "\n      ", Blaze.Unless(function () { return Spacebars.call(n.lookup("isHostOfMeal")) }, function () { return ["\n        ", HTML.DIV({ "class": "ui form" }, "\n          ", HTML.DIV({ "class": "field" }, "\n            ", HTML.TEXTAREA({ id: "comment-fields", style: "height: 120px;" }), "\n          "), "\n          ", Blaze.If(function () { return Spacebars.call(n.lookup("currentUser")) }, function () { return ["\n            ", HTML.DIV({ id: "comment-button", "class": "ui green right button" }, "Post"), "\n          "] }, function () { return ["\n            ", HTML.DIV({ "class": "ui disabled right button" }, "Login to comment"), "\n          "] }), "\n        "), "\n\n      "] }), "\n      ", Blaze.Unless(function () { return Spacebars.call(n.lookup("isHostOfMeal")) }, function () { return ["\n        ", HTML.H3({ "class": "ui header" }, Blaze.View("lookup:hostName", function () { return Spacebars.mustache(n.lookup("hostName")) })), "\n\n        ", HTML.DIV({ "class": "ui stackable grid" }, "\n          ", HTML.DIV({ "class": "four wide column" }, "\n            ", HTML.A({ href: function () { return ["/users/", Spacebars.mustache(n.lookup("hostId")), "/reviews/guest"] } }, HTML.IMG({ src: function () { return Spacebars.mustache(Spacebars.dot(n.lookup("c"), "url"), n.lookup("hostCloudinaryPublicId"), Spacebars.kw({ crop: "fill", height: 300, width: 300, gravity: "face" })) }, width: "100%" })), "\n          "), "\n          ", HTML.DIV({ "class": "twelve wide column" }, "\n            ", HTML.DIV({ "class": "ui stackable two column grid" }, "\n              ", HTML.DIV({ "class": "column" }, "\n                ", HTML.I({ "class": "user icon" }), "\n                Member since ", Blaze.View("lookup:hostResgisterYear", function () { return Spacebars.mustache(n.lookup("hostResgisterYear")) }), "\n              "), "\n              ", HTML.DIV({ "class": "column" }, "\n                ", HTML.I({ "class": "clock icon" }), "\n                Response Time: ", Blaze.View("lookup:hostResponseTime", function () { return Spacebars.mustache(n.lookup("hostResponseTime")) }), "\n              "), "\n              ", HTML.DIV({ "class": "column" }, "\n                ", HTML.I({ "class": "comments outline icon" }), "\n                Speaks: ", Blaze.If(function () { return Spacebars.call(n.lookup("hostLanguage")) }, function () { return Blaze.View("lookup:hostLanguage", function () { return Spacebars.mustache(n.lookup("hostLanguage")) }) }, function () { return "Not Specified" }), "\n              "), "\n              ", Blaze.If(function () { return Spacebars.call(n.lookup("hostSchool")) }, function () { return ["\n                ", HTML.DIV({ "class": "column" }, "\n                  ", HTML.I({ "class": "university icon" }), "\n                  Education: ", Blaze.View("lookup:hostSchool", function () { return Spacebars.mustache(n.lookup("hostSchool")) }), "\n                "), "\n              "] }), "\n            "), "\n            ", HTML.H4({ "class": "ui header" }, "About Me"), "\n\n            ", HTML.DIV({ "class": "text indent" }, "\n              ", Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(n.lookup("breaklines"), n.lookup("hostDescription")) }), "\n            "), "\n          "), "\n        "), "\n      "] }), "\n    "), "\n  "), HTML.Raw("\n  <!--{{> mealGallery images=allImages total=totalImagesCount}}-->")] })
-}();
-
+  </div>
+  <!--{{> mealGallery images=allImages total=totalImagesCount}}-->
+</template>

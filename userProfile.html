@@ -1,6 +1,95 @@
-﻿// userProfile
+﻿<template name="userProfile">
+  <div class="ui stackable page grid">
+    <div class="four wide column">
+      <div class="column">
+        <div class="ui fluid card">
+          <div class="image">
+            <img src="{{c.url thumbnail crop='fill' height=300 width=300}}" />
+          </div>
+          <div class="content">
+            <p class="header">
+              {{name}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <h3 class="ui header">Verifications</h3>
+      <div class="ui dashboard verification segment">
+        {{#if emailVerified}}
+        <i class="green checkmark icon"></i>Email<br>
+        {{/if}}
+        {{#if phoneVerified}}
+        <i class="green checkmark icon"></i>Phone Number<br>
+        {{/if}}
+        {{#if facebookLinked}}
+        <i class="green checkmark icon"></i>Facebook<br>
+        {{/if}}
+        {{#if facebookNumberOfFriends}}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{facebookNumberOfFriends}} Friends<br>
+        {{/if}}
+        {{#if googleLinked}}
+        <i class="green checkmark icon"></i>Google<br>
+        {{/if}}
+        {{#if idVerified}}
+        <i class="green checkmark icon"></i>ID <br>
+        {{/if}}
+        {{#if eduVerified}}
+        <i class="green checkmark icon"></i>Edu <br>
+        {{/if}}
+      </div>
+      <h3 class="ui header">About Me</h3>
+      <div class="ui segment">
+        <h5 class="ui header">School</h5>
+        {{#if hasSchool}}
+        {{school}}
+        {{else}}
+        No Information
+        {{/if}}<br>
+        <h5 class="ui header">Work</h5>
+        {{#if hasWork}}
+        {{work}}
+        {{else}}
+        No Information
+        {{/if}}<br>
+        <h5 class="ui header">Language</h5>
+        {{#if hasLanguage}}
+        {{language}}
+        {{else}}
+        No Information
+        {{/if}}<br>
 
-!function () {
-    Template.__checkName("userProfile"), Template.userProfile = new Template("Template.userProfile", function () { var n = this; return HTML.DIV({ "class": "ui stackable page grid" }, "\n    ", HTML.DIV({ "class": "four wide column" }, "\n      ", HTML.DIV({ "class": "column" }, "\n        ", HTML.DIV({ "class": "ui fluid card" }, "\n          ", HTML.DIV({ "class": "image" }, "\n            ", HTML.IMG({ src: function () { return Spacebars.mustache(Spacebars.dot(n.lookup("c"), "url"), n.lookup("thumbnail"), Spacebars.kw({ crop: "fill", height: 300, width: 300 })) } }), "\n          "), "\n          ", HTML.DIV({ "class": "content" }, "\n            ", HTML.P({ "class": "header" }, Blaze.View("lookup:name", function () { return Spacebars.mustache(n.lookup("name")) })), "\n          "), "\n        "), "\n      "), "\n      ", HTML.Raw('<h3 class="ui header">Verifications</h3>'), "\n\n      ", HTML.DIV({ "class": "ui dashboard verification segment" }, "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("emailVerified")) }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), "Email", HTML.BR(), "\n        "] }), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("phoneVerified")) }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), "Phone Number", HTML.BR(), "\n        "] }), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("facebookLinked")) }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), "Facebook", HTML.BR(), "\n        "] }), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("facebookNumberOfFriends")) }, function () { return ["\n          ", HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), HTML.CharRef({ html: "&nbsp;", str: " " }), Blaze.View("lookup:facebookNumberOfFriends", function () { return Spacebars.mustache(n.lookup("facebookNumberOfFriends")) }), " Friends", HTML.BR(), "\n        "] }), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("googleLinked")) }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), "Google", HTML.BR(), "\n        "] }), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("idVerified")) }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), "ID ", HTML.BR(), "\n        "] }), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("eduVerified")) }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), "Edu ", HTML.BR(), "\n        "] }), "\n      "), "\n      ", HTML.Raw('<h3 class="ui header">About Me</h3>'), "\n\n      ", HTML.DIV({ "class": "ui segment" }, "\n        ", HTML.Raw('<h5 class="ui header">School</h5>'), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("hasSchool")) }, function () { return Blaze.View("lookup:school", function () { return Spacebars.mustache(n.lookup("school")) }) }, function () { return "No Information " }), HTML.Raw("<br>"), "\n        ", HTML.Raw('<h5 class="ui header">Work</h5>'), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("hasWork")) }, function () { return Blaze.View("lookup:work", function () { return Spacebars.mustache(n.lookup("work")) }) }, function () { return "No Information " }), HTML.Raw("<br>"), "\n        ", HTML.Raw('<h5 class="ui header">Language</h5>'), "\n        ", Blaze.If(function () { return Spacebars.call(n.lookup("hasLanguage")) }, function () { return Blaze.View("lookup:language", function () { return Spacebars.mustache(n.lookup("language")) }) }, function () { return "No Information" }), HTML.Raw("<br>"), "\n      "), "\n    "), "\n    ", HTML.DIV({ "class": "twelve wide column" }, "\n      ", HTML.DIV({ "class": "row" }, "\n        ", HTML.H1({ "class": "ui header" }, "\n          Hi, I'm ", Blaze.View("lookup:name", function () { return Spacebars.mustache(n.lookup("name")) }), "\n        "), "\n        Member Since ", Blaze.View("lookup:joinDate", function () { return Spacebars.mustache(n.lookup("joinDate")) }), " ", Blaze.If(function () { return Spacebars.call(n.lookup("hasCity")) }, function () { return ["from ", Blaze.View("lookup:city", function () { return Spacebars.mustache(n.lookup("city")) })] }), "\n      "), "\n      ", HTML.Raw('<div class="ui hidden divider"></div>'), "\n      ", HTML.DIV({ "class": "row" }, "\n        ", HTML.Raw('<h4 class="ui block top attached header">Description</h4>'), "\n        ", HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n          ", Blaze.If(function () { return Spacebars.call(n.lookup("hasDescription")) }, function () { return Blaze.View("lookup:breaklines", function () { return Spacebars.mustache(n.lookup("breaklines"), n.lookup("description")) }) }, function () { return "No\n            Information" }), "\n        "), "\n      "), "\n      ", HTML.Raw('<div class="ui hidden divider"></div>'), "\n      ", HTML.DIV({ "class": "ui top attached tabular menu" }, "\n        ", HTML.Raw('<a class="active item reviews-about-you-link">\n          Reviews from guests\n        </a>'), "\n        ", HTML.A({ "class": "item reviews-by-you-link", href: function () { return ["/users/", Spacebars.mustache(n.lookup("id")), "/reviews/host"] } }, "\n          Reviews from hosts\n        "), "\n      "), "\n      ", HTML.DIV({ "class": "ui bottom attached segment" }, "\n        ", Spacebars.include(n.lookupTemplate("pages")), "\n        ", Spacebars.include(n.lookupTemplate("pagesNav")), "\n      "), "\n    "), "\n  ") })
-}();
-
+      </div>
+    </div>
+    <div class="twelve wide column">
+      <div class="row">
+        <h1 class="ui header">
+          Hi, I'm {{name}}
+        </h1>
+        Member Since {{joinDate}} {{#if hasCity}}from {{city}}{{/if}}
+      </div>
+      <div class="ui hidden divider"></div>
+      <div class="row">
+        <h4 class="ui block top attached header">Description</h4>
+        <div class="ui bottom attached secondary segment">
+          {{#if hasDescription}}
+          {{breaklines description}}
+          {{else}}
+          No
+          Information
+          {{/if}}
+        </div>
+      </div>
+      <div class="ui hidden divider"></div>
+      <div class="ui top attached tabular menu">
+        <a class="active item reviews-about-you-link">
+          Reviews from guests
+        </a>
+        <a class="item reviews-by-you-link" href="/users/{{id}}/reviews/host">Reviews from hosts</a>
+      </div>
+      <div class="ui bottom attached segment">
+        {{> pages}}
+        {{> pagesNav}}
+      </div>
+    </div>
+  </div>
+</template>

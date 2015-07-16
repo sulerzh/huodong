@@ -1,6 +1,158 @@
-﻿// mealEdit
-
-!function () {
-    Template.__checkName("mealEdit"), Template.mealEdit = new Template("Template.mealEdit", function () { var e = this; return [Blaze.View("lookup:mapOptions", function () { return Spacebars.mustache(e.lookup("mapOptions")) }), "\n  ", HTML.DIV({ "class": "ui stackable column centered grid meal-edit-form" }, "\n    ", HTML.DIV({ "class": "ui grid" }, "\n      ", HTML.DIV({ "class": "ten wide centered column" }, "\n        ", HTML.DIV({ "class": function () { return ["ui ", Blaze.Unless(function () { return Spacebars.call(e.lookup("hasError")) }, function () { return "hidden" }), " error message"] } }, "\n          ", HTML.Raw('<div class="header">\n            You cannot create this event with the provided information\n          </div>'), "\n          ", HTML.UL({ "class": "list" }, "\n            ", Blaze.Each(function () { return Spacebars.call(e.lookup("errors")) }, function () { return ["\n              ", HTML.LI(Blaze.View("lookup:reason", function () { return Spacebars.mustache(e.lookup("reason")) })), "\n            "] }), "\n          "), "\n        "), "\n      "), "\n    "), "\n\n    ", HTML.DIV({ "class": "eight wide column" }, "\n      ", HTML.DIV({ "class": "ui segment form" }, "\n        ", HTML.DIV({ "class": "required field" }, "\n          ", HTML.Raw("<label>Event Title</label>"), "\n\n          ", HTML.DIV({ "class": "ui icon input" }, "\n            ", HTML.INPUT({ type: "text", name: "title", placeholder: "Example: Game Night, Singles Night", value: function () { return Spacebars.mustache(e.lookup("title")) } }), "\n          "), "\n        "), "\n\n        ", HTML.DIV({ "class": "required field" }, "\n          ", HTML.Raw("<label>Description of the event</label>"), "\n          ", HTML.TEXTAREA({ id: "meal-edit-summary", placeholder: "Tell us something about your event.", value: function () { return Spacebars.mustache(e.lookup("summary")) } }), "\n        "), "\n\n        ", HTML.DIV({ "class": "two required fields form-margin-top" }, "\n          ", HTML.DIV({ "class": "field" }, "\n            ", HTML.Raw("<label>Cost per person</label>"), "\n            ", HTML.DIV({ "class": "ui labeled input" }, "\n              ", HTML.Raw('<div class="ui label">\n                $\n              </div>'), "\n              ", HTML.INPUT({ type: "number", name: "price", value: function () { return Spacebars.mustache(e.lookup("pricePerGuest")) }, disabled: "" }), "\n            "), "\n          "), "\n          ", HTML.DIV({ "class": "field" }, "\n            ", HTML.Raw("<label>Max Number of Guest(s)</label>"), "\n            ", HTML.INPUT({ type: "number", name: "maxParty", value: function () { return Spacebars.mustache(e.lookup("maxParty")) } }), "\n          "), "\n        "), "\n\n        ", HTML.DIV({ "class": "required field" }, "\n          ", HTML.DIV({ "class": "ui toggle checkbox" }, "\n            ", HTML.INPUT({ type: "checkbox", name: "public", checked: function () { return Spacebars.mustache(e.lookup("autoAccept")) }, id: "event-edit-auto-accept-toggle" }), "\n            ", HTML.Raw("<label><b>Auto Accept Guests</b></label>"), "\n          "), "\n        "), "\n\n        ", HTML.DIV({ "class": "two fields" }, "\n          ", HTML.DIV({ "class": "required field" }, "\n            ", HTML.Raw("<label>Starts at</label>"), "\n            ", HTML.INPUT({ id: "meal-edit-start-time", type: "text", value: function () { return Spacebars.mustache(e.lookup("mealStartAt")) } }), "\n          "), "\n          ", HTML.DIV({ "class": "field" }, "\n            ", HTML.Raw("<label>Ends at (Optional)</label>"), "\n            ", HTML.DIV({ "class": "field" }, "\n              ", HTML.INPUT({ id: "meal-edit-end-time", type: "text", placeholder: "Add a Time?", value: function () { return Blaze.If(function () { return Spacebars.call(Spacebars.dot(e.lookup("time"), "endAt")) }, function () { return Blaze.View("lookup:mealEndAt", function () { return Spacebars.mustache(e.lookup("mealEndAt")) }) }) } }), "\n            "), "\n          "), "\n        "), "\n\n        ", HTML.DIV({ "class": "two required fields form-margin-top" }, "\n          ", HTML.DIV({ "class": "field" }, "\n            ", HTML.Raw('<label>Reservation Deadline <i class="help circle icon has-popup" data-content="When do you want to stop accepting requests?" data-position="top left"></i></label>'), "\n\n            ", HTML.DIV({ "class": "ui compact selection dropdown" }, "\n              ", HTML.INPUT({ type: "hidden", name: "deadline", value: function () { return Spacebars.mustache(e.lookup("deadlineDiff")) } }), "\n\n              ", HTML.Raw('<div class="default text">3</div>'), "\n              ", HTML.Raw('<i class="dropdown icon"></i>'), "\n\n              ", HTML.Raw('<div class="menu">\n                <div class="item" data-value="1">1 hours before start</div>\n                <div class="item" data-value="2">2 hours before start</div>\n                <div class="item" data-value="5">5 hours before start</div>\n                <div class="item" data-value="12">12 hours before start</div>\n                <div class="item" data-value="24">1 day before start</div>\n                <div class="item" data-value="36">2 days before start</div>\n                <div class="item" data-value="72">3 days before start</div>\n              </div>'), "\n            "), "\n          "), "\n          ", HTML.DIV({ "class": "field" }, "\n            ", HTML.Raw("<label>Type of Environment</label>"), "\n\n            ", HTML.DIV({ "class": "ui selection dropdown" }, "\n              ", HTML.INPUT({ type: "hidden", name: "placeType", value: function () { return Spacebars.mustache(e.lookup("placeType")) } }), "\n              ", HTML.DIV({ "class": "text" }, Blaze.View("lookup:placeTypeName", function () { return Spacebars.mustache(e.lookup("placeTypeName")) })), "\n              ", HTML.Raw('<i class="dropdown icon"></i>'), "\n\n              ", HTML.Raw('<div class="menu">\n                <div class="item" data-value="0">Private Residency</div>\n                <div class="item" data-value="1">Cafe</div>\n                <div class="item" data-value="2">Restaurant</div>\n                <div class="item" data-value="4">Studio</div>\n                <div class="item" data-value="5">Outdoor</div>\n                <div class="item" data-value="3">Other</div>\n              </div>'), "\n            "), "\n          "), "\n        "), "\n\n\n        ", HTML.DIV({ "class": "required field", style: "margin-top: 1em;" }, "\n          ", HTML.Raw("<label>Upload a cover photo for the event</label>"), "\n          ", HTML.IMG({ width: "100%", src: function () { return Spacebars.mustache(e.lookup("coverPhoto")) }, id: "preview-current-cover-picture" }), "\n\n          ", HTML.Raw('<div class="field">\n            <div id="update-cover-btn" class="ui icon green button"><i class="upload icon"></i>Change Photo\n            </div>\n            <input type="file" id="current-cover-file">\n            <input type="hidden" id="current-cover-url">\n          </div>'), "\n        "), "\n\n        ", HTML.Raw('<div class="ui hidden divider"></div>'), "\n\n        ", HTML.DIV({ "class": "required field" }, "\n          ", HTML.Raw("<label>Address (Only available in California)</label>"), "\n          ", HTML.INPUT({ id: "address-update", type: "text", name: "address", value: function () { return Spacebars.mustache(e.lookup("address")) } }), "\n        "), "\n\n        ", HTML.DIV({ "class": "ui accordion" }, "\n          ", HTML.Raw('<div class="title" style="text-align: center">\n            <i class="angle double down icon"></i>\n            Click here to write more details\n            <i class="angle double down icon"></i>\n          </div>'), "\n          ", HTML.DIV({ "class": "content" }, "\n            ", HTML.DIV({ "class": "field" }, "\n              ", HTML.Raw("<label>Question(s) for guest</label>"), "\n              ", HTML.TEXTAREA({ id: "meal-edit-question-for-guest", placeholder: "Ask guest question(s) when they request to join", value: function () { return Spacebars.mustache(e.lookup("questionForGuest")) } }), "\n            "), "\n            ", HTML.DIV({ "class": "field" }, "\n              ", HTML.Raw("<label>Conversation topics that are interesting to you</label>"), "\n              ", HTML.TEXTAREA({ id: "meal-edit-interaction", placeholder: "Tell your guest any conversation topics that will interest you.", value: function () { return Spacebars.mustache(e.lookup("interaction")) } }), "\n            "), "\n            ", HTML.DIV({ "class": "field" }, "\n              ", HTML.Raw("<label>Other things to note</label>"), "\n              ", HTML.TEXTAREA({ id: "meal-edit-note", placeholder: "How to access to your location.", value: function () { return Spacebars.mustache(e.lookup("note")) } }), "\n            "), "\n          "), "\n        "), "\n      "), "\n\n      ", HTML.Raw('<div class="ui segment form">\n        <div class="field">\n          <div class="ui checkbox">\n            <input type="checkbox" name="notify-guest-checkbox">\n            <label>Notify Guests about the change(s).</label>\n          </div>\n        </div>\n      </div>'), "\n\n      ", HTML.Raw('<div class="three column centered row" align="center">\n        <a class="ui small red cancel button">\n          <i class="remove icon"></i>\n          Cancel\n        </a>\n        <a class="ui small green button" id="meal-edit-button">\n          <i class="checkmark icon"></i>\n          Done\n        </a>\n      </div>'), "\n    "), "\n  ")] })
-}();
-
+﻿<template name="mealEdit">
+  {{mapOptions}}
+  <div class="ui stackable column centered grid meal-edit-form">
+    <div class="ui grid">
+      <div class="ten wide centered column">
+        <div class="ui {{#unless hasError}}hidden{{/unless}} error message">
+          <div class="header">
+            You cannot create this event with the provided information
+          </div>
+          <ul class="list">
+            {{#each errors}}
+            <li>{{reason}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="eight wide column">
+      <div class="ui segment form">
+        <div class="required field">
+          <label>Event Title</label>
+          <div class="ui icon input">
+            <input type="text" name="title" placeholder="Example: Game Night, Singles Night" value="{{title}}" />
+          </div>
+        </div>
+        <div class="required field">
+          <label>Description of the event</label>
+          <textarea id="meal-edit-summary" placeholder="Tell us something about your event." value="{{summary}}"></textarea>
+        </div>
+        <div class="two required fields form-margin-top">
+          <div class="field">
+            <label>Cost per person</label>
+            <div class="ui labeled input">
+              <div class="ui label">
+                $
+              </div>
+              <input type="number" name="price" value="{{pricePerGuest}}" disabled="" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Max Number of Guest(s)</label>
+            <input type="number" name="maxParty" value="{{maxParty}}" />
+          </div>
+        </div>
+        <div class="required field">
+          <div class="ui toggle checkbox">
+            <input type="checkbox" name="public" checked="{{autoAccept}}" id="event-edit-auto-accept-toggle" />
+            <label><b>Auto Accept Guests</b></label>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="required field">
+            <label>Starts at</label>
+            <input id="meal-edit-start-time" type="text" value="{{mealStartAt}}" />
+          </div>
+          <div class="field">
+            <label>Ends at (Optional)</label>
+            <div class="field">
+              <input id="meal-edit-end-time" type="text" placeholder="Add a Time?" value="{{#if time.endAt}}{{mealEndAt}}{{/if}}" />
+            </div>
+          </div>
+        </div>
+        <div class="two required fields form-margin-top">
+          <div class="field">
+            <label>Reservation Deadline <i class="help circle icon has-popup" data-content="When do you want to stop accepting requests?" data-position="top left"></i></label>
+            <div class="ui compact selection dropdown">
+              <input type="hidden" name="deadline" value="{{deadlineDiff}}" />
+              <div class="default text">3</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item" data-value="1">1 hours before start</div>
+                <div class="item" data-value="2">2 hours before start</div>
+                <div class="item" data-value="5">5 hours before start</div>
+                <div class="item" data-value="12">12 hours before start</div>
+                <div class="item" data-value="24">1 day before start</div>
+                <div class="item" data-value="36">2 days before start</div>
+                <div class="item" data-value="72">3 days before start</div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Type of Environment</label>
+            <div class="ui selection dropdown">
+              <input type="hidden" name="placeType" value="{{placeType}}" />
+              <div class="text">
+                {{placeTypeName}}
+              </div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item" data-value="0">Private Residency</div>
+                <div class="item" data-value="1">Cafe</div>
+                <div class="item" data-value="2">Restaurant</div>
+                <div class="item" data-value="4">Studio</div>
+                <div class="item" data-value="5">Outdoor</div>
+                <div class="item" data-value="3">Other</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="required field" style="margin-top: 1em;">
+          <label>Upload a cover photo for the event</label>
+          <img width="100%" src="{{coverPhoto}}" id="preview-current-cover-picture" />
+          <div class="field">
+            <div id="update-cover-btn" class="ui icon green button">
+              <i class="upload icon"></i>Change Photo
+            </div>
+            <input type="file" id="current-cover-file">
+            <input type="hidden" id="current-cover-url">
+          </div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="required field">
+          <label>Address (Only available in California)</label>
+          <input id="address-update" type="text" name="address" value="{{address}}" />
+        </div>
+        <div class="ui accordion">
+          <div class="title" style="text-align: center">
+            <i class="angle double down icon"></i>
+            Click here to write more details
+            <i class="angle double down icon"></i>
+          </div>
+          <div class="content">
+            <div class="field">
+              <label>Question(s) for guest</label>
+              <textarea id="meal-edit-question-for-guest" placeholder="Ask guest question(s) when they request to join" value="{{questionForGuest}}"></textarea>
+            </div>
+            <div class="field">
+              <label>Conversation topics that are interesting to you</label>
+              <textarea id="meal-edit-interaction" placeholder="Tell your guest any conversation topics that will interest you." value="{{interaction}}"></textarea>
+            </div>
+            <div class="field">
+              <label>Other things to note</label>
+              <textarea id="meal-edit-note" placeholder="How to access to your location." value="{{note}}"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui segment form">
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" name="notify-guest-checkbox">
+            <label>Notify Guests about the change(s).</label>
+          </div>
+        </div>
+      </div>
+      <div class="three column centered row" align="center">
+        <a class="ui small red cancel button">
+          <i class="remove icon"></i>
+          Cancel
+        </a>
+        <a class="ui small green button" id="meal-edit-button">
+          <i class="checkmark icon"></i>
+          Done
+        </a>
+      </div>
+    </div>
+  </div>
+</template>

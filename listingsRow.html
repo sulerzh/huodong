@@ -1,5 +1,45 @@
-﻿// listingsRow
-
-!function () {
-    Template.__checkName("listingsRow"), Template.listingsRow = new Template("Template.listingsRow", function () { var e = this; return HTML.TR("\n    ", HTML.TD(Blaze.View("lookup:date", function () { return Spacebars.mustache(e.lookup("date")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("_id"))] } }, Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) })), HTML.Raw("<br>"), Blaze.View("lookup:time", function () { return Spacebars.mustache(e.lookup("time")) })), "\n    ", HTML.TD(Blaze.View("lookup:numberOfGuests", function () { return Spacebars.mustache(e.lookup("numberOfGuests")) })), "\n    ", HTML.TD(Blaze.View("lookup:spotsLeft", function () { return Spacebars.mustache(e.lookup("spotsLeft")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("_id")), "/guests"] } }, "Guests List")), "\n    ", HTML.TD(Blaze.If(function () { return Spacebars.call(e.lookup("active")) }, function () { return [HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("_id")), "/edit"] } }, HTML.DIV({ "class": "ui icon button edit-event-button" }, HTML.I({ "class": "edit icon" }), " Edit")), HTML.DIV({ "class": "ui red icon button cancel-event-button" }, HTML.I({ "class": "remove icon" }), "Cancel")] }, function () { return HTML.DIV({ "class": "ui red text" }, "Cancelled") })), "\n    ", Blaze.If(function () { return Spacebars.call(e.lookup("active")) }, function () { return ["\n      ", HTML.DIV({ "class": "ui small modal", id: function () { return ["cancel-event-", Spacebars.mustache(e.lookup("_id"))] } }, "\n        ", HTML.I({ "class": "close icon" }), "\n        ", HTML.DIV({ "class": "header" }, "\n          Cancel Event\n        "), "\n        ", HTML.DIV({ "class": "content" }, "\n          ", HTML.P("Are you sure you want to cancel your event ", Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) }), "?"), "\n          ", HTML.DIV({ "class": "ui form" }, "\n            ", HTML.DIV({ "class": "ui required field" }, "\n              ", HTML.LABEL("Please state your reason:"), "\n              ", HTML.TEXTAREA({ "class": "cancel-reason" }), "\n            "), "\n          "), "\n        "), "\n        ", HTML.DIV({ "class": "actions" }, "\n          ", HTML.DIV({ "class": "ui negative icon button cancel-event-confirm", id: function () { return ["cancel-event-confirm-", Spacebars.mustache(e.lookup("_id"))] } }, "\n            Confirm Cancellation\n          "), "\n        "), "\n      "), "\n    "] }), "\n  ") })
-}();
+﻿<template name="listingsRow">
+  <tr>
+    <td>{{date}}</td>
+    <td><a href="/events/{{_id}}">{{title}}<br>{{time}}</a></td>
+    <td>{{numberOfGuests}}</td>
+    <td>{{spotsLeft}}</td>
+    <td><a href="/events/{{_id}}/guests">Guests List</a></td>
+    <td>
+      {{#if active}}
+      <a href="/events/{{_id}}/edit">
+        <div class="ui icon button edit-event-button">
+          <i class="edit icon"></i> Edit
+        </div>
+        <div class="ui red icon button cancel-event-button">
+          <i class="remove icon"></i>Cancel
+        </div>
+      </a>
+      {{else}}
+      <div class="ui red text">Cancelled</div>
+      {{/if}}
+    </td>
+    {{#if active}}
+    <div class="ui small modal" id="cancel-event-{{_id}}">
+      <i class="close icon"></i>
+      <div class="header">
+        Cancel Event
+      </div>
+      <div class="content">
+        <p>Are you sure you want to cancel your event {{title}}?</p>
+        <div class="ui form">
+          <div class="ui required field">
+            <label>Please state your reason:</label>
+            <textarea class="cancel-reason"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui negative icon button cancel-event-confirm" id="cancel-event-confirm-{{_id}}">
+          Confirm Cancellation
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </tr>
+</template>

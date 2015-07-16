@@ -1,5 +1,31 @@
-﻿// DashboardProfileLayout
-
-!function () {
-    Template.__checkName("DashboardProfileLayout"), Template.DashboardProfileLayout = new Template("Template.DashboardProfileLayout", function () { var e = this; return [Spacebars.include(e.lookupTemplate("sidebarMenu")), "\n  ", HTML.DIV({ "class": "pusher" }, "\n    ", HTML.Raw('<div class="ui dimmer">\n      <div class="ui loader"></div>\n    </div>'), "\n    ", Spacebars.include(e.lookupTemplate("navbar")), "\n    ", Spacebars.include(e.lookupTemplate("dashboardMenu")), "\n    ", HTML.DIV({ "class": "all-content" }, "\n      ", HTML.DIV({ "class": "ui stackable page grid" }, "\n        ", HTML.DIV({ "class": "four wide column" }, "\n          ", HTML.DIV({ "class": "ui vertical pointing menu dashboard-listings-menu" }, "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/profile/edit_profile") }, function () { return "active" }), " red item dashboard-profile-link"] }, href: "/users/me/profile/edit_profile" }, "\n              Edit Profile\n            "), "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/profile/trust_and_verification") }, function () { return "active" }), " red item dashboard-profile-link"] }, href: "/users/me/profile/trust_and_verification" }, "\n              Trust and Verification\n            "), "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/profile/reviews") }, function () { return "active" }), " red item dashboard-profile-link"] }, href: "/users/me/profile/reviews/reviews_about_me" }, "\n              Review\n            "), "\n          "), "\n        "), "\n        ", HTML.DIV({ "class": "twelve wide column" }, "\n          ", Spacebars.include(e.lookupTemplate("yield")), "\n        "), "\n      "), "\n    "), "\n    ", Spacebars.include(e.lookupTemplate("footer")), "\n  ")] })
-}();
+﻿<template name="DashboardProfileLayout">
+  {{> sidebarMenu}}
+  <div class="pusher">
+    <div class="ui dimmer">
+      <div class="ui loader"></div>
+    </div>
+    {{> navbar}}
+    {{> dashboardMenu}}
+    <div class="all-content">
+      <div class="ui stackable page grid">
+        <div class="four wide column">
+          <div class="ui vertical pointing menu dashboard-listings-menu">
+            <a class="{{#if urlIs==/users/me/profile/edit_profile}}active{{/if}} red item dashboard-profile-link" href="/users/me/profile/edit_profile">
+              Edit Profile
+            </a>
+            <a class="{{#if urlIs==/users/me/profile/trust_and_verification}}active{{/if}} red item dashboard-profile-link" href="/users/me/profile/trust_and_verification">
+              Trust and Verification
+            </a>
+            <a class="{{#if urlPrefixIs==/users/me/profile/reviews}}active{{/if}} red item dashboard-profile-link" href="/users/me/profile/reviews/reviews_about_me">
+              Review
+            </a>
+          </div>
+        </div>
+        <div class="twelve wide column">
+          {{> yield}}
+        </div>
+      </div>
+    </div>
+    {{> footer}}
+  </div>
+</template>

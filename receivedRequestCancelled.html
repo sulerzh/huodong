@@ -1,5 +1,29 @@
-﻿// receivedRequestCancelled
-
-!function () {
-    Template.__checkName("receivedRequestCancelled"), Template.receivedRequestCancelled = new Template("Template.receivedRequestCancelled", function () { var e = this; return [HTML.Raw('<div class="ui top attached tabular menu">\n    <a class="item pending-request-link" href="/users/me/requests/pending">\n      Pending\n    </a>\n    <a class="item approved-request-link" href="/users/me/requests/approved">\n      Approved\n    </a>\n    <a class="active item">\n      Declined/Cancelled\n    </a>\n  </div>\n\n  '), HTML.DIV({ "class": "ui bottom attached segment" }, "\n    ", HTML.TABLE({ "class": "ui unstackable table" }, "\n      ", HTML.THEAD("\n      ", HTML.TR("\n        ", HTML.TH({ "class": "customized th" }, "Status"), "\n        ", HTML.TH({ "class": "customized th" }, "Guest Name"), "\n        ", HTML.TH({ "class": "customized th" }, "Date"), "\n        ", HTML.TH({ "class": "customized th" }, "Event"), "\n      "), "\n      "), "\n      ", HTML.TBODY("\n      ", Spacebars.include(e.lookupTemplate("pages")), "\n      "), "\n    "), "\n    ", Spacebars.include(e.lookupTemplate("pagesNav")), "\n  ")] })
-}();
+﻿<template name="receivedRequestCancelled">
+  <div class="ui top attached tabular menu">
+    <a class="item pending-request-link" href="/users/me/requests/pending">
+      Pending
+    </a>
+    <a class="item approved-request-link" href="/users/me/requests/approved">
+      Approved
+    </a>
+    <a class="active item">
+      Declined/Cancelled
+    </a>
+  </div>
+  <div class="ui bottom attached segment">
+    <table class="ui unstackable table">
+      <thead>
+        <tr>
+          <th class="customized th">Status</th>
+          <th class="customized th">Guest Name</th>
+          <th class="customized th">Date</th>
+          <th class="customized th">Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{> pages}}
+      </tbody>
+    </table>
+    {{> pagesNav}}
+  </div>
+</template>

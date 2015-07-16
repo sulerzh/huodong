@@ -1,6 +1,13 @@
-﻿// AppLayout
-
-!function () {
-    Template.__checkName("AppLayout"), Template.AppLayout = new Template("Template.AppLayout", function () { var e = this; return [Spacebars.include(e.lookupTemplate("sidebarMenu")), "\n  ", HTML.DIV({ "class": "pusher" }, "\n    ", HTML.Raw('<div class="ui dimmer">\n      <div class="ui loader"></div>\n    </div>'), "\n    ", Spacebars.include(e.lookupTemplate("navbar")), "\n    ", HTML.DIV({ "class": "all-content" }, "\n      ", Spacebars.include(e.lookupTemplate("yield")), "\n    "), "\n    ", Spacebars.include(e.lookupTemplate("footer")), "\n  ")] })
-}();
+﻿<template name="AppLayout">
+  {{> sidebarMenu}}
+  <div class="pusher">
+    <div class="ui dimmer">
+      <div class="ui loader"></div>
+    </div>
+  </div>
+  {{> navbar}}
+  <div class="all-content"></div>
+  {{> yield}}
+  {{> footer}}
+</template>
 

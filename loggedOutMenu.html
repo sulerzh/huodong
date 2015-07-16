@@ -1,6 +1,12 @@
-﻿// loggedOutMenu
-
-!function () {
-    Template.__checkName("loggedOutMenu"), Template.loggedOutMenu = new Template("Template.loggedOutMenu", function () { var n = this; return [HTML.Raw('<div id="login-sign-up-btn" class="item login-sign-up-btn">\n    <div class="ui buttons">\n      <div class="ui positive button login-link-btn">Login</div>\n      <div class="or"></div>\n      <div class="ui blue button sign-up-link-btn">Sign up</div>\n    </div>\n  </div>\n  '), Spacebars.include(n.lookupTemplate("login")), "\n  ", Spacebars.include(n.lookupTemplate("signUp")), "\n  ", Spacebars.include(n.lookupTemplate("forgotPassword"))] })
-}();
-
+﻿<template name="loggedOutMenu">
+  <div id="login-sign-up-btn" class="item login-sign-up-btn">
+    <div class="ui buttons">
+      <div class="ui positive button login-link-btn">Login</div>
+      <div class="or"></div>
+      <div class="ui blue button sign-up-link-btn">Sign up</div>
+    </div>
+  </div>
+  {{> login}}
+  {{> signUp}}
+  {{> forgotPassword}}
+</template>

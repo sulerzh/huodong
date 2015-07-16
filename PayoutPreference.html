@@ -1,6 +1,197 @@
-﻿// PayoutPreference
+﻿<template name="PayoutPreference">
+  <form class="ui form">
+    <h4 class="ui block top attached header">Payment Preference</h4>
+    <div class="ui bottom attached secondary segment">
+      {{#if hasPaymentMethod}}
+      <div>
+        <p>Plenry helps you collect money from guests.</p>
+        <p>Currently, Plenry only supports payment of hosts through the mailing of checks. (more methods will be available soon)</p>
+      </div>
+      <table class="ui table" id="payout_method_descriptions">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Method</th>
+            <th>Name on Account</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input name="payout-method" type="radio" checked="checked" />
+            </td>
+            <td class="type">
+              <label>Mailed Check</label>
+            </td>
+            <td>{{name}}</td>
+            <td>Address: {{address}}</td>
+          </tr>
+        </tbody>
+      </table>
+      {{/if}}
+      <!--<div class="ui segment">-->
+      <!--<div class="two fields">-->
+      <!--<div class="field">-->
+      <!--<label>Name on Account</label>-->
+      <!--<input type="text" name="name-on-account" placeholder="Name on Account">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="ui hidden divider"></div>-->
+      <!--<div class="two fields">-->
+      <!--<div class="field">-->
+      <!--<label>Account Type</label>-->
+      <!--<div class="ui selection dropdown">-->
+      <!--<input type="hidden" name="account-type" id="account-type">-->
+      <!--<div class="default text">Account Type</div>-->
+      <!--<i class="dropdown icon"></i>-->
+      <!--<div class="menu">-->
+      <!--<div class="item" data-value="1">Checking</div>-->
+      <!--<div class="item" data-value="2">Saving</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="ui hidden divider"></div>-->
+      <!--<div class="two fields">-->
+      <!--<div class="field">-->
+      <!--<label>Routing Number</label>-->
+      <!--<input type="text" name="routing-number" placeholder="Routing Number">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="ui hidden divider"></div>-->
+      <!--<div class="two fields">-->
+      <!--<div class="field">-->
+      <!--<label>Account Number</label>-->
+      <!--<input type="text" name="account-number" placeholder="Account Number">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="ui hidden divider"></div>-->
+      {{#unless hasPayoutMethod}}
+      <div class="ui green button" id="add-payout-method-button">Add Payout Method</div>
+      {{else}}
+      <div class="ui green button" id="add-payout-method-button">Change Payout Method</div>
+      {{/unless}}
+      <!--</div>-->
+      <!--<div class="ui hidden divider"></div>-->
+      <!--<form class="ui form">-->
+      <!--<h4 class="ui block top attached header">Payout Schedule</h4>-->
+      <!--<div class="ui bottom attached secondary segment">-->
+      <!--<div class="ui segment">-->
+      <!--<table class="ui unstackable table">-->
+      <!--<thead>-->
+      <!--<tr>-->
+      <!--<th>Date</th>-->
+      <!--<th>Pay To</th>-->
+      <!--<th class="right aligned">Total</th>-->
+      <!--<th class="right aligned">Status</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--</tbody>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</form>-->
+      <div class="ui payout modal" id="payout-method-window">
+        <i class="close icon"></i>
+        <div class="header">
+          Add Payout Method
+        </div>
+        <div class="content" style="display:  {{#unless isSection==1}} none {{/unless}}">
+          <div class="ui form">
+            <div class="required field">
+              <label>Name on the Bank Account</label>
+              <input type="text" name="name">
 
-!function () {
-    Template.__checkName("PayoutPreference"), Template.PayoutPreference = new Template("Template.PayoutPreference", function () { var n = this; return [HTML.FORM({ "class": "ui form" }, "\n    ", HTML.Raw('<h4 class="ui block top attached header">Payment Preference</h4>'), "\n    ", HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ", Blaze.If(function () { return Spacebars.call(n.lookup("hasPaymentMethod")) }, function () { return ["\n        ", HTML.DIV("\n          ", HTML.P("Plenry helps you collect money from guests."), "\n          ", HTML.P("Currently, Plenry only supports payment of hosts through the mailing of checks. (more methods will be available soon)"), "\n        "), "\n        ", HTML.TABLE({ "class": "ui table", id: "payout_method_descriptions" }, "\n          ", HTML.THEAD(HTML.TR("\n            ", HTML.TH(), "\n            ", HTML.TH("Method"), "\n            ", HTML.TH("Name on Account"), "\n            ", HTML.TH("Details"), "\n          ")), "\n          ", HTML.TBODY("\n\n          ", HTML.TR("\n            ", HTML.TD("\n              ", HTML.INPUT({ name: "payout-method", type: "radio", checked: "checked" }), "\n            "), "\n            ", HTML.TD({ "class": "type" }, HTML.LABEL("Mailed Check")), "\n            ", HTML.TD(Blaze.View("lookup:name", function () { return Spacebars.mustache(n.lookup("name")) })), "\n            ", HTML.TD("Address: ", Blaze.View("lookup:address", function () { return Spacebars.mustache(n.lookup("address")) })), "\n          "), "\n\n          "), "\n        "), "\n      "] }), "\n      ", HTML.Raw('<!--<div class="ui segment">-->'), "\n        ", HTML.Raw('<!--<div class="two fields">-->'), "\n          ", HTML.Raw('<!--<div class="field">-->'), "\n            ", HTML.Raw("<!--<label>Name on Account</label>-->"), "\n            ", HTML.Raw('<!--<input type="text" name="name-on-account" placeholder="Name on Account">-->'), "\n          ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw('<!--<div class="ui hidden divider"></div>-->'), "\n        ", HTML.Raw('<!--<div class="two fields">-->'), "\n          ", HTML.Raw('<!--<div class="field">-->'), "\n\n            ", HTML.Raw("<!--<label>Account Type</label>-->"), "\n            ", HTML.Raw('<!--<div class="ui selection dropdown">-->'), "\n              ", HTML.Raw('<!--<input type="hidden" name="account-type" id="account-type">-->'), "\n              ", HTML.Raw('<!--<div class="default text">Account Type</div>-->'), "\n              ", HTML.Raw('<!--<i class="dropdown icon"></i>-->'), "\n              ", HTML.Raw('<!--<div class="menu">-->'), "\n                ", HTML.Raw('<!--<div class="item" data-value="1">Checking</div>-->'), "\n                ", HTML.Raw('<!--<div class="item" data-value="2">Saving</div>-->'), "\n              ", HTML.Raw("<!--</div>-->"), "\n            ", HTML.Raw("<!--</div>-->"), "\n          ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw('<!--<div class="ui hidden divider"></div>-->'), "\n        ", HTML.Raw('<!--<div class="two fields">-->'), "\n          ", HTML.Raw('<!--<div class="field">-->'), "\n            ", HTML.Raw("<!--<label>Routing Number</label>-->"), "\n            ", HTML.Raw('<!--<input type="text" name="routing-number" placeholder="Routing Number">-->'), "\n          ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw('<!--<div class="ui hidden divider"></div>-->'), "\n        ", HTML.Raw('<!--<div class="two fields">-->'), "\n          ", HTML.Raw('<!--<div class="field">-->'), "\n            ", HTML.Raw("<!--<label>Account Number</label>-->"), "\n            ", HTML.Raw('<!--<input type="text" name="account-number" placeholder="Account Number">-->'), "\n          ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw("<!--</div>-->"), "\n        ", HTML.Raw('<!--<div class="ui hidden divider"></div>-->'), "\n      ", Blaze.Unless(function () { return Spacebars.call(n.lookup("hasPayoutMethod")) }, function () { return ["\n        ", HTML.DIV({ "class": "ui green button", id: "add-payout-method-button" }, "Add Payout Method"), "\n      "] }, function () { return ["\n        ", HTML.DIV({ "class": "ui green button", id: "add-payout-method-button" }, "Change Payout Method"), "\n      "] }), "\n        ", HTML.Raw("<!--</div>-->"), "\n    "), "\n  "), HTML.Raw('\n  <!--<div class="ui hidden divider"></div>-->\n  <!--<form class="ui form">-->\n    <!--<h4 class="ui block top attached header">Payout Schedule</h4>-->\n    <!--<div class="ui bottom attached secondary segment">-->\n      <!--<div class="ui segment">-->\n        <!--<table class="ui unstackable table">-->\n          <!--<thead>-->\n          <!--<tr>-->\n            <!--<th>Date</th>-->\n            <!--<th>Pay To</th>-->\n            <!--<th class="right aligned">Total</th>-->\n            <!--<th class="right aligned">Status</th>-->\n          <!--</tr>-->\n          <!--</thead>-->\n          <!--<tbody>-->\n          <!--</tbody>-->\n        <!--</table>-->\n      <!--</div>-->\n    <!--</div>-->\n  <!--</form>-->\n\n  '), HTML.DIV({ "class": "ui payout modal", id: "payout-method-window" }, "\n    ", HTML.Raw('<i class="close icon"></i>'), "\n    ", HTML.Raw('<div class="header">\n      Add Payout Method\n    </div>'), "\n\n    ", HTML.DIV({ "class": "content", style: function () { return ["display:  ", Blaze.Unless(function () { return Spacebars.dataMustache(n.lookup("isSection"), 1) }, function () { return " none " })] } }, "\n      ", HTML.Raw('<div class="ui form">\n        <div class="required field">\n          <label>Name on the Bank Account</label>\n          <input type="text" name="name">\n        </div>\n        <h4 class="ui horizontal header divider">\n          <i class="mail icon"></i>\n          Mailing information\n        </h4>\n        <div class="required field">\n          <label>Recipient</label>\n          <input type="text" name="recipient">\n        </div>\n        <div class="required field">\n          <label>Address</label>\n          <input type="text" name="line1">\n        </div>\n        <div class="field">\n          <label>Address 2</label>\n          <input type="text" name="line2">\n        </div>\n        <div class="required field">\n          <label>City</label>\n          <input type="text" name="city">\n        </div>\n        <div class="required field">\n          <label>Zip Code</label>\n          <input type="text" name="zip-code">\n        </div>\n        <!--<div class="required field">-->\n          <!--<label>State</label>-->\n          <!--<div class="ui selection dropdown">-->\n            <!--<input type="hidden" name="state">-->\n            <!--<div class="default text"></div>-->\n            <!--<i class="dropdown icon"></i>-->\n            <!--<div class="menu">-->\n              <!--<div class="item" data-value="CA">CA</div>-->\n            <!--</div>-->\n          <!--</div>-->\n        <!--</div>-->\n        <div class="required field">\n          <label>State</label>\n          <input type="text" name="state" value="CA" disabled="">\n        </div>\n        <div class="required field">\n          <label>Country</label>\n          <input type="text" name="country" value="United States" disabled="">\n        </div>\n        <div class="ui hidden divider"></div>\n        <div class="alignright ui green button" id="to-payout-section-2">Next</div>\n      </div>'), "\n    "), "\n\n    ", HTML.DIV({ "class": "content", style: function () { return ["display:  ", Blaze.Unless(function () { return Spacebars.dataMustache(n.lookup("isSection"), 2) }, function () { return " none " })] } }, "\n      ", HTML.Raw("<div>\n        <p>Payouts for events are released to you the day after the event ends.</p>\n        <p>Currently, Plenry only supports payment of hosts through the mailing of checks. (more methods will be available soon)</p>\n      </div>"), "\n      ", HTML.TABLE({ "class": "ui table", id: "payout_method_descriptions" }, "\n        ", HTML.THEAD(HTML.TR("\n          ", HTML.TH(), "\n          ", HTML.TH("Payout method"), "\n          ", HTML.TH("Processing time"), "\n          ", HTML.TH("Fee"), "\n          ", HTML.TH("Details"), "\n        ")), "\n        ", HTML.TBODY("\n\n        ", HTML.TR("\n          ", HTML.TD("\n            ", HTML.INPUT({ name: "payout-method", type: "radio", checked: "checked" }), "\n          "), "\n          ", HTML.TD({ "class": "type" }, HTML.LABEL("Mailed Check")), "\n          ", HTML.TD("3-5 business days"), "\n          ", HTML.TD("None"), "\n          ", HTML.TD("A check will be mailed to your address."), "\n        "), "\n\n        "), "\n      "), "\n    "), "\n\n    ", HTML.DIV({ "class": "actions", style: function () { return ["display:  ", Blaze.Unless(function () { return Spacebars.dataMustache(n.lookup("isSection"), 2) }, function () { return " none " })] } }, "\n      ", HTML.Raw('<div class="ui positive button" id="add-payout-method-done">Done</div>'), "\n    "), "\n  ")] })
-}();
+            </div>
+            <h4 class="ui horizontal header divider">
+              <i class="mail icon"></i>
+              Mailing information
 
+            </h4>
+            <div class="required field">
+              <label>Recipient</label>
+              <input type="text" name="recipient">
+
+            </div>
+            <div class="required field">
+              <label>Address</label>
+              <input type="text" name="line1">
+            </div>
+            <div class="field">
+              <label>Address 2</label>
+              <input type="text" name="line2">
+
+            </div>
+            <div class="required field">
+              <label>City</label>
+              <input type="text" name="city">
+
+            </div>
+            <div class="required field">
+              <label>Zip Code</label>
+              <input type="text" name="zip-code">
+
+            </div>
+            <!--<div class="required field">-->
+            <!--<label>State</label>-->
+            <!--<div class="ui selection dropdown">-->
+            <!--<input type="hidden" name="state">-->
+            <!--<div class="default text"></div>-->
+            <!--<i class="dropdown icon"></i>-->
+            <!--<div class="menu">-->
+            <!--<div class="item" data-value="CA">CA</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="required field">
+              <label>State</label>
+              <input type="text" name="state" value="CA" disabled="">
+            </div>
+            <div class="required field">
+              <label>Country</label>
+              <input type="text" name="country" value="United States" disabled="">
+
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="alignright ui green button" id="to-payout-section-2">Next</div>
+          </div>
+        </div>
+        <div class="content" style="display:  {{#unless isSection==2}} none {{/unless}}">
+          <div>
+            <p>Payouts for events are released to you the day after the event ends.</p>
+            <p>Currently, Plenry only supports payment of hosts through the mailing of checks. (more methods will be available soon)</p>
+          </div>
+          <table class="ui table" id="payout_method_descriptions">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Payout method</th>
+                <th>Processing time</th>
+                <th>Fee</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input name="payout-method" type="radio" checked="checked" />
+                </td>
+                <td class="type">
+                  <label>Mailed Check</label>
+                </td>
+                <td>3-5 business days</td>
+                <td>None</td>
+                <td>A check will be mailed to your address.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="actions" style="display:  {{#unless isSection==2}} none {{/unless}}">
+          <div class="ui positive button" id="add-payout-method-done">Done</div>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>

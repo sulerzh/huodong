@@ -1,6 +1,112 @@
-﻿// landing
-
-!function () {
-    Template.__checkName("landing"), Template.landing = new Template("Template.landing", function () { var n = this; return HTML.Raw('<div id="home">\n\n    <div class="ui inverted masthead centered segment" style="margin-top: -1rem;">\n      <div class="ui page grid">\n        <div class="column">\n          <div class="ui hidden transition information">\n            <h1 class="ui inverted centered header">\n              Discover New Adventures and Friends\n            </h1>\n            <a class="ui huge basic inverted teal button sign-up-link-btn">\n              <div>Join us now!</div>\n            </a>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class="ui recent-works vertical segment">\n      <div class="ui very relaxed stackable centered page grid">\n        <div class="row">\n          <div class="eight wide centered column">\n            <h1 class="center aligned ui landing-header header">\n              What is Plenry?\n            </h1>\n          </div>\n        </div>\n        <div class="wide column" style="width: 100%">\n          <p style="font-size: 1.8em; margin-top: 30px; margin-bottom: 46px;">Plenry is a social platform for people to host, join, and explore fun activities. Whether a last minute gathering, or an adventure that lets you step out of your comfort zone, Plenry connects you to unique social experiences that create friendships and help build new communities.</p>\n        </div>\n      </div>\n    </div>\n\n    <div class="ui pictures centered segment" style="margin-top: -1rem; height: 640px; min-height: 400px">\n      <div class="ui page grid">\n      </div>\n    </div>\n\n    <div class="ui vertical segment">\n      <div class="ui very relaxed stackable centered page grid">\n        <div class="row">\n          <div class="ten wide centered column">\n            <h1 class="center aligned ui landing-header header">\n              Socialize in a New Level\n            </h1>\n          </div>\n        </div>\n        <div class="fourteen wide column">\n          <div class="ui three column aligned stackable grid">\n\n            <div class="column">\n\n                <div class="social image" style="margin-left: 5%;">\n                  <img src="https://res.cloudinary.com/plenry/image/upload/v1434750248/explore_tfqjts.png">\n                </div>\n                <div class="content">\n                  <div class="social header">Discover Fun Things to Do</div>\n                </div>\n            </div>\n\n            <div class="column">\n\n                <div class="social image" style="margin-left: 5%;">\n                  <img src="https://res.cloudinary.com/plenry/image/upload/v1434750248/join_host_lehk9n.png">\n                </div>\n                <div class="content">\n                  <div class="social header">Host and Join Instantly</div>\n                </div>\n\n            </div>\n\n            <div class="column">\n\n                <div class="social image" style="margin-left: 5%;">\n                  <img src="https://res.cloudinary.com/plenry/image/upload/v1434756422/ii_14e0dee2390f21c2_sl2qof.png">\n                </div>\n                <div class="content">\n                  <div class="social header">Meet New Friends Stay Connected</div>\n                </div>\n\n            </div>\n\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class="ui inverted second-last centered segment" style="height:640px;">\n      <div class="ui page grid">\n        <div class="column" style="top: 160px;">\n            <a href="http://blog.plenry.com"><h1 class="ui inverted centered landing-header header">\n              Learn What Others Think About Plenry\n            </h1></a>\n            <div class="ui inverted divider"></div>\n            <a href="http://blog.plenry.com"><p style="color: white !important;text-align: center; font-size: 1.8em;">read our users stories</p></a>\n        </div>\n      </div>\n    </div>\n\n    <div class="ui inverted last centered segment" style="height: 640px;">\n      <div class="ui page grid">\n        <div class="column" style="\n          top: 250px;\n          width:100%;\n\n          /* Firefox */\n          display:-moz-box;\n          -moz-box-pack:center;\n          -moz-box-align:center;\n\n          /* Safari and Chrome */\n          display:-webkit-box;\n          -webkit-box-pack:center;\n          -webkit-box-align:center;\n\n          /* W3C */\n          display:box;\n          box-pack:center;\n          box-align:center;\n        ">\n          <a class="ui massive basic inverted teal button sign-up-link-btn" style="padding: 25px; padding-left: 100px; padding-right: 100px;">\n              <div><b>Join Now</b></div>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>') })
-}();
-
+﻿<template name="landing">
+  <div id="home">
+    <div class="ui inverted masthead centered segment" style="margin-top: -1rem;">
+      <div class="ui page grid">
+        <div class="column">
+          <div class="ui hidden transition information">
+            <h1 class="ui inverted centered header">
+              Discover New Adventures and Friends
+            </h1>
+            <a class="ui huge basic inverted teal button sign-up-link-btn">
+              <div>Join us now!</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui recent-works vertical segment">
+      <div class="ui very relaxed stackable centered page grid">
+        <div class="row">
+          <div class="eight wide centered column">
+            <h1 class="center aligned ui landing-header header">
+              What is Plenry?
+            </h1>
+          </div>
+        </div>
+        <div class="wide column" style="width: 100%">
+          <p style="font-size: 1.8em; margin-top: 30px; margin-bottom: 46px;">Plenry is a social platform for people to host, join, and explore fun activities. Whether a last minute gathering, or an adventure that lets you step out of your comfort zone, Plenry connects you to unique social experiences that create friendships and help build new communities.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ui pictures centered segment" style="margin-top: -1rem; height: 640px; min-height: 400px">
+      <div class="ui page grid">
+      </div>
+    </div>
+    <div class="ui vertical segment">
+      <div class="ui very relaxed stackable centered page grid">
+        <div class="row">
+          <div class="ten wide centered column">
+            <h1 class="center aligned ui landing-header header">
+              Socialize in a New Level
+            </h1>
+          </div>
+        </div>
+        <div class="fourteen wide column">
+          <div class="ui three column aligned stackable grid">
+            <div class="column">
+              <div class="social image" style="margin-left: 5%;">
+                <img src="https://res.cloudinary.com/plenry/image/upload/v1434750248/explore_tfqjts.png">
+              </div>
+              <div class="content">
+                <div class="social header">Discover Fun Things to Do</div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="social image" style="margin-left: 5%;">
+                <img src="https://res.cloudinary.com/plenry/image/upload/v1434750248/join_host_lehk9n.png">
+              </div>
+              <div class="content">
+                <div class="social header">Host and Join Instantly</div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="social image" style="margin-left: 5%;">
+                <img src="https://res.cloudinary.com/plenry/image/upload/v1434756422/ii_14e0dee2390f21c2_sl2qof.png">
+              </div>
+              <div class="content">
+                <div class="social header">Meet New Friends Stay Connected</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui inverted second-last centered segment" style="height:640px;">
+      <div class="ui page grid">
+        <div class="column" style="top: 160px;">
+          <a href="http://blog.plenry.com">
+            <h1 class="ui inverted centered landing-header header">
+              Learn What Others Think About Plenry
+            </h1>
+          </a>
+          <div class="ui inverted divider"></div>
+          <a href="http://blog.plenry.com"><p style="color: white !important;text-align: center; font-size: 1.8em;">read our users stories</p></a>
+        </div>
+      </div>
+    </div>
+    <div class="ui inverted last centered segment" style="height: 640px;">
+      <div class="ui page grid">
+        <div class="column" style="
+                                  top: 250px;
+                                  width:100%;
+                                  /* Firefox */
+                                  display:-moz-box;
+                                  -moz-box-pack:center;
+                                  -moz-box-align:center;
+                                  /* Safari and Chrome */
+                                  display:-webkit-box;
+                                  -webkit-box-pack:center;
+                                  -webkit-box-align:center;
+                                  /* W3C */
+                                  display:box;
+                                  box-pack:center;
+                                  box-align:center;
+                                  ">
+          <a class="ui massive basic inverted teal button sign-up-link-btn" style="padding: 25px; padding-left: 100px; padding-right: 100px;">
+            <div><b>Join Now</b></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

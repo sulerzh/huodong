@@ -1,6 +1,41 @@
-﻿// contactUs
-
-!function () {
-    Template.__checkName("contactUs"), Template.contactUs = new Template("Template.contactUs", function () { var e = this; return HTML.DIV({ "class": "ui stackable two column grid left-right-margin-auto" }, HTML.Raw('\n    <div class="column" style="text-align: right">\n      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3169.422315743633!2d-121.9943851!3d37.4034918!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb62ac92cf841%3A0x1125ab2eaddd6cc2!2s1155+Tasman+Dr%2C+Sunnyvale%2C+CA+94089%2C+USA!5e0!3m2!1sen!2sca!4v1423875612761" width="600" height="450" frameborder="0" style="border:0"></iframe>\n    </div>\n    '), HTML.DIV({ "class": "six wide column" }, "\n      ", HTML.DIV({ "class": function () { return ["ui ", Blaze.Unless(function () { return Spacebars.call(e.lookup("success")) }, function () { return " hidden " }), " positive message"] } }, "\n        ", HTML.Raw('<div class="header">\n          <i class="checkmark icon"></i>Your message has been sent, we will get in touch with you soon.\n        </div>'), "\n      "), "\n      ", HTML.DIV({ "class": function () { return ["ui ", Blaze.Unless(function () { return Spacebars.call(e.lookup("error")) }, function () { return " hidden " }), " error message"] } }, "\n        ", HTML.Raw('<div class="header">\n          Please fill out all the fields\n        </div>'), "\n      "), "\n      ", HTML.Raw('<div class="hidden divider"></div>'), "\n      ", HTML.DIV({ "class": "ui form" }, "\n        ", HTML.Raw('<div class="ui dividing header">Contact Us</div>'), "\n        We're here to help! If you have any thoughts or questions, please send us a message below. Or, you can use our online chat on the bottom right, which is available on 10am-7pm weekdays. Also, you can email us directly at ", HTML.Raw('<a href="mailto:service@plenry.com">service@plenry.com</a>'), "\n        ", HTML.Raw('<div class="hidden divider"></div>'), "\n\n        ", HTML.Raw('<div class="required field">\n          <label>Your Name</label>\n          <input type="text" id="contact-us-name">\n        </div>'), "\n        ", HTML.Raw('<div class="required field">\n          <label>Your Email</label>\n          <input type="text" id="contact-us-email">\n        </div>'), "\n        ", HTML.DIV({ "class": "required field" }, "\n          ", HTML.Raw("<label>Message</label>"), "\n          ", HTML.TEXTAREA({ id: "contact-us-message", placeholder: "Leave us a message here..." }), "\n          ", HTML.Raw('<div class="hidden divider"></div>'), "\n          ", HTML.Raw('<div class="ui green button" id="contact-us-submit">Submit</div>'), "\n        "), "\n      "), "\n    "), "\n  ") })
-}();
+﻿<template name="contactUs">
+  <div class="ui stackable two column grid left-right-margin-auto">
+    <div class="column" style="text-align: right">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3169.422315743633!2d-121.9943851!3d37.4034918!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb62ac92cf841%3A0x1125ab2eaddd6cc2!2s1155+Tasman+Dr%2C+Sunnyvale%2C+CA+94089%2C+USA!5e0!3m2!1sen!2sca!4v1423875612761" width="600" height="450" frameborder="0" style="border:0"></iframe>
+    </div>
+    <div class="six wide column">
+      <div class="ui {{#unless success}} hidden {{/unless}} positive message">
+        <div class="header">
+          <i class="checkmark icon"></i>Your message has been sent, we will get in touch with you soon.
+        </div>
+      </div>
+      <div class="ui {{#unless error}} hidden {{/unless}} error message">
+        <div class="header">
+          Please fill out all the fields
+        </div>
+      </div>
+      <div class="hidden divider"></div>
+      <div class="ui form">
+        <div class="ui dividing header">Contact Us</div>
+        We're here to help! If you have any thoughts or questions, please send us a message below. Or, you can use our online chat on the bottom right, which is available on 10am-7pm weekdays. Also, you can email us directly at
+        <a href="mailto:service@plenry.com">service@plenry.com</a>
+        <div class="hidden divider"></div>
+        <div class="required field">
+          <label>Your Name</label>
+          <input type="text" id="contact-us-name">
+        </div>
+        <div class="required field">
+          <label>Your Email</label>
+          <input type="text" id="contact-us-email">
+        </div>
+        <div class="required field">
+          <label>Message</label>
+          <textarea id="contact-us-message" placeholder="Leave us a message here..."></textarea>
+          <div class="hidden divider"></div>
+          <div class="ui green button" id="contact-us-submit">Submit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 

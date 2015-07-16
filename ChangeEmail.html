@@ -1,5 +1,36 @@
-﻿// ChangeEmail
-
-!function () {
-    Template.__checkName("ChangeEmail"), Template.ChangeEmail = new Template("Template.ChangeEmail", function () { var n = this; return [HTML.Raw('<i class="close icon"></i>\n  <div class="header">\n    Change Email\n  </div>\n  '), HTML.DIV({ "class": function () { return ["ui ", Blaze.Unless(function () { return Spacebars.call(n.lookup("hasError")) }, function () { return "hidden" }), " error message"] } }, "\n    ", HTML.Raw('<div class="header">\n      You cannot change to this email\n    </div>'), "\n    ", HTML.UL({ "class": "list" }, "\n      ", Blaze.Each(function () { return Spacebars.call(n.lookup("errors")) }, function () { return ["\n        ", HTML.LI(Blaze.View("lookup:reason", function () { return Spacebars.mustache(n.lookup("reason")) })), "\n      "] }), "\n    "), "\n  "), HTML.Raw('\n  <div class="content">\n    <div class="description">\n      <div class="ui form">\n        <div class="ui stackable two column grid">\n          <div class="twelve wide column">\n            <div class="field">\n              <label>New Email</label>\n              <input type="email" id="new-email" placeholder="example@plenry.com">\n            </div>\n          </div>\n          <div class="four wide column">\n            <div id="verify-sms" class="column" align="right">\n              <div class="ui green button" id="change-email-confirm-btn">Change</div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class="ui hidden divider"></div>\n    </div>\n  </div>')] })
-}();
+﻿<template name="ChangeEmail">
+  <i class="close icon"></i>
+  <div class="header">
+    Change Email
+  </div>
+  <div class="ui {{unless hasError}}hidden{{/unless}} error message">
+    <div class="header">
+      You cannot change to this email
+    </div>
+    <ul class="list">
+      {{each errors}}
+      <li>{{reason}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="content">
+    <div class="description">
+      <div class="ui form">
+        <div class="ui stackable two column grid">
+          <div class="twelve wide column">
+            <div class="field">
+              <label>New Email</label>
+              <input type="email" id="new-email" placeholder="example@plenry.com">
+            </div>
+          </div>
+          <div class="four wide column">
+            <div id="verify-sms" class="column" align="right">
+              <div class="ui green button" id="change-email-confirm-btn">Change</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui hidden divider"></div>
+    </div>
+  </div>
+</template>

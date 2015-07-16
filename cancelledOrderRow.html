@@ -1,5 +1,20 @@
-﻿// cancelledOrderRow
-
-!function () {
-    Template.__checkName("cancelledOrderRow"), Template.cancelledOrderRow = new Template("Template.cancelledOrderRow", function () { var e = this; return HTML.TR("\n    ", HTML.TD(HTML.DIV({ "class": "ui red text" }, Blaze.View("lookup:statusText", function () { return Spacebars.mustache(e.lookup("statusText")) }))), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/users/", Spacebars.mustache(e.lookup("userId")), "/reviews/guest"] } }, Blaze.View("lookup:requesterName", function () { return Spacebars.mustache(e.lookup("requesterName")) })), HTML.Raw("<br>"), Blaze.View("lookup:plusGuests", function () { return Spacebars.mustache(e.lookup("plusGuests")) })), "\n    ", HTML.TD(Blaze.View("lookup:date", function () { return Spacebars.mustache(e.lookup("date")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("mealId"))] } }, Blaze.View("lookup:mealTitle", function () { return Spacebars.mustache(e.lookup("mealTitle")) })), HTML.Raw("<br>"), "@ ", Blaze.View("lookup:startTime", function () { return Spacebars.mustache(e.lookup("startTime")) })), "\n  ") })
-}();
+﻿<template name="cancelledOrderRow">
+  <tr>
+    <td>
+      <div class="ui red text">{{statusText}}</div>
+    </td>
+    <td>
+      <a href="/users/{{userId}}/reviews/guest">{{requesterName}}</a>
+      <br>
+      {{plusGuests}}
+    </td>
+    <td>
+      {{date}}
+    </td>
+    <td>
+      <a href="/events/{{mealId}}">{{mealTitle}}</a>
+      <br>
+      @ {{startTime}}
+    </td>
+  </tr>
+</template>

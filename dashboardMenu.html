@@ -1,6 +1,31 @@
-﻿// dashboardMenu
-
-!function () {
-    Template.__checkName("dashboardMenu"), Template.dashboardMenu = new Template("Template.dashboardMenu", function () { var e = this; return HTML.DIV("\n    ", HTML.DIV({ "class": "ui pointing menu", id: "dashboard-menu" }, "\n      ", HTML.Raw('<a id="dashboard-left-fake-item" class="item"></a>'), "\n      ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/dashboard") }, function () { return "active green" }), " item"] }, href: "/users/me/dashboard" }, "\n        ", HTML.Raw('<i class="dashboard icon"></i>'), "\n        Dashboard\n      "), "\n      ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/inbox") }, function () { return "active green" }), " item"] }, href: "/users/me/inbox" }, "\n        ", HTML.Raw('<i class="mail icon"></i>'), "\n        Inbox\n      "), "\n      ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/requests") }, function () { return "active" }), " ", Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/listings") }, function () { return "active" }), "  green item"] }, href: "/users/me/listings/upcoming" }, "\n        ", HTML.Raw('<i class="announcement icon"></i>'), "\n        Hosting\n      "), "\n      ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/reservations") }, function () { return "active green" }), " item"] }, href: "/users/me/reservations/upcoming" }, "\n        ", HTML.Raw('<i class="ticket icon"></i>'), "\n        Attending\n      "), "\n      ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlPrefixIs"), "/users/me/profile") }, function () { return "active green" }), " item"] }, href: "/users/me/profile/edit_profile" }, "\n        ", HTML.Raw('<i class="user icon"></i>'), "\n        Profile\n      "), "\n      ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/settings") }, function () { return "active green" }), " item"] }, href: "/users/me/settings" }, "\n        ", HTML.Raw('<i class="settings icon"></i>'), "\n        Settings\n      "), "\n    "), "\n  ") })
-}();
-
+﻿<template name="dashboardMenu">
+  <div>
+    <div class="ui pointing menu" id="dashboard-menu">
+      <a id="dashboard-left-fake-item" class="item"></a>
+      <a class="{{#if urlIs==/users/me/dashboard}}active green{{/if}} item" href="/users/me/dashboard">
+        <i class="dashboard icon"></i>
+        Dashboard
+      </a>
+      <a class="{{#if urlIs==/users/me/inbox}}active green{{/if}} item" href="/users/me/inbox">
+        <i class="mail icon"></i>
+        Inbox
+      </a>
+      <a class="{{#if urlPrefixIs==/users/me/requests}}active{{/if}}{{#if urlPrefixIs==/users/me/listings}}active{{/if}}  green item" href="/users/me/listings/upcoming">
+        <i class="announcement icon"></i>
+        Hosting
+      </a>
+      <a class="{{#if urlPrefixIs==/users/me/reservations}}active green{{/if}} item" href="/users/me/reservations/upcoming">
+        <i class="ticket icon"></i>
+        Attending
+      </a>
+      <a class="{{#if urlPrefixIs==/users/me/profile}}active green{{/if}} item" href="/users/me/profile/edit_profile">
+        <i class="user icon"></i>
+        Profile
+      </a>
+      <a class="{{#if urlIs==/users/me/settings}}active green{{/if}} item" href="/users/me/settings">
+        <i class="settings icon"></i>
+        Settings
+      </a>
+    </div>
+  </div>
+</template>

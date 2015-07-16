@@ -1,6 +1,28 @@
-﻿// DashboardReservationLayout
-
-!function () {
-    Template.__checkName("DashboardReservationLayout"), Template.DashboardReservationLayout = new Template("Template.DashboardReservationLayout", function () { var e = this; return [Spacebars.include(e.lookupTemplate("sidebarMenu")), "\n  ", HTML.DIV({ "class": "pusher" }, "\n    ", HTML.Raw('<div class="ui dimmer">\n      <div class="ui loader"></div>\n    </div>'), "\n    ", Spacebars.include(e.lookupTemplate("navbar")), "\n    ", Spacebars.include(e.lookupTemplate("dashboardMenu")), "\n    ", HTML.DIV({ "class": "all-content" }, "\n      ", HTML.DIV({ "class": "ui stackable page grid" }, "\n        ", HTML.DIV({ "class": "four wide column" }, "\n          ", HTML.DIV({ "class": "ui vertical pointing menu dashboard-listings-menu" }, "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/reservations/upcoming") }, function () { return " active" }), " red item dashboard-reservation-link"] }, href: "/users/me/reservations/upcoming" }, "\n              Upcoming Reservation\n            "), "\n            ", HTML.A({ "class": function () { return [Blaze.If(function () { return Spacebars.dataMustache(e.lookup("urlIs"), "/users/me/reservations/past") }, function () { return " active " }), "red item dashboard-reservation-link"] }, href: "/users/me/reservations/past" }, "\n              Past Reservation\n            "), "\n          "), "\n        "), "\n        ", HTML.DIV({ "class": "twelve wide column" }, "\n          ", Spacebars.include(e.lookupTemplate("yield")), "\n        "), "\n      "), "\n    "), "\n    ", Spacebars.include(e.lookupTemplate("footer")), "\n  ")] })
-}();
-
+﻿<template name="DashboardReservationLayout">
+  {{> sidebarMenu}}
+  <div class="pusher">
+    <div class="ui dimmer">
+      <div class="ui loader"></div>
+    </div>
+    {{> navbar}}
+    {{> dashboardMenu}}
+    <div class="all-content">
+      <div class="ui stackable page grid">
+        <div class="four wide column">
+          <div class="ui vertical pointing menu dashboard-listings-menu">
+            <a class="{{#if urlIs==/users/me/reservations/upcoming}}active{{/if}} red item dashboard-reservation-link" href="/users/me/reservations/upcoming">
+              Upcoming Reservation
+            </a>
+            <a class="{{#if urlIs==/users/me/reservations/past}} active {{/if}}red item dashboard-reservation-link" href="/users/me/reservations/past">
+              Past Reservation
+            </a>
+            <div class="twelve wide column">
+              {{> yield}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{> footer}}
+  </div>
+</template>

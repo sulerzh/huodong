@@ -1,5 +1,9 @@
-﻿// notificationMessage
-
-!function () {
-    Template.__checkName("notificationMessage"), Template.notificationMessage = new Template("Template.notificationMessage", function () { var e = this; return HTML.DIV({ "class": "ui message notification-message" }, HTML.Raw('\n    <i class="close icon"></i>\n    '), HTML.DIV({ "class": "header" }, "\n      ", Blaze.View("lookup:typeName", function () { return Spacebars.mustache(e.lookup("typeName")) }), "\n    "), "\n    ", HTML.P(Blaze.View("lookup:content", function () { return Spacebars.mustache(e.lookup("content")) })), "\n  ") })
-}();
+﻿<template name="notificationMessage">
+  <div class="ui message notification-message">
+    <i class="close icon"></i>
+    <div class="header">
+      {{typeName}}
+    </div>
+    <p>{{content}}</p>
+  </div>
+</template>

@@ -1,6 +1,8 @@
-﻿// transactionRow
-
-!function () {
-    Template.__checkName("transactionRow"), Template.transactionRow = new Template("Template.transactionRow", function () { var e = this; return HTML.TR({ "class": "center aligned" }, "\n    ", HTML.TD(Blaze.View("lookup:date", function () { return Spacebars.mustache(e.lookup("date")) }), HTML.Raw("<br>"), Blaze.View("lookup:time", function () { return Spacebars.mustache(e.lookup("time")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("mealId"))] } }, Blaze.View("lookup:eventTitle", function () { return Spacebars.mustache(e.lookup("eventTitle")) }))), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("mealId")), "/guests"] } }, "Details")), "\n    ", HTML.TD(Blaze.View("lookup:totalForEvent", function () { return Spacebars.mustache(e.lookup("totalForEvent")) })), "\n  ") })
-}();
-
+﻿<template name="transactionRow">
+  <tr class="center aligned">
+    <td>{{date}}<br>{{time}}</td>
+    <td><a href="/events/{{mealId}}">{{eventTitle}}</a></td>
+    <td><a href="/events/{{mealId}}/guests">Details</a></td>
+    <td>{{totalForEvent}}</td>
+  </tr>
+</template>
