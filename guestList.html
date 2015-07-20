@@ -1,6 +1,32 @@
-﻿// guestList
-
-!function () {
-    Template.__checkName("guestList"), Template.guestList = new Template("Template.guestList", function () { var e = this; return HTML.DIV({ id: "print-guest-list", "class": "ui stackable page grid" }, "\n    ", HTML.DIV({ "class": "row" }, "\n      ", HTML.Raw('<h2 class="ui" header="">Guests List  <div id="print-btn" class="ui black basic button">Print</div></h2>'), "\n      ", HTML.H3({ "class": "ui header" }, Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) })), "\n      ", HTML.H3({ "class": "ui header" }, Blaze.View("lookup:eventDate", function () { return Spacebars.mustache(e.lookup("eventDate")) }), " @ ", Blaze.View("lookup:eventTime", function () { return Spacebars.mustache(e.lookup("eventTime")) })), "\n    "), "\n    ", HTML.DIV({ "class": "row" }, "\n      ", HTML.DIV({ "class": "column" }, "\n        ", HTML.TABLE({ "class": "ui unstackable table" }, "\n          ", HTML.THEAD("\n          ", HTML.TR("\n            ", HTML.TH("Name"), "\n            ", HTML.TH("Total Number of Guests"), "\n            ", HTML.TH("Total Donation"), "\n            ", HTML.TH("Phone"), "\n            ", HTML.TH("Email"), "\n            ", Blaze.If(function () { return Spacebars.call(e.lookup("passed")) }, function () { return ["\n              ", HTML.TH("Review"), "\n            "] }), "\n          "), "\n          "), "\n          ", HTML.TBODY("\n          ", Blaze.Each(function () { return Spacebars.call(e.lookup("orders")) }, function () { return ["\n            ", Spacebars.include(e.lookupTemplate("orderGuestRow")), "\n          "] }), "\n          "), "\n        "), "\n      "), "\n    "), "\n  ") })
-}();
-
+﻿<template name="guestList">
+  <div id="print-guest-list" class="ui stackable page grid">
+    <div class="row">
+      <h2 class="ui" header="">Guests List  <div id="print-btn" class="ui black basic button">Print</div></h2>
+      <h3 class="ui header">{{title}}</h3>
+      <h3 class="ui header">{{eventDate}} @ {{eventTime}}</h3>
+    </div>
+    <div class="row">
+      <div class="column">
+        <table class="ui unstackable table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Total Number of Guests</th>
+              <th>Total Donation</th>
+              <th>Phone</th>
+              <th>Email</th>
+              {{#if passed}}
+              <th>Review</th>
+              {{/if}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each orders}}
+            {{> orderGuestRow}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,5 +1,133 @@
-﻿// TrustAndVerification
-
-!function () {
-    Template.__checkName("TrustAndVerification"), Template.TrustAndVerification = new Template("Template.TrustAndVerification", function () { var n = this; return [HTML.DIV({ "class": function () { return ["ui ", Blaze.Unless(function () { return Spacebars.call(n.lookup("hasWarning")) }, function () { return " hidden " }), " warning message"] } }, "\n    ", HTML.DIV({ "class": "header" }, "\n      ", Blaze.View("lookup:warningHeader", function () { return Spacebars.mustache(n.lookup("warningHeader")) }), "\n    "), "\n  "), "\n  ", HTML.FORM({ "class": "ui form" }, "\n    ", HTML.Raw('<h4 class="ui block top attached header">Phone Verification</h4>'), "\n\n    ", HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ", HTML.Raw("<p>We will send notification message to your phone</p>"), "\n      ", Blaze.If(function () { return Spacebars.call(n.lookup("phoneVerified")) }, function () { return [HTML.I({ "class": "green checkmark icon" }), Blaze.View("lookup:currentUser.profile.phone", function () { return Spacebars.mustache(Spacebars.dot(n.lookup("currentUser"), "profile", "phone")) })] }), "\n      ", HTML.DIV({ "class": "ui black basic medium button", id: "phone-verification", "data-content": "Make it easy to communicate by verifying your phone number. Your contact phone number will be sent to your host or released to guest(s) once booking is confirmed." }, "\n        ", HTML.Raw('<i class="call icon"></i>'), "\n        ", Blaze.Unless(function () { return Spacebars.call(n.lookup("phoneVerified")) }, function () { return " + " }), " ", Blaze.If(function () { return Spacebars.call(n.lookup("phoneVerified")) }, function () { return " Change " }), " Phone Number\n      "), "\n      ", HTML.DIV({ "class": "ui small modal", id: "phone-verification-modal" }, "\n        ", Spacebars.include(n.lookupTemplate("phoneVerification")), "\n      "), "\n    "), "\n  "), HTML.Raw('\n  <div class="ui hidden divider"></div>\n  '), HTML.FORM({ "class": "ui form" }, "\n    ", HTML.Raw('<h4 class="ui block top attached header">Verify Your ID</h4>'), "\n\n    ", HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ", HTML.Raw("<p>Verifying your ID is the safest and easiest way to gain trust in Plenry community. After\n        verification,\n        your host will know that you are a verified member; however, detailed information on your ID\n        will not be\n        shared.</p>"), "\n\n      ", HTML.DIV({ "class": "row", align: "right" }, "\n        ", Blaze.Unless(function () { return Spacebars.call(n.lookup("idVerified")) }, function () { return ["\n          ", HTML.A({ "class": "icon ui black basic button", id: "id-verify", href: "/idv" }, HTML.I({ "class": "user icon" }), "Verify\n            Me"), "\n        "] }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), " Verified\n        "] }), "\n        ", HTML.Raw('<div class="ui small modal" id="edu-verify-modal">\n          <i class="close icon"></i>\n\n          <div class="header">\n            Verify Your Edu Email\n          </div>\n          <div class="content">\n            <div class="description">\n              <div class="ui form">\n                <div class="field">\n                  <label>We will send a verification email to your edu mailbox.</label>\n                  <input type="text" name="edu-email" placeholder="example@school.edu">\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class="actions">\n            <div class="ui positive right labeled button" id="submit-edu-email">\n              Send\n            </div>\n          </div>\n        </div>'), "\n      "), "\n    "), "\n  "), HTML.Raw('\n  <div class="ui hidden divider"></div>\n  '), HTML.FORM({ "class": "ui form" }, "\n    ", HTML.Raw('<h4 class="ui block top attached header">.edu Verification</h4>'), "\n\n    ", HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ", HTML.Raw("<p>We can verify your student status by sending a email to your .edu account.</p>"), "\n\n      ", HTML.DIV({ "class": "row", align: "right" }, "\n        ", Blaze.Unless(function () { return Spacebars.call(n.lookup("eduVerified")) }, function () { return ["\n          ", HTML.DIV({ "class": "icon ui black basic button", id: "edu-verify" }, HTML.I({ "class": "student icon" }), " Verify Me\n            with edu email\n          "), "\n        "] }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), " Verified\n        "] }), "\n      "), "\n    "), "\n  "), HTML.Raw('\n  <div class="ui hidden divider"></div>\n  '), HTML.FORM({ "class": "ui form" }, "\n    ", HTML.Raw('<h4 class="ui block top attached header">Facebook Qualification</h4>'), "\n\n    ", HTML.DIV({ "class": "ui bottom attached secondary segment", id: "facebookQualificationSegment" }, "\n      ", HTML.Raw("<p>We will run an algorithm to determine if you can get a Facebook Qualification. We would not get more information than we requested.</p>"), "\n\n      ", HTML.DIV({ "class": "row", align: "right" }, "\n        ", Blaze.Unless(function () { return Spacebars.call(n.lookup("facebookQualified")) }, function () { return ["\n          ", HTML.DIV({ "class": "icon ui black basic button", id: "facebook-qualify" }, HTML.I({ "class": "facebook icon" }), " Qualify me with Facebook account\n          "), "\n        "] }, function () { return ["\n          ", HTML.I({ "class": "green checkmark icon" }), " Qualified\n        "] }), "\n      "), "\n    "), "\n  "), HTML.Raw('\n  <div class="ui hidden divider"></div>\n  '), HTML.FORM({ "class": "ui form" }, "\n    ", HTML.Raw('<h4 class="ui block top attached header">Add More Verification</h4>'), "\n\n    ", HTML.DIV({ "class": "ui bottom attached secondary segment" }, "\n      ", HTML.Raw("<p>Add more verifications will increase the chances that your request will be accepted.</p>"), "\n      ", HTML.Raw('<h4 class="ui dividing header">Email Address</h4>'), "\n\n      ", HTML.Raw("<p>Please verify your email by clicking on the link we sent to your email if you sign up by\n        email</p>"), "\n      ", HTML.P("We will send notification email to this address: ", HTML.B(Blaze.View("lookup:currentEmailAddress", function () { return Spacebars.mustache(n.lookup("currentEmailAddress")) }))), "\n\n      ", Blaze.If(function () { return Spacebars.call(n.lookup("emailVerified")) }, function () { return ["\n        ", HTML.I({ "class": "green checkmark icon" }), " Verified\n      "] }, function () { return ["\n        ", HTML.I({ "class": "red remove icon" }), " Not Verified\n        ", HTML.DIV({ "class": "ui medium button", id: "resend-email-button" }, "Resend Email"), "\n      "] }), "\n      ", HTML.Raw('<div class="ui medium button" id="change-email-button">Change Email Address</div>'), "\n      ", HTML.DIV({ "class": "ui small modal", id: "change-email-modal" }, "\n        ", Spacebars.include(n.lookupTemplate("ChangeEmail")), "\n      "), "\n\n      ", HTML.Raw('<h4 class="ui dividing header">Social Networking</h4>'), "\n      ", Blaze.If(function () { return Spacebars.call(Spacebars.dot(n.lookup("currentUser"), "services", "facebook")) }, function () { return ["\n        ", HTML.DIV({ "class": "ui grey button" }, "\n          ", HTML.I({ "class": "facebook icon" }), "\n          Connected\n        "), "\n      "] }, function () { return ["\n        ", HTML.DIV({ "class": "ui facebook button", target: "_blank", id: "facebook-connect-button", "data-content": "Connect your Facebook and link with your trusted connection." }, "\n          ", HTML.I({ "class": "facebook icon" }), "\n          Connect\n        "), "\n      "] }), "\n      ", Blaze.If(function () { return Spacebars.call(Spacebars.dot(n.lookup("currentUser"), "services", "google")) }, function () { return ["\n        ", HTML.DIV({ "class": "ui grey button" }, "\n          ", HTML.I({ "class": "google plus icon" }), "\n          Connected\n        "), "\n      "] }, function () { return ["\n        ", HTML.DIV({ "class": "ui google plus button", target: "_blank", id: "google-connect-button", "data-content": "Connect your Google account to Plenry for easy login." }, "\n          ", HTML.I({ "class": "google plus icon" }), "\n          Connect\n        "), "\n      "] }), "\n    "), "\n  ")] })
-}();
+﻿<template name="TrustAndVerification">
+  <div class="ui {{#unless hasWarning}} hidden {{/unless}} warning message">
+    <div class="header">{{warningHeader}}</div>
+  </div>
+  <form class="ui form">
+    <h4 class="ui block top attached header">Phone Verification</h4>
+    <div class="ui bottom attached secondary segment">
+      <p>We will send notification message to your phone</p>
+      {{#if phoneVerified}}
+      <i class="green checkmark icon"></i>{{currentUser.profile.phone}}
+      {{/if}}
+      <div class="ui black basic medium button" id="phone-verification" data-content="Make it easy to communicate by verifying your phone number. Your contact phone number will be sent to your host or released to guest(s) once booking is confirmed.">
+        <i class="call icon"></i>
+        {{#unless phoneVerified}}
+        +
+        {{/unless}}
+        {{#if phoneVerified}}
+        Change
+        {{/if}}
+        Phone Number
+      </div>
+      <div class="ui small modal" id="phone-verification-modal">
+        {{> phoneVerification}}
+      </div>
+    </div>
+  </form>
+  <div class="ui hidden divider"></div>
+  <form class="ui form">
+    <h4 class="ui block top attached header">Verify Your ID</h4>
+    <div class="ui bottom attached secondary segment">
+      <p>
+        Verifying your ID is the safest and easiest way to gain trust in Plenry community. After
+        verification,
+        your host will know that you are a verified member; however, detailed information on your ID
+        will not be
+        shared.
+      </p>
+      <div class="row" align="right">
+        {{#unless idVerified}}
+        <a class="icon ui black basic button" id="id-verify" href="/idv">
+          <i class="user icon"></i>Verify
+          Me
+        </a>
+        {{else}}
+        <i class="green checkmark icon"></i>Verified
+        {{/unless}}
+        <div class="ui small modal" id="edu-verify-modal">
+          <i class="close icon"></i>
+          <div class="header">
+            Verify Your Edu Email
+          </div>
+          <div class="content">
+            <div class="description">
+              <div class="ui form">
+                <div class="field">
+                  <label>We will send a verification email to your edu mailbox.</label>
+                  <input type="text" name="edu-email" placeholder="example@school.edu">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="ui positive right labeled button" id="submit-edu-email">
+              Send
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="ui hidden divider"></div>
+  <form class="ui form">
+    <h4 class="ui block top attached header">Facebook Qualification</h4>
+    <div class="ui bottom attached secondary segment" id="facebookQualificationSegment">
+      <p>We will run an algorithm to determine if you can get a Facebook Qualification. We would not get more information than we requested.</p>
+      <div class="row" align="right">
+        {{#unless facebookQualified}}
+        <div class="icon ui black basic button" id="facebook-qualify">
+          <i class="facebook icon"></i> Qualify me with Facebook account
+        </div>
+        {{else}}
+        <i class="green checkmark icon"></i> Qualified
+        {{/unless}}
+      </div>
+    </div>
+  </form>
+  <div class="ui hidden divider"></div>
+  <form class="ui form">
+    <h4 class="ui block top attached header">Add More Verification</h4>
+    <div class="ui bottom attached secondary segment">
+      <p>Add more verifications will increase the chances that your request will be accepted.</p>
+      <h4 class="ui dividing header">Email Address</h4>
+      <p>
+        Please verify your email by clicking on the link we sent to your email if you sign up by
+        email
+      </p>
+      <p>We will send notification email to this address: <b>{{currentEmailAddress}}</b></p>
+      {{#if emailVerified}}
+      <i class="green checkmark icon"></i> Verified
+      {{else}}
+      <i class="red remove icon"></i> Not Verified
+      <div class="ui medium button" id="resend-email-button">Resend Email</div>
+      {{/if}}
+      <div class="ui medium button" id="change-email-button">Change Email Address</div>
+      <div class="ui small modal" id="change-email-modal">
+        {{> ChangeEmail}}
+      </div>
+      <h4 class="ui dividing header">Social Networking</h4>
+      {{#if currentUser.services.facebook}}
+      <div class="ui grey button">
+        <i class="facebook icon"></i>
+        Connected
+      </div>
+      {{else}}
+      <div class="ui facebook button" target="_blank" id="facebook-connect-button" data-content="Connect your Facebook and link with your trusted connection.">
+        <i class="facebook icon"></i>
+        Connect
+      </div>
+      {{/if}}
+      {{#if currentUser.services.google}}
+      <div class="ui grey button">
+        <i class="google plus icon"></i>
+        Connected
+      </div>
+      {{else}}
+      <div class="ui google plus button" target="_blank" id="google-connect-button" data-content="Connect your Google account to Plenry for easy login.">
+        <i class="google plus icon"></i>
+        Connect
+      </div>
+      {{/if}}
+    </div>
+  </form>
+</template>

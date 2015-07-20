@@ -1,5 +1,18 @@
-﻿// pastReservation
-
-!function () {
-    Template.__checkName("pastReservation"), Template.pastReservation = new Template("Template.pastReservation", function () { var e = this; return [HTML.TABLE({ "class": "ui unstackable table" }, "\n      ", HTML.THEAD("\n      ", HTML.TR("\n        ", HTML.TH({ "class": "customized th" }, "Status"), "\n        ", HTML.TH({ "class": "customized th" }, "Date/Time"), "\n        ", HTML.TH({ "class": "customized th" }, "Event"), "\n        ", HTML.TH({ "class": "customized th" }, "Host"), "\n        ", HTML.TH({ "class": "customized th" }, "Receipt"), "\n        ", HTML.TH({ "class": "customized th" }, "Review"), "\n      "), "\n      "), "\n      ", HTML.TBODY("\n      ", Spacebars.include(e.lookupTemplate("pages")), "\n      "), "\n    "), "\n      ", Spacebars.include(e.lookupTemplate("pagesNav"))] })
-}();
+﻿<template name="">
+  <table class="ui unstackable table">
+    <thead>
+      <tr>
+        <th class="customized th">Status</th>
+        <th class="customized th">Date/Time</th>
+        <th class="customized th">Event</th>
+        <th class="customized th">Host</th>
+        <th class="customized th">Receipt</th>
+        <th class="customized th">Review</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{pages}}
+    </tbody>
+  </table>
+  {{pagesNav}}
+</template>

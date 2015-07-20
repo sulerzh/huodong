@@ -1,5 +1,8 @@
-﻿// pastListingsRow
-
-!function () {
-    Template.__checkName("pastListingsRow"), Template.pastListingsRow = new Template("Template.pastListingsRow", function () { var e = this; return HTML.TR("\n    ", HTML.TD(Blaze.View("lookup:date", function () { return Spacebars.mustache(e.lookup("date")) })), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("_id"))] } }, Blaze.View("lookup:title", function () { return Spacebars.mustache(e.lookup("title")) })), HTML.Raw("<br>"), Blaze.View("lookup:time", function () { return Spacebars.mustache(e.lookup("time")) })), "\n    ", HTML.TD(Blaze.View("lookup:numberOfAcceptedGuests", function () { return Spacebars.mustache(e.lookup("numberOfAcceptedGuests")) }), " guests attended"), "\n    ", HTML.TD(HTML.A({ href: function () { return ["/events/", Spacebars.mustache(e.lookup("_id")), "/guests"] } }, "Guest List")), "\n  ") })
-}();
+﻿<template name="">
+  <tr>
+    <td>{{date}}</td>
+    <td><a href="/events/{{_id}}">{{title}}<br>{{time}}</a></td>
+    <td>{{numberOfAcceptedGuests}} guests attended</td>
+    <td><a href="/events/{{_id}}/guests">Guest List</a></td>
+  </tr>
+</template>
