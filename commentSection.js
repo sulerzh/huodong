@@ -1,30 +1,35 @@
-// JavaScript source code
 
-!function () {
-    Template.commentSection.created = function () {
-        Meteor.subscribe("oneUser", Template.instance().data.userId)
-    },
-    Template.commentSection.helpers({
-        userName: function () {
-            var e = Meteor.users.findOne({ _id: this.userId });
-            return e.profile.firstName
-        }, timeAgo: function () {
-            return moment(this.createdAt).fromNow()
-        }, replyContent: function () {
-            var e = Comments.findOne({ replyToId: this._id });
-            return e.content
-        }, replyUserId: function () {
-            var e = Comments.findOne({ replyToId: this._id });
-            return e.userId
-        }, replyCreatedAt: function () {
-            var e = Comments.findOne({ replyToId: this._id });
-            return e.createdAt
-        }, isHostOfMeal: function () {
-            var e = Meals.findOne({ _id: this.mealId });
-            return e.hostId == Meteor.userId()
-        }, userThumbnail: function () {
-            var e = Meteor.users.findOne({ _id: this.userId });
-            return e.profile.thumbnail.cloudinaryPublicId
-        }
-    })
-}();
+Template.commentSection.OnCreated(function () {
+  Meteor.subscribe("oneUser", Template.instance().data.userId);
+});
+
+Template.commentSection.helpers({
+  userName: function () {
+    var user = Meteor.users.findOne({ _id: this.userId });
+    return user.profile.firstName;
+  },
+  timeAgo: function () {
+    return moment(this.createdAt).fromNow();
+  },
+  replyContent: function () {
+    var comment = Comments.findOne({ replyToId: this._id });
+    return comment.content;
+  },
+  replyUserId: function () {
+    var comment = Comments.findOne({ replyToId: this._id });
+    return comment.userId;
+  },
+  replyCreatedAt: function () {
+    var comment = Comments.findOne({ replyToId: this._id });
+    return comment.createdAt;
+  },
+  isHostOfMeal: function () {
+    var meal = Meals.findOne({ _id: this.mealId });
+    return meal.hostId == Meteor.userId();
+  },
+  userThumbnail: function () {
+    var user = Meteor.users.findOne({ _id: this.userId });
+    return user.profile.thumbnail.cloudinaryPublicId;
+  }
+});
+

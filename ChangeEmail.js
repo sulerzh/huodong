@@ -1,40 +1,44 @@
-// JavaScript source code
+Template.ChangeEmail.OnCreated(function () {
+  this.newVerify = new ReactiveVar(true);
+  this.hasError = new ReactiveVar(false);
+  this.errors = new ReactiveVar;
+});
 
-!function () {
-    Template.ChangeEmail.created = function () {
-        var e = this;
-        e.newVerify = new ReactiveVar(true),
-        e.hasError = new ReactiveVar(false),
-        e.errors = new ReactiveVar
-    },
-    Template.ChangeEmail.helpers({
-        hasError: function () {
-            return Template.instance().hasError.get()
-        }, newVerify: function () {
-            return Template.instance().newVerify.get()
-        }, errors: function () {
-            return Template.instance().errors.get()
+Template.ChangeEmail.helpers({
+  hasError: function () {
+    return this.hasError.get();
+  },
+  newVerify: function () {
+    return this.newVerify.get();
+  },
+  errors: function () {
+    return this.errors.get();
+  }
+});
+
+Template.ChangeEmail.events({
+  "click #change-email-confirm-btn": function () {
+    var r = $("#new-email").val();
+    Meteor.call("changeEmail", r,
+      function (r, a) {
+        if (r) {
+          this.hasError.set(true);
+          for (var n = r.reason.split(","), t = [], i = 0; i < n.length; i++) {
+            t.push({ reason: n[i] });
+          }
+          this.errors.set(t);
+        } else {
+          this.hasError.set(false);
+          this.newVerify.set(false);
+          $("#new-email").val("");
+          $("#change-email-modal").modal("hide");
         }
-    }),
-    Template.ChangeEmail.events({
-        "click #change-email-confirm-btn": function () {
-            var e = Template.instance(), r = $("#new-email").val();
-            Meteor.call("changeEmail", r,
-                function (r, a) {
-                    if (r) {
-                        e.hasError.set(true);
-                        for (var n = r.reason.split(","), t = [], i = 0; i < n.length; i++)
-                            t.push({ reason: n[i] }); e.errors.set(t)
-                    }
-                    else
-                        e.hasError.set(false), e.newVerify.set(false),
-                            $("#new-email").val(""),
-                            $("#change-email-modal").modal("hide")
-                })
-        }, "click .close.icon": function () {
-            var e = Template.instance();
-            $("#new-email").val(""),
-            e.hasError.set(false), e.newVerify.set(true)
-        }
-    })
-}();
+      });
+  },
+  "click .close.icon": function () {
+    $("#new-email").val("");
+    this.hasError.set(false);
+    this.newVerify.set(true);
+  }
+});
+

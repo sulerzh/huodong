@@ -1,15 +1,14 @@
-// JavaScript source code
-
-!function () {
-    Template.TransactionHistory.created = function () {
-        Meteor.subscribe("hostOrders"), Meteor.subscribe("selfMeals")
+Template.TransactionHistory.OnCreated(function () {
+  Meteor.subscribe("hostOrders"), Meteor.subscribe("selfMeals");
+});
+Template.TransactionHistory.helpers({
+  transactions: function () {
+    return Meals.find({
+      hostId: Meteor.userId(),
+      "time.startAt": { $lt: new Date },
+      status: 1
     },
-    Template.TransactionHistory.helpers({
-        transactions: function () {
-            return Meals.find({
-                hostId: Meteor.userId(), "time.startAt": { $lt: new Date },
-                status: 1
-            }, { sort: { "time.startAt": -1 } })
-        }
-    })
-}();
+    { sort: { "time.startAt": -1 } });
+  }
+});
+
