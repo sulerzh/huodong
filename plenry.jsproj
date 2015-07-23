@@ -67,10 +67,12 @@
     <Content Include="cancelledOrderRow.js" />
     <Content Include="ChangeEmail.html" />
     <Content Include="ChangeEmail.js" />
+    <Content Include="client\css\style.css" />
+    <Content Include="client\helpers\gtype.js" />
+    <Content Include="client\helpers\logger.js" />
     <Content Include="commentSection.html" />
     <Content Include="commentSection.js" />
     <Content Include="contactUs.html" />
-    <Content Include="css\plenry.css" />
     <Content Include="dashboardDashboard.html" />
     <Content Include="dashboardLayout.html" />
     <Content Include="DashboardListingLayout.html" />
@@ -102,13 +104,19 @@
     <Content Include="js\sly.js" />
     <Content Include="landing.html" />
     <Content Include="landing.js" />
+    <Content Include="lib\collections\meals.js" />
+    <Content Include="lib\collections\orders.js" />
+    <Content Include="lib\collections\reviews.js" />
+    <Content Include="lib\collections\comments.js" />
+    <Content Include="lib\collections\inbox.js" />
+    <Content Include="lib\collections\contact_us_message.js" />
+    <Content Include="lib\collections\notifications.js" />
     <Content Include="listingsList.html" />
     <Content Include="listingsRow.html" />
     <Content Include="loggedInMenu.html" />
     <Content Include="loggedInMenu.js" />
     <Content Include="loggedOutMenu.html" />
     <Content Include="login.html" />
-    <Content Include="main.js" />
     <Content Include="main1.js" />
     <Content Include="mealEdit.html" />
     <Content Include="mealEdit.js" />
@@ -159,6 +167,7 @@
     <Content Include="Router.js" />
     <Content Include="Search.html" />
     <Content Include="Search.js" />
+    <Content Include="server\publications.js" />
     <Content Include="sidebarMenu.html" />
     <Content Include="sidebarMenu.js" />
     <Content Include="signUp.html" />
@@ -184,8 +193,8 @@
     <SDKReference Include="Microsoft.WinJS.2.0, Version=1.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="client\templates\" />
     <Folder Include="images\" />
-    <Folder Include="Collections\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment
