@@ -99,6 +99,7 @@
     <Content Include="JavaScript.js" />
     <Content Include="JavaScript1.js" />
     <Content Include="JavaScript2.js" />
+    <Content Include="js\sly.js" />
     <Content Include="landing.html" />
     <Content Include="landing.js" />
     <Content Include="listingsList.html" />
@@ -184,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images\" />
-    <Folder Include="js\" />
     <Folder Include="Collections\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
