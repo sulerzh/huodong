@@ -140,7 +140,7 @@ s = function (e) {
   })
 };
 
-
+// createUser
 a = function (e, r, n, o, i, s) {
   var a = t(e, r, n, o, i);
   return a.length > 0 ? (Logger.log(a),
@@ -151,7 +151,7 @@ a = function (e, r, n, o, i, s) {
       s), void 0)
 };
 
-
+// loginWithPassword
 u = function (e, t, r) {
   Meteor.loginWithPassword(e, t, function (e) {
     return e ? (Logger.log(JSON.stringify(e)), r(e)) : void r()
@@ -212,7 +212,7 @@ f = function (e) {
   return Meals.find({ _id: e, status: { $ne: 0 } })
 };
 
-
+// emailVerified
 m = function (e) {
   for (var t = 0; t < e.emails.length; t++)
     if (e.emails[t].verified)
@@ -220,7 +220,7 @@ m = function (e) {
   return false
 };
 
-
+// phoneVerified
 p = function (e) {
   return e.phoneVerification && 1 == e.phoneVerification.status
 };
@@ -702,569 +702,32 @@ if (Meteor.isClient) {
         console.log(e);
       }
   });
-  ApplicationController = RouteController.extend({
-    layoutTemplate: "AppLayout",
-    onBeforeAction: function() {
-      this.next();
-    },
-    fastRender: true
-  });
-  HomeController = ApplicationController.extend({
-    show: function() {
-      this.render(Meteor.user() ? "home" : "landing");
-    }
-  });
-  UserController = ApplicationController.extend({
-    show: function() {
-      return this.redirect("me" == this.params.userId ||
-        Meteor.userId() == this.params.userId ?
-        "/users/me/dashboard" : "me" != this.params.userId ? "/users/" +
-        this.params.userId + "/reviews/guest" : "/");
-    }
-  });
-  MealController = ApplicationController.extend({
-    "new": function() {
-      Meteor.user() ? this.render("mealNew") : this.redirect("/");
-    },
-    edit: function() {
-      var e = Meals.findOne({
-            _id: this.params.mealId,
-            "time.startAt":
-            { $gt: new Date }
-          }),
-        t = e.hostId == Meteor.userId();
-      e &&
-        t ? (Session.set("editMealId", this.params.mealId),
-          this.render("mealEdit", { data: e })) :
-        this.redirect("/events/" + e._id);
-    },
-    show: function() {
-      var e = Meals.findOne({ _id: this.params.mealId });
-      return e ? (Meteor.subscribe("selfOrders"),
-          this.render("mealShow", { data: e })) :
-        this.redirect("/")
-    },
-    reserve: function() {
-      var e = Meals.findOne({ _id: this.params.mealId });
-      return e ? (Session.set("Donation", e.pricePerGuest),
-        this.render("mealReserve", { data: e })) : this.redirect("/")
-    },
-    guests: function() {
-      var e = Meals.findOne({ _id: this.params.mealId });
-      return this.render("guestList", { data: e })
-    }
-  });
-  DashboardController = ApplicationController.extend({
-    layoutTemplate: "dashboardLayout",
-    main: function() {
-      this.render("dashboardDashboard")
-    },
-    inbox: function() {
-      this.render("inboxPage")
-    },
-    listing: function() {
-      this.render("dashboardListings")
-    },
-    reservations: function() {
-      this.render("dashboardReservations")
-    },
-    profile: function() {
-      this.render("dashboardProfile")
-    },
-    settings: function() { this.render("dashboardSettings") },
-    search: function() { this.render("Search") }
-  });
-  DashboardProfileController = ApplicationController.extend({
-    layoutTemplate: "DashboardProfileLayout",
-    trustAndVerification: function() {
-      this.render("TrustAndVerification")
-    },
-    editProfile: function() { this.render("EditProfile") }
-  });
-  SearchController = ApplicationController.extend({
-    search: function() {
-      return this.render("Search")
-    }
-  });
-  StaticPageController = ApplicationController.extend({
-    privacy: function() {
-      return this.render("termsAndPrivacy")
-    },
-    aboutUs: function() {
-      return this.render("aboutUs")
-    },
-    contactUs: function() {
-      return this.render("contactUs")
-    },
-    help: function() { return this.render("help") }
-  });
-  OrderController = ApplicationController.extend({
-    show: function() {
-      var e = Orders.findOne({ _id: this.params.orderId });
-      return this.render("bookingDetails", { data: e })
-    },
-    showByMealId: function() {
-      var e = Orders.findOne({ mealId: this.params.mealId });
-      return this.render("bookingDetails", { data: e })
-    }
-  });
-  GuestController = ApplicationController.extend({
-    show: function() {
-      return this.render("guestList")
-    }
-  });
+  
 
-  ReviewsController = ApplicationController.extend({
-    postReviewForHost: function() {
-      var e = Meals.findOne({ _id: this.params.mealId });
-      return this.render("reviewForHost", { data: e })
-    },
-    postReviewForGuest: function() {
-      var e = Meals.findOne({ _id: this.params.mealId });
-      return this.render("reviewForGuest", { data: e })
-    }
-  });
 
-  Template.dishPhotoUpload.events({
-    "click #ss": function() {
-      var e = { mealId: "y4bDwSsNos88vpLHb" },
-        t = new Slingshot.Upload("dishPhotoUpload", e);
-      t.send(document.getElementById("dish-photo").files[0],
-        function(e, t) {})
-    }
-  });
+  
 
-  Template.domainValidationCode.rendered = function() {
-    $('link[rel="stylesheet"]').remove(), $("head").remove()
-  };
 
-  Template.help.rendered = function() {
-    this.$("#help-menu").sticky({ context: ".help-content", offset: 20 }),
-      $(document).scroll(function(e) {})
-  };
+ 
 
-  Template.help.events({
-    "click #help-menu .item": function(e) {
-      var t = $(e.target).index() + 1,
-        r = "help-content-" + t;
-      $("html, body").animate({ scrollTop: $("#" + r).offset().top }, 500)
-    }
-  });
+  
 
-  Template.TrustAndVerification.events({
-    "click #edu-verify": function() {
-      $("#edu-verify-modal").modal("show"),
-        $("#submit-edu-email").click(function() {
-          var e = $("input[name='edu-email']").val();
-          Meteor.call("verifyEduEmail", e)
-        })
-    },
-    "click #facebook-qualify": function() {
-      var e = Meteor.user();
-      e.services.facebook ||
-        Meteor.linkWithFacebook({
-          requestPermissions: [
-            "email", "user_friends", "user_birthday",
-            "user_education_history",
-            "user_work_history", "user_interests"
-          ]
-        }, function(e) {
-          if (e) throw new Meteor.Error("Facebook connect failed");
-          Meteor.call("updateFromFacebookProfile")
-        }), Meteor.call("facebookQualifying", function(e, t) {
-        t ||
-          $("#facebookQualificationSegment").append("<p class='ui red text'>Sorry, you are not qualified.</p>")
-      })
-    },
-    "click #facebook-connect-button": function() {
-      Meteor.linkWithFacebook({
-        requestPermissions: [
-          "email", "user_friends",
-          "user_birthday", "user_education_history", "user_work_history",
-          "user_interests"
-        ]
-      }, function(e) {
-        if (e) throw new Meteor.Error("Facebook connect failed");
-        Meteor.call("updateFromFacebookProfile")
-      })
-    },
-    "click #google-connect-button": function() {
-      Meteor.linkWithGoogle({}, function(e) {
-        if (e) throw new Meteor.Error("Facebook connect failed")
-      })
-    },
-    "click #resend-email-button": function() {
-      Meteor.call("resendVerificationEmail"),
-        $("#resend-email-button").addClass("green"),
-        $("#resend-email-button").html("<i class='ui checkmark icon'></i> Email Sent")
-    },
-    "click #change-email-button": function() {
-      $("#change-email-modal").modal("show")
-    }
-  });
+  
 
-  Template.TrustAndVerification.helpers({
-    currentEmailAddress: function() {
-      return Meteor.user().emails[0].address
-    }
-  });
+  
 
-  Template.input.events = {
-    "click #send-message-button": function() {
-      if (Meteor.user()) {
-        var e = $("#message").val();
-        "" !== e.value && 0 != e.length &&
-        (Meteor.call("sendIndividualMessage", Session.get("toUserId"), e),
-          $("#message").val(""))
-      } else alert("login to chat")
-    }
-  };
+ 
 
-  Template.inboxLeftColumn.rendered = function() {
-    $(".ui.dropdown").dropdown()
-  };
-
-  Template.inboxLeftColumn.helpers({
-    selected: function() {
-      return Session.get("toUserId") == this._id
-    },
-    myContactsForSearch: function() {
-      var e = Meteor.user().contacts;
-      return Meteor.users.find({ _id: { $in: e } }, {
-        field: { "profile.firstName": 1 },
-        sort: { "profile.firstName": 1 }
-      })
-    },
-    myContacts: function() {
-      var e = Meteor.user().contacts;
-      return e.forEach(function(e) {
-          var t = Inbox.find({
-            $or: [
-              { fromUserId: e },
-              { toUserId: { $in: [e] } }
-            ]
-          }, { limit: 1, sort: { createdAt: -1 } });
-          t && t.forEach(function(t) {
-            Meteor.users._collection.update({ _id: e },
-            { $set: { msgDate: t.createdAt } })
-          })
-        }),
-        Meteor.users.find({ _id: { $in: e } },
-        {
-          field: { "profile.firstName": 1 },
-          sort: { "status.online": -1, msgDate: -1 }
-        })
-    }
-  });
-
-  Template.inboxLeftColumn.events({
-    "click .user": function() {
-      Session.set("toUserId", this._id)
-    },
-    "click #user-db-update-button": function() {
-      Meteor.call("updateUserDbForInbox")
-    }
-  });
-
-  Template.inboxPage.helpers({
-    hasSelectedThread: function() {
-      return Session.get("toUserId")
-    },
-    fromUserName: function() {
-      return Meteor.users.findOne({ _id: Session.get("toUserId") }).profile.firstName
-    },
-    userStatus: function() {
-      var e = Meteor.users.findOne({ _id: Session.get("toUserId") });
-      if (e.status.online) return e.status.idle ? "(idle)" : "(online)";
-      var t = Meteor.users.findOne({ _id: Session.get("toUserId") }).status.lastLogin.date;
-      return t ? "(last logged in on " + moment(t).format("M/D, h:mma") + ")" : ""
-    }
-  });
-
-  Template.inboxRightColumn.helpers({
-    userName: function() {
-      return Meteor.users.findOne({ _id: Session.get("toUserId") }).profile.firstName
-    },
-    cloudinaryPublicId: function() {
-      return Meteor.users.findOne(
-      { _id: Session.get("toUserId") }).profile.thumbnail.cloudinaryPublicId
-    },
-    eventsMet: function() {
-      return Meteor.call("getCommonEvents", Session.get("toUserId"),
-        function(e, t) {
-          if (e) throw new Error("Cannot get common events");
-          Session.set("commonEvents", t)
-        }), Meals.find({ _id: { $in: Session.get("commonEvents") } },
-      { sort: { "time.startAt": -1 }, limit: 3 })
-    }
-  });
-
-  Template.inboxEventsMet.helpers({
-    timeAgo: function() {
-      return moment(this.time.startAt).fromNow()
-    }
-  });
-
-  Template.loggedOutMenu.OnRendered(function() {
-    this.$(".login.modal").modal(),
-      this.$(".signUp.modal").modal(), $(".sign-up-btn").click(function() {
-        Logger.log("Signing in user...");
-        var e = $("#sign-up-email").val();
-        Logger.log("Signing up with email: " + e);
-        var t = $("#sign-up-first-name").val();
-        Logger.log("Signing up with first name: " + t);
-        var r = $("#sign-up-last-name").val();
-        Logger.log("Signing up with last name: " + r);
-        var n = $("#sign-up-password").val();
-        Logger.log("Signing up with password: " + n);
-        var o = $("#sign-up-confirm-password").val();
-        Logger.log("Signing up with confirm password: " + o),
-          a(e, n, o, t, r, function(e) {
-            if (e) {
-              Logger.log(e);
-              for (var t = e.reason.split(","), r = [], n = 0; n < t.length; n++) r.push({ reason: t[n] });
-              Session.set("Sign up errors", r), Session.set("Sign up error", true)
-            } else Logger.log("Sign up succeeds"), Session.set("Sign up error", false), $("#sign-up-email").val(""), $("#sign-up-password").val(""), $("#sign-up-first-name").val(""), $("#sign-up-last-name").val(""), $("#sign-up-confirm-password").val(""), $(".signUp.modal").modal("hide")
-          })
-      }), $(".login-btn").click(function() {
-        Logger.log("Logging in user...");
-        var e = $("#login-email").val(), t = $("#login-password").val();
-        u(e, t, function(e) {
-          e ? (Logger.log(e), Session.set("Login errors",
-            [{ reason: "Incorrect email/password" }]),
-            Session.set("Login error", true)) :
-          (Logger.log("Log in succeeds"),
-            Session.set("Login error", false), $("#login-email").val(""),
-            $("#login-password").val(""), $(".login.modal").modal("hide"))
-        })
-      }), $(".ui.facebook.login.button").click(function() {
-        Logger.log("Logging in using Facebook..."),
-          Meteor.loginWithFacebook({
-            requestPermissions:
-            [
-              "email", "user_friends", "user_birthday", "user_education_history",
-              "user_work_history", "user_interests"
-            ]
-          }, function(e) {
-            if ($(".login.modal").modal("hide"),
-              $(".signUp.modal").modal("hide"), e) throw e
-          })
-      }), $(".ui.google.login.button").click(function() {
-        Logger.log("Loggin in using Google..."),
-          Meteor.loginWithGoogle({}, function(e) {
-            if ($(".login.modal").modal("hide"),
-              $(".signUp.modal").modal("hide"), e) throw e
-          })
-      }), $(".forgot-password-button").click(function() {
-        Logger.log("Forgot password"),
-          $(".forgot-password").modal("show"),
-          $("#forgot-password-send").click(function() {
-            var e = $("#forgot-password-email").val();
-            e.length > 0 &&
-            (Accounts.forgotPassword({ email: e }), $(".forgot-password").modal("hide"))
-          })
-      })
-  });
+  
 
   Template.signUp.helpers({
     hasError: function() { return Session.get("Sign up error") },
     errors: function() { return Session.get("Sign up errors") }
   });
 
-  Template.login.helpers({
-    hasError: function() {
-      return Session.get("Login error")
-    },
-    errors: function() { return Session.get("Login errors") }
-  });
+ 
 
-  Template.listingsList.OnRendered(function() {
-    $(".dashboard-listings-content .ui.dropdown").dropdown()
-  });
 
-  Template.mealReserve.OnRendered(function() {
-    this.$(".has-popup").popup(), Session.set("Reserve error", false),
-      Session.set("numberOfGuest", 1),
-      this.$(".ui.dropdown").dropdown(), Meteor.call("getClientToken",
-        function(e, t) {
-          return e ? void console.log("There was an error", e) :
-            void braintree.setup(t, "dropin", {
-              container: "dropin",
-              paymentMethodNonceReceived: function(e, t) {
-                var r = {};
-                r.mealId = Router.current().params.mealId,
-                  r.numberOfGuest = $("#request-number").val(),
-                  r.donationPerGuest = Session.get("Donation"),
-                  r.messageToHost = $("#hello-to-host").val(),
-                  r.nonce = t, $(".pusher").dimmer("show"),
-                  Meteor.call("createTransaction", r, function(e, t) {
-                    if (e) {
-                      Logger.log(JSON.stringify(e));
-                      for (var n = e.reason.split(","),
-                        o = [],
-                        i = 0; i < n.length; i++) {
-                        Logger.log(JSON.stringify(e));
-                        for (var n = e.reason.split(","),
-                          o = [],
-                          i = 0; i < n.length; i++)
-                          o.push({ reason: n[i] });
-                        Session.set("Reserve errors", o),
-                          Session.set("Reserve error", true),
-                          $(".pusher").dimmer("hide")
-                      }
-                    } else
-                      $(".pusher").dimmer("hide"),
-                        Meals.findOne({ _id: r.mealId }).autoAccept ?
-                          (Meteor.call("acceptGuest",
-                            Orders.findOne({
-                              userId: Meteor.userId(),
-                              mealId: r.mealId,
-                              status: 0
-                            })._id), Router.go("/events/" + r.mealId)) :
-                          Router.go("/users/me/reservations")
-                  })
-              }
-            })
-        })
-  });
-
-  Template.mealReserve.events({
-    "click #join-event": function() {
-      $(".pusher").dimmer("show");
-      var e = {};
-      e.messageToHost = $("#hello-to-host").val(),
-        e.mealId = Router.current().params.mealId,
-        e.numberOfGuest = $("#request-number").val(),
-        e.donationPerGuest = 0, Meteor.call("createTransaction", e,
-          function(t, r) {
-            if (t) {
-              Logger.log(JSON.stringify(t));
-              for (var n = t.reason.split(","),
-                o = [],
-                i = 0; i < n.length; i++) o.push({ reason: n[i] });
-              Session.set("Reserve errors", o),
-                Session.set("Reserve error", true),
-                $(".pusher").dimmer("hide")
-            } else
-              $(".pusher").dimmer("hide"),
-                Meals.findOne({ _id: e.mealId }).autoAccept ?
-                  (Meteor.call("acceptGuest", Orders.findOne({
-                    userId: Meteor.userId(),
-                    mealId: e.mealId,
-                    status: 0
-                  })._id), Router.go("/events/" + e.mealId)) :
-                  Router.go("/users/me/reservations")
-          })
-    }
-  });
-
-  Template.mealReserve.helpers({
-    mealDate: function() {
-      return moment(this.time.startAt).utcOffset(this.time.zone).
-        format("MMM DD, YYYY ddd")
-    },
-    mealStartTime: function() {
-      return moment(this.time.startAt).
-        utcOffset(this.time.zone).format("hh:mmA")
-    },
-    mealEndTime: function() {
-      return moment(this.time.endAt).
-        utcOffset(this.time.zone).format("hh:mmA")
-    },
-    donationWithService: function() {
-      return (Session.get("Donation") + .15 * this.pricePerGuest).toFixed(2)
-    },
-    totalService: function() {
-      return (.15 * this.pricePerGuest * Session.get("numberOfGuest")).toFixed(2)
-    },
-    donation: function() {
-      return Session.get("Donation").toFixed(2)
-    },
-    numberOfGuest: function() {
-      return Session.get("numberOfGuest")
-    },
-    requestNumber: function() {
-      return parseInt(Session.get("numberOfGuest"))
-    },
-    totalDonation: function() {
-      return (Session.get("numberOfGuest") * (Session.get("Donation") +
-        .15 * this.pricePerGuest)).toFixed(2)
-    },
-    service: function() {
-      return (.15 * this.pricePerGuest).toFixed(2)
-    },
-    hasError: function() { return Session.get("Reserve error") },
-    errors: function() { return Session.get("Reserve errors") },
-    noCharge: function() {
-      return Session.get("numberOfGuest") * (Session.get("Donation") +
-        .15 * this.pricePerGuest) == 0
-    },
-    hasEndTime: function() {
-      return this.time.endAt
-    },
-    hostCloudinaryPublicId: function() {
-      var e = Meteor.users.findOne({ _id: this.hostId });
-      return e.profile.thumbnail.cloudinaryPublicId
-    },
-    reserveOptions: function() {
-      for (var e = [], t = 1; t <= this.spotsLeft; t++)
-        e.push(1 == t ? { value: 1, text: "Only You" } :
-        { value: t, text: "You + " + (t - 1) + " Guest(s)" });
-      return e
-    },
-    hostName: function() {
-      var e = Meteor.users.findOne({ _id: this.hostId });
-      return e.profile.firstName
-    },
-    questionForGuest: function() {
-      return this.questionForGuest
-    }
-  });
-
-  Template.mealReserve.events({
-    "click #add-donation": function() {
-      Session.set("Donation",
-        Session.get("Donation") + 1)
-    },
-    "click #minus-donation": function() {
-      Session.get("Donation") > 0 &&
-        !this.autoAccept && Session.set("Donation", Session.get("Donation") - 1)
-    },
-    "change #request-number": function(e) {
-      Session.set("numberOfGuest", $("#request-number").val())
-    }
-  });
-
-  Template.dashboardListings.OnRendered(function() {
-    Session.setDefault("Listings section", 1),
-      Router.current().params.query.section &&
-        Session.set("Listings section", parseInt(Router.current().params.query.section))
-  });
-
-  Template.dashboardListings.helpers({
-    isSection: function(e) {
-      return e == Session.get("Listings section")
-    }
-  });
-
-  Template.dashboardListings.events({
-    "click .dashboard-listings-link": function(e) {
-      var t = 0;
-      t = 0 == $(e.target).index() ? 1 : 4,
-        Session.set("Listings section", t)
-    },
-    "click .host-event-btn": function(e) {
-      Logger.log("Host an event"),
-        p(Meteor.user()) && m(Meteor.user()) ? (Router.go("mealNew"),
-          Session.set("New meal section one valid", false),
-          Session.set("New meal section two valid", false),
-          Session.set("New meal section three valid", false)) :
-        (Session.set("Verification warning", true),
-          Session.set("Verification warning header",
-            "Your must verify your email and phone before hosting an Event"),
-          Router.go("trustAndVerification"))
-    }
-  });
 
   Template.upcomingListing.events({
     "click .past-listing-link": function() {
@@ -1275,248 +738,17 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.cancelledListing.helpers({
-    listings: function() {
-      return Meals.find({ hostId: Meteor.userId(), status: -1 })
-    }
-  });
+ 
 
-  Template.cancelledListingsRow.helpers({
-    mealDate: function() {
-      return moment(this.time.startAt).utcOffset(this.time.zone).format("MMM D YYYY")
-    },
-    mealTime: function() {
-      return moment(this.time.startAt).utcOffset(this.time.zone).format("ddd @ hh:mma")
-    }
-  });
+ 
 
-  Template.cancelledListing.events({
-    "click .upcoming-listing-link": function() {
-      Session.set("Listings section", 1)
-    },
-    "click .past-listing-link": function() {
-      Session.set("Listings section", 2)
-    }
-  });
 
-  Template.contactUs.rendered = function() {
-    Session.set("Contact us success", false),
-      Session.set("Contact us fail", false)
-  };
 
-  Template.contactUs.events({
-    "click #contact-us-submit": function() {
-      var e = $("#contact-us-name").val(),
-        t = $("#contact-us-email").val(),
-        r = $("#contact-us-message").val();
-      e.length > 0 && t.length > 0 && r.length > 0 ?
-      (Meteor.call("newContactUsMessage", e, t, r),
-        Session.set("Contact us success", true),
-        Session.set("Contact us fail", false),
-        $("#contact-us-name").val(""), $("#contact-us-email").val(""),
-        $("#contact-us-message").val("")) :
-      (Session.set("Contact us success", false),
-        Session.set("Contact us fail", true))
-    }
-  });
 
-  Template.contactUs.helpers({
-    success: function() {
-      return Session.get("Contact us success")
-    },
-    error: function() {
-      return Session.get("Contact us fail")
-    }
-  });
 
-  Template.phoneVerification.created = function() {
-    var e = this;
-    e.newVerify = new ReactiveVar(true),
-      e.hasError = new ReactiveVar(false), e.errors = new ReactiveVar
-  };
+  
 
-  Template.phoneVerification.helpers({
-    hasError: function() {
-      return Template.instance().hasError.get()
-    },
-    newVerify: function() {
-      return Template.instance().newVerify.get()
-    },
-    errors: function() {
-      return Template.instance().errors.get()
-    }
-  });
-
-  Template.phoneVerification.events({
-    "click .send-verify-code": function() {
-      var e = Template.instance(),
-        t = $("#phone-verify-number").val().replace(/-/g, "").replace(/\//g, "");
-      Meteor.call("verifyPhone", t, function(t, r) {
-        if (t) {
-          e.hasError.set(true);
-          for (var n = t.reason.split(","), o = [], i = 0; i < n.length; i++)
-            o.push({ reason: n[i] });
-          e.errors.set(o)
-        } else e.hasError.set(false), e.newVerify.set(false)
-      })
-    },
-    "click .close.icon": function() {
-      var e = Template.instance();
-      e.hasError.set(false), e.newVerify.set(true)
-    },
-    "click .verify-code-btn": function() {
-      var e = Template.instance(), t = $("#verify-code").val();
-      Meteor.call("verifyCode", t, function(t, r) {
-        if (t) {
-          e.hasError.set(true);
-          for (var n = t.reason.split(","), o = [], i = 0; i < n.length; i++)
-            o.push({ reason: n[i] });
-          e.errors.set(o)
-        } else
-          e.hasError.set(false),
-            e.newVerify.set(true),
-            Session.get("Verification redirect") &&
-            (Router.go("reserve", { mealId: Session.get("Verification redirect")[0] },
-              { query: "number=" + Session.get("Verification redirect")[1] }),
-              Session.set("Verification redirect", null)),
-            $("#phone-verification-modal").modal("hide")
-      })
-    }
-  });
-
-  Template.dashboardReservations.rendered = function() {
-    Session.set("Reservation section", 1),
-      Router.current().params.query.section && Session.set("Reservation section",
-        parseInt(Router.current().params.query.section))
-  };
-
-  Template.dashboardReservations.helpers({
-    isSection: function(e) {
-      return e == Session.get("Reservation section")
-    }
-  });
-
-  Template.dashboardReservations.events({
-    "click .dashboard-reservation-link": function(e) {
-      Session.set("Reservation section", $(e.target).index() + 1)
-    }
-  });
-
-  Template.dashboardProfile.rendered = function() {
-    Router.current().params.query.section ?
-        Session.set("Profile section",
-          parseInt(Router.current().params.query.section)) :
-        (Session.set("Verification warning", false),
-          Session.set("Profile section", 1)),
-      window.scrollTo(0, 0)
-  };
-
-  Template.dashboardProfile.helpers({
-    isSection: function(e) {
-      return e == Session.get("Profile section")
-    }
-  });
-
-  Template.dashboardProfile.events({
-    "click .dashboard-profile-link": function(e) {
-      Session.set("Profile section", $(e.target).index() + 1)
-    }
-  });
-
-  Template.EditProfile.rendered = function() {
-    Session.set("Edit profile success", false);
-    var e = Template.instance();
-    Template.instance().autorun(function() {
-      Meteor.user() && e.$(".ui.dropdown").dropdown()
-    }), $("#profile-photo-file-btn").click(function() {
-      $("#profile-photo-file").click()
-    }), this.$(".has-popup").popup()
-  };
-
-  Template.EditProfile.events({
-    "click #update-profile-button": function() {
-      var e = { profile: {}, emergency: {} };
-      return Logger.log("First Name: " + $("input[name='first-name']").val()),
-        e.profile.firstName = $("input[name='first-name']").val(),
-        Logger.log("Last Name: " + $("input[name='last-name']").val()),
-        e.profile.lastName = $("input[name='last-name']").val(),
-        Logger.log("Profile Picture: " + $("#profile-photo-url").val()),
-        $("#profile-photo-url").val().length > 0 &&
-        (e.profile.thumbnail = { org: $("#profile-photo-url").val() }),
-        Logger.log("Gender: " + $("input[name='gender']").val()),
-        $("input[name='gender']").val().length > 0 &&
-        (e.profile.gender = parseInt($("input[name='gender']").val())),
-        $("input[name='year']").val().length > 0 &&
-          $("input[name='month']").val().length > 0 &&
-          $("input[name='day']").val().length > 0 ?
-          (Logger.log("Birthday: " +
-              new Date(moment(new Date($("input[name='year']").val() + "-" +
-                $("input[name='month']").val() + "-" +
-                $("input[name='day']").val())).zone(0).format("l"))),
-            e.profile.birthday = new Date(moment(new Date($("input[name='year']").val() +
-              "-" + $("input[name='month']").val() + "-" +
-              $("input[name='day']").val())).zone(0).format("l"))) :
-          Logger.log("Birthday: "), Logger.log("City: " +
-          $("input[name='profile-city']").val()),
-        e.profile.city = $("input[name='profile-city']").val(),
-        Logger.log("Description: " + $("#user-description").val()),
-        e.profile.description = $("#user-description").val(),
-        Logger.log("School: " + $("input[name='school']").val()),
-        e.profile.school = $("input[name='school']").val(),
-        Logger.log("Work: " + $("input[name='work']").val()),
-        e.profile.work = $("input[name='work']").val(),
-        Logger.log("Language: " + $("input[name='language']").val()),
-        e.profile.language = $("input[name='language']").val(),
-        Logger.log("Emergency Contact's Name: " +
-          $("input[name='emergency-contact-name']").val()),
-        e.emergency.name = $("input[name='emergency-contact-name']").val(),
-        Logger.log("Emergency Contact's Phone: " +
-          $("input[name='emergency-contact-phone']").val()),
-        e.emergency.phone = $("input[name='emergency-contact-phone']").val(),
-        Logger.log("Emergency Contact's Email: " +
-          $("input[name='emergency-contact-email']").val()),
-        e.emergency.email = $("input[name='emergency-contact-email']").val(),
-        Logger.log("Emergency Contact's Relationship: " +
-          $("input[name='emergency-contact-relationship']").val()),
-        e.emergency.relationship = $("input[name='emergency-contact-relationship']").val(),
-        Meteor.call("editProfile", e, function(e) {
-          e && Logger.log(JSON.stringify(e)),
-            Session.set("Edit profile success", true),
-            $("html, body").animate({ scrollTop: 0 }, 500)
-        })
-    },
-    "keyup input": function() {
-      Session.set("Edit profile success", false)
-    },
-    "change input[type='file']": function(e) {
-      Logger.log("Filetype: " + e.target.files);
-      var t = new Slingshot.Upload("profilePhotoUpload");
-      t.send(e.target.files[0], function(e, t) {
-        Meteor.call("updateProfilePicture", t)
-      })
-    }
-  });
-
-  Template.EditProfile.helpers({
-    currentUserEmail: function() {
-      return Meteor.user().emails[0].address
-    },
-    currentUserBirthdayMonth: function() {
-      return Meteor.user().profile.birthday ?
-        moment(Meteor.user().profile.birthday).format("MM") : void 0
-    },
-    currentUserBirthdayDay: function() {
-      return Meteor.user().profile.birthday ?
-        moment(Meteor.user().profile.birthday).format("DD") : void 0
-    },
-    currentUserBirthdayYear: function() {
-      return Meteor.user().profile.birthday ?
-        moment(Meteor.user().profile.birthday).format("YYYY") : void 0
-    },
-    saved: function() {
-      return Session.get("Edit profile success")
-    }
-  });
+  
 
   Template.ReviewsAboutYou.events({
     "click .reviews-by-you-link": function() {
@@ -1530,53 +762,10 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.dashboardSettings.rendered = function() {
-    Router.current().params.query.section ? Session.set("Dashboard section",
-        parseInt(Router.current().params.query.section)) :
-      Session.set("Dashboard section", 1)
-  };
+  
 
-  Template.dashboardSettings.helpers({
-    isSection: function(e) {
-      return e == Session.get("Dashboard section")
-    }
-  });
+  
 
-  Template.dashboardSettings.events({
-    "click .dashboard-settings-link": function(e) {
-      Session.set("Dashboard section", $(e.target).index() + 1)
-    }
-  });
-
-  Template.stars.helpers({
-    getStar: function(e) {
-      return this.rating < e - 1 + .25 ? "yellow empty star icon" : this.rating < e - 1 + .75 ? "yellow half empty star icon" : "yellow star icon"
-    }
-  });
-
-  Template.showUserIcons.helpers({
-    spots: function() {
-      var e = [];
-      this.maxParty > 30 && (this.maxParty = 30, this.spotsLeft = parseInt(this.spotsLeft / this.maxParty * 30));
-      for (var t = 0; t < this.maxParty - this.spotsLeft; t++) e.push({ taken: true });
-      for (var t = 0; t < this.spotsLeft; t++) e.push({ taken: false });
-      return e
-    }
-  });
-
-  Template.birthdayYearOptions.helpers({
-    years: function() {
-      for (var e = (new Date).getFullYear(), t = [], r = e; r > e - 90; r--) t.push({ year: r });
-      return t
-    }
-  });
-
-  Template.cardYearOptions.helpers({
-    years: function() {
-      for (var e = (new Date).getFullYear(), t = [], r = e; e + 21 > r; r++) t.push({ year: r });
-      return t
-    }
-  });
 
   Template.TrustAndVerification.rendered = function() {
     $("#phone-verification-modal").modal({
@@ -1629,41 +818,8 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.idVerification.created = function() {
-    var e = this;
-    e.token = new ReactiveVar,
-      e.hasError = new ReactiveVar(false), Meteor.call("getJumioUrl",
-        function(e, t) {
-          window.location.replace(t)
-        })
-  };
+  
 
-  Template.reviewSection.created = function() {
-    Meteor.subscribe("oneUser", Template.instance().data.userId),
-      Meteor.subscribe("oneMeal", Template.instance().data.mealId)
-  };
-
-  Template.reviewSection.helpers({
-    userName: function() {
-      var e = Meteor.users.findOne({ _id: this.userId });
-      return e.profile.firstName
-    },
-    timeAgo: function() {
-      return moment(this.createdAt).fromNow()
-    },
-    mealTitle: function() {
-      var e = Meals.findOne({ _id: this.mealId });
-      return e.title
-    },
-    mealDate: function() {
-      var e = Meals.findOne({ _id: this.mealId });
-      return moment(e.time.startAt).utcOffset(e.time.zone).format("MMM YY")
-    },
-    userCloudinaryPublicId: function() {
-      var e = Meteor.users.findOne({ _id: this.userId });
-      return e.profile.thumbnail.cloudinaryPublicId
-    }
-  });
 
   Template.pastEventsOption.helpers({
     mealTitle: function() {
@@ -1672,95 +828,8 @@ if (Meteor.isClient) {
     mealId: function() { return this._id }
   });
 
-  Template.dashboardDashboard.helpers({
-    notifications: function() {
-      var e = Notifications.find({ toUserId: Meteor.userId() }, { sort: { createdAt: -1 } });
-      return e
-    },
-    emailVerified: function() {
-      for (var e = 0; e < Meteor.user().emails.length; e++)
-        if (Meteor.user().emails[e].verified) return true
-    },
-    phoneVerified: function() {
-      return Meteor.user().phoneVerification && 1 == Meteor.user().phoneVerification.status
-    },
-    facebookLinked: function() {
-      return Meteor.user().services.facebook
-    },
-    facebookNumberOfFriends: function() {
-      return Meteor.user().services.facebook ?
-        Meteor.user().services.facebook.numberOfFriends : false
-    },
-    googleLinked: function() {
-      return Meteor.user().services.google
-    },
-    idVerified: function() {
-      return Meteor.user().idVerification && 1 == Meteor.user().idVerification.status
-    },
-    eduVerified: function() {
-      for (var e = 0; e < Meteor.user().emails.length; e++)
-        if (Meteor.user().emails[e].verified &&
-          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[edu]{2,}))$/
-          .test(Meteor.user().emails[e].address)) return true;
-      return false
-    },
-    reviewed: function() {},
-    hasSchool: function() {
-      return Meteor.user().profile.school && Meteor.user().profile.school.length > 0
-    },
-    hasWork: function() {
-      return Meteor.user().profile.work && Meteor.user().profile.work.length > 0
-    },
-    hasLanguage: function() {
-      return Meteor.user().profile.language && Meteor.user().profile.language.length > 0
-    },
-    hasCity: function() {
-      return Meteor.user().profile.city && Meteor.user().profile.city.length > 0
-    },
-    joinDate: function() {
-      return moment(Meteor.user().createdAt).format("MMM, YYYY")
-    },
-    hasDescription: function() {
-      return Meteor.user().profile.description &&
-        Meteor.user().profile.description.length > 0
-    },
-    hasNotifications: function() {
-      return Notifications.find({ toUserId: Meteor.userId() }).count() > 0
-    }
-  });
+ 
 
-  Template.reviewCard.created = function() {
-      var e;
-      e = this.data.userToHost ? this.data.userId :
-          this.data.hostId, Meteor.subscribe("oneUser", e),
-        Meteor.subscribe("oneMeal", this.data.mealId)
-    },
-    Template.reviewCard.helpers({
-      userCloudinaryPublicId: function() {
-        var e;
-        e = this.userToHost ? this.userId :
-          this.hostId;
-        var t = Meteor.users.findOne({ _id: e });
-        return t.profile.thumbnail.cloudinaryPublicId
-      },
-      userName: function() {
-        var e;
-        e = this.userToHost ? this.userId : this.hostId;
-        var t = Meteor.users.findOne({ _id: e });
-        return t.profile.firstName
-      },
-      mealTitle: function() {
-        var e = Meals.findOne({ _id: this.mealId });
-        return e.title
-      },
-      mealDate: function() {
-        var e = Meals.findOne({ _id: this.mealId });
-        return moment(e.time.startAt).utcOffset(e.time.zone).format("MMM YY")
-      },
-      reviewContent: function() {
-        return this.content
-      }
-    });
 
   Template.upcomingListing.helpers({
     listings: function() {
@@ -1772,47 +841,7 @@ if (Meteor.isClient) {
     }
   });
 
-  var y = {
-    date: function () {
-      return moment(this.time.startAt).utcOffset(this.time.zone).format("MMM D YYYY")
-    }, time: function () {
-      return moment(this.time.startAt).utcOffset(this.time.zone).format("ddd @ hh:mmA")
-    }, active: function () { return 1 == this.status }
-  };
-
-  Template.listingsRow.rendered = function() {
-    var e = this.data._id;
-    $("#cancel-event-" + e).modal(),
-      $("#cancel-event-confirm-" + e).click(function() {
-        var t = $("#cancel-event-" + e).find(".cancel-reason").val();
-        return Logger.log("Cancel reason: " + t), t.length > 0 ?
-        (Meteor.call("cancelMeal", e, t), true) :
-        ($("#cancel-event-" + e).find(".required.field").addClass("error"), false)
-      })
-  };
-
-  Template.listingsRow.helpers(y),
-    Template.listingsRow.events({
-      "click .cancel-event-button": function(e) {
-        var t = Template.instance().data._id;
-        $("#cancel-event-" + t).modal("show")
-      }
-    });
-
-  Template.PhotosAndVideo.helpers({
-    photo: function() {
-      return Session.get("photo")
-    }
-  });
-
-  Template.PhotosAndVideo.events({
-    "click #photo-taking-button": function() {
-      var e = { width: 800, height: 600 };
-      MeteorCamera.getPicture(e, function(e, t) {
-        Session.set("photo", t), t && Meteor.call("base64tos3", t)
-      })
-    }
-  });
+  
 
   Template.Account.events({
     "click #change-password-button": function() {

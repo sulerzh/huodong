@@ -1,0 +1,134 @@
+﻿<template name="inboxPage">
+  <div class="ui stackable page grid">
+    <div class="four wide column">
+      {{> inboxLeftColumn}}
+    </div>
+    <div class="eight wide column">
+      {{#if hasSelectedThread}}
+      <h3 class="ui header">Conversation with {{fromUserName}}<p style="font-size: 0.85rem; color: rgb(163, 158, 158) !important;">{{userStatus}}</p></h3>
+      {{/if}}
+      <div class="row" align="left">
+        {{#if hasSelectedThread}}
+        {{> input}}
+        {{else}}
+        <p>Please select a user from the left to start a conversation.</p>
+        {{/if}}
+      </div>
+      <div class="ui hidden divider"></div>
+      {{> messages}}
+    </div>
+    {{#if hasSelectedThread}}
+    <div class="three wide column" style="top: 51px;">
+      {{> inboxRightColumn}}
+    </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="inboxLeftColumn">
+  <div>
+    <!--<h class="ui header">-->
+    <!--Contacts-->
+    <!--</h>-->
+    <div class="ui floating dropdown labeled search icon fluid button">
+      <i class="search icon"></i>
+      <span class="text">Search Contacts</span>
+      <div class="menu">
+        {{#each myContactsForSearch}}
+        <div class="user item">{{profile.firstName}}</div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="ui celled animated list">
+      {{#each myContacts}}
+      <div class="user item {{#if selected}} selected {{/if}}">
+        <img class="ui avatar image" src="{{c.url profile.thumbnail.cloudinaryPublicId crop='thumb' height=100 width=100 gravity='face'}}" />
+        <div class="content">
+          <div class="{{#if unreadCount}}header{{/if}}">{{profile.firstName}} {{#if unreadCount}} ({{unreadCount}} new) {{/if}} {{#if status.online}}<i class="green small circle icon"></i>{{/if}}</div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="inboxRightColumn">
+  <div class="ui card">
+    <div class="image">
+      <img src="{{c.url cloudinaryPublicId crop='thumb' height=300 width=300}}" />
+    </div>
+    <div class="content">
+      <div class="description">
+        You met {{userName}} in the following events(most recent 3):
+        {{#each eventsMet}}
+        {{> inboxEventsMet}}
+        {{/each}}
+        <div class="ui hidden divider"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="inboxEventsMet">
+  <div class="ui divider"></div>
+  <div class="content">
+    <div class="title"><b>{{title}}</b></div>
+    <div class="description" style="font-size: 0.85rem; padding-right: 8px; color: rgb(163, 158, 158) !important;">
+      {{timeAgo}}
+    </div>
+  </div>
+</template>
+
+<template name="input">
+  <div class="ui form">
+    <div class="field">
+      <textarea id="message" style="height: 100px;" placeholder="Type a message..."></textarea>
+    </div>
+    <div id="send-message-button" class="ui green right button">Send</div>
+  </div>
+</template>
+
+<template name="messages">
+  <!--<h3 class="ui header">{{fromUserName}}</h3>-->
+  {{#if selectedAThread}}
+  {{#if hasMessage}}
+  <!--{{#unless idle}}-->
+  <div class="ui messaging list" style="overflow:auto; max-height:560px;">
+    {{#unless idle}}
+    {{#each messages}}
+    {{> readMessage}}
+    {{/each}}
+    {{/unless}}
+    {{#each messages}}
+    {{> message}}
+    {{/each}}
+  </div>
+  <!--{{/unless}}-->
+  {{else}}
+  You have no messages from {{fromUserName}}.
+  {{/if}}
+  {{/if}}
+</template>
+
+<template name="message">
+  <div class="message item">
+    {{#if myMsg}}
+    <div class="alignright ui compact small blue message">
+      <p class="message-bubble alignright">{{content}}</p>
+    </div>
+    {{else}}
+    <!--<img class="ui avatar image" src="{{c.url cloudinarypublicid crop='thumb' height=100 width=100 gravity='face' }}">-->
+    <div class="alignleft ui compact small message">
+      <p class="message-bubble alignleft">{{content}}</p>
+    </div>
+    {{/if}}
+  </div>
+  {{#if myMsg}}
+  <div><p style="text-align: right; font-size: 0.85rem; padding-right: 8px; color: rgb(163, 158, 158) !important;"> {{timestamp}}{{#if hasRead}}<i class="tiny checkmark green icon"></i>{{/if}}</p></div>
+  {{else}}
+  <div><p style="text-align: left; font-size: 0.85rem; padding-left: 8px; color: rgb(163, 158, 158) !important;"> {{timestamp}}</p></div>
+  {{/if}}
+</template>
+
+<template name="readMessage">
+</template>
