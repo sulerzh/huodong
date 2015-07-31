@@ -1,4 +1,62 @@
-﻿Template.TrustAndVerification.events({
+﻿Template.TrustAndVerification.onRendered(function () {
+  $("#phone-verification-modal").modal({
+    closable: false,
+    onShow: function() {
+      $("#why-verify").accordion();
+      $("#why-verify").accordion("open", 0);
+      $("#why-verify").accordion("close", 0);
+    }
+  });
+  $("#phone-verification").click(function() {
+    $("#phone-verification-modal").modal("show");
+  });
+});
+
+Template.TrustAndVerification.helpers({
+  currentEmailAddress: function () {
+    return Meteor.user().emails[0].address;
+  },
+  fbFriendsVerified: function () {
+    return Template.instance().FBCollection.find().fetch();
+  },
+  emailVerified:
+    function () {
+      for (var i = 0; i < Meteor.user().emails.length; i++) {
+        if (Meteor.user().emails[i].verified)
+          return true;
+      }
+    },
+  phoneVerified: function () {
+    return 1 == Meteor.user().phoneVerification.status;
+  },
+  idVerified: function () {
+    return Meteor.user().idVerification &&
+      Meteor.user().idVerification.status == 1;
+  },
+  eduVerified: function () {
+    for (var e = 0; e < Meteor.user().emails.length; e++)
+      if (Meteor.user().emails[e].verified &&
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[edu]{2,}))$/.
+        test(Meteor.user().emails[e].address))
+        return true;
+    return false;
+  },
+  facebookQualified: function () {
+    return Meteor.user().facebookQualification &&
+      Meteor.user().facebookQualification.status == 1;
+  },
+  hasWarning: function () {
+    return Session.get("Verification warning");
+  },
+  warningHeader: function () {
+    return Session.get("Verification warning header");
+  },
+  warningMessage: function () {
+    Session.get("Verification warning message");
+  }
+});
+
+Template.TrustAndVerification.events({
   "click #edu-verify": function () {
     $("#edu-verify-modal").modal("show");
     $("#submit-edu-email").click(function() {
@@ -52,11 +110,5 @@
   },
   "click #change-email-button": function () {
     $("#change-email-modal").modal("show");
-  }
-});
-
-Template.TrustAndVerification.helpers({
-  currentEmailAddress: function () {
-    return Meteor.user().emails[0].address;
   }
 });

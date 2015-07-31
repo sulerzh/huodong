@@ -1,4 +1,4 @@
-Template.TransactionHistory.OnCreated(function () {
+Template.TransactionHistory.onCreated(function () {
   Meteor.subscribe("hostOrders"), Meteor.subscribe("selfMeals");
 });
 Template.TransactionHistory.helpers({

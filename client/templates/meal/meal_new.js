@@ -71,11 +71,11 @@ g = function(e) {
   return $("#meal-new-start-time").val(t), m(), "default";;
 };
 
-Template.mealNew.OnCreated(function() {
+Template.mealNew.onCreated(function() {
   this.noDishAdded = new ReactiveVar(true);
 });
 
-Template.mealNew.OnRendered(function() {
+Template.mealNew.onRendered(function() {
   if (Session.set("New meal section", 1), Date.parseDate = function(e, t) {
       return moment(e, t).toDate()
     }, Date.prototype.dateFormat = function(e) {
@@ -309,3 +309,13 @@ Template.mealNew.helpers({
   }
 });
 
+
+
+Template.pastEventsOption.helpers({
+  mealTitle: function () {
+    return this.title;
+  },
+  mealId: function() {
+    return this._id;
+  }
+});
