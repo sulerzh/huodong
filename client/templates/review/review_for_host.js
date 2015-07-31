@@ -4,7 +4,7 @@ Template.reviewForHost.onCreated(function () {
   this.errors = new ReactiveVar;
 });
 
-Template.reviewForHost.OnRendered(function () {
+Template.reviewForHost.onRendered(function () {
   $(".rating").rating({ initialRating: 0, maxRating: 5 });
 });
 Template.reviewForHost.events({
